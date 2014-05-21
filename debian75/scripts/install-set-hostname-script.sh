@@ -15,6 +15,9 @@ if [ $reason = "BOUND" ]; then
     echo new_host_name=$new_host_name
     echo new_domain_name=$new_domain_name
 
+    # Check for new root password
+    sh /etc/init.d/cloud-set-guest-password
+
     oldhostname=$(hostname -s)
     if [ $oldhostname != $new_host_name ]; then
 
