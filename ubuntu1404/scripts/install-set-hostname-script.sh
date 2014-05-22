@@ -35,6 +35,9 @@ if [ $reason = "BOUND" ]; then
         # Recreate SSH2 keys
         export DEBIAN_FRONTEND=noninteractive 
         dpkg-reconfigure openssh-server
+
+        # Script should be removed after single run
+        rm /etc/dhcp/dhclient-exit-hooks.d/sethostname
     fi
 fi
 echo "cloudstack-sethostname END"
