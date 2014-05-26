@@ -10,6 +10,12 @@ echo "cloudstack-sethostname BEGIN"
 export
 set -x
 
+statefile="/var/lib/misc/cloudstack-hostname-set"
+
+if [ -f "$statefile" ]; then
+    exit 0
+fi
+
 if [ $reason = "BOUND" ]; then
     echo new_ip_address=$new_ip_address
     echo new_host_name=$new_host_name
@@ -23,7 +29,7 @@ if [ $reason = "BOUND" ]; then
         hostname -F /etc/hostname
 
         # Update /etc/hosts if needed
-        TMPHOSTS=/etc/hosts.dhcp.new
+        TMPHOSTS=/tmp/hosts.dhcp.new
         if ! grep "$new_ip_address $new_host_name.$new_domain_name $new_host_name" /etc/hosts; then
             # Remove the 127.0.1.1 put there by the debian installer
             grep -v '127\.0\.1\.1 ' < /etc/hosts > $TMPHOSTS
@@ -36,9 +42,8 @@ if [ $reason = "BOUND" ]; then
         export DEBIAN_FRONTEND=noninteractive 
         dpkg-reconfigure openssh-server
 
-        # Script should be removed after single run
-        rm /etc/dhcp/dhclient-exit-hooks.d/sethostname
-
+        # Script should run once and not set the hostname on every boot
+        touch $statefile
     fi
 fi
 echo "cloudstack-sethostname END"
