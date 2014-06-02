@@ -56,12 +56,12 @@
         },
         {
             "type": "file",
-            "source": "./files/99-disable-ipv6-tempaddr.conf",
+            "source": "../../files/99-disable-ipv6-tempaddr.conf",
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
         },
         {
             "type": "file",
-            "source": "./files/cloud-set-hostname-script",
+            "source": "../../files/cloud-set-hostname-script",
             "destination": "/etc/dhcp/dhclient-exit-hooks.d/sethostname"
         }
   ]
