@@ -49,7 +49,7 @@
             "scripts": [
                 "scripts/base.sh",
                 "scripts/packages.sh",
-                "scripts/install-set-password-script.sh",
+                "../../scripts/install-set-password-script.sh",
                 "scripts/cleanup.sh"
             ],
             "execute_command": "sh '{{.Path}}'"

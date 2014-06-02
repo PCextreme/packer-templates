@@ -35,7 +35,7 @@
             "/install/vmlinuz noapic ",
             "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-            "hostname=ubuntu12044 ",
+            "hostname=ubuntu1204 ",
             "fb=false debconf/frontend=noninteractive ",
             "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
             "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
@@ -48,12 +48,21 @@
             "type": "shell",
             "scripts": [
                 "scripts/base.sh",
-		"scripts/packages.sh",
-		"scripts/install-set-hostname-script.sh",
-		"scripts/install-set-password-script.sh",
-		"scripts/cleanup.sh"
+                "scripts/packages.sh",
+                "../../scripts/install-set-password-script.sh",
+                "scripts/cleanup.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "../../files/99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
+            "type": "file",
+            "source": "../../files/cloud-set-hostname-script",
+            "destination": "/etc/dhcp/dhclient-exit-hooks.d/sethostname"
         }
   ]
 }
