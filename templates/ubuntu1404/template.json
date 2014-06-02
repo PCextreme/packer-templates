@@ -15,7 +15,7 @@
       "accelerator": "kvm",
       "qemuargs":
       [ 
-	[ "-smp" , "2"]
+        [ "-smp" , "2"]
       ],
       "http_directory": "httpdir",
       "http_port_min": 10082,
