@@ -62,7 +62,7 @@
         {
             "type": "file",
             "source": "../../files/cloud-set-hostname-script",
-            "destination": "/etc/dhcp/dhclient-exit-hooks.d/sethostname"
+            "destination": "/etc/dhcp/dhclient-exit-hooks.d/cloud-sethostname"
         }
   ]
 }
