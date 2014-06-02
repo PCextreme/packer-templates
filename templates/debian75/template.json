@@ -15,7 +15,7 @@
       "accelerator": "kvm",
       "qemuargs":
       [ 
-	[ "-smp" , "2"]
+        [ "-smp" , "2"]
       ],
       "http_directory": "httpdir",
       "http_port_min": 10082,
@@ -35,9 +35,9 @@
             "install <wait>",
             "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-	    "keyboard-configuration/xkb-keymap=us ",
+            "keyboard-configuration/xkb-keymap=us ",
             "netcfg/get_hostname=debian75 ",
-	    "netcfg/get_domain=auroracompute.com ",
+            "netcfg/get_domain=auroracompute.com ",
             "fb=false debconf/frontend=noninteractive ",
             "console-setup/ask_detect=false <wait>",
             "console-keymaps-at/keymap=us <wait>",
@@ -50,12 +50,21 @@
             "type": "shell",
             "scripts": [
                 "scripts/base.sh",
-		"scripts/packages.sh",
-		"scripts/install-set-hostname-script.sh",
-		"scripts/install-set-password-script.sh",
-		"scripts/cleanup.sh"
+                "scripts/packages.sh",
+                "../../scripts/install-set-password-script.sh",
+                "scripts/cleanup.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "../../files/99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
+            "type": "file",
+            "source": "../../files/cloud-set-hostname-script",
+            "destination": "/etc/dhcp/dhclient-exit-hooks.d/sethostname"
         }
   ]
 }

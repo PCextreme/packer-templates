@@ -15,7 +15,7 @@
       "accelerator": "kvm",
       "qemuargs":
       [ 
-	[ "-smp" , "2"]
+        [ "-smp" , "2"]
       ],
       "http_directory": "httpdir",
       "http_port_min": 10082,
@@ -41,9 +41,9 @@
             "type": "shell",
             "scripts": [
                 "scripts/base.sh",
-		"scripts/packages.sh",
-		"scripts/install-set-password-script.sh",
-		"scripts/cleanup.sh"
+                "scripts/packages.sh",
+                "../../scripts/install-set-password-script.sh",
+                "scripts/cleanup.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         }
