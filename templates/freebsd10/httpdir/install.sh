@@ -18,8 +18,8 @@ ifconfig_vtnet0_name="em0"
 EOF
 
 cat >> /etc/resolv.conf <<EOF
-nameserver 8.8.8.8
-nameserver 8.8.4.4
+nameserver 109.72.90.52
+nameserver 217.115.199.215
 EOF
 
 echo 'WITHOUT_X11="YES"' >> /etc/make.conf
