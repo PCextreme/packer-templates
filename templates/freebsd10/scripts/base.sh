@@ -11,6 +11,7 @@ echo "updating the machine"
 sed 's/sleep `jot -r 1 0 3600`//' /usr/sbin/freebsd-update > /tmp/freebsd-update
 chmod +x /tmp/freebsd-update
 /tmp/freebsd-update cron
+rm /tmp/freebsd-update
 freebsd-update install
 
 echo "setting noatime option"
