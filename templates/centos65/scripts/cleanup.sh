@@ -1,19 +1,18 @@
 #!/bin/bash
 
-echo "Removing uneeded packages"
+echo "Clean yum cache"
 yum -y clean all
 
-echo "cleaning up dhcp leases"
+echo "Remove DHCP leases"
 rm /var/lib/dhclient/*
 
-echo "cleaning up udev rules"
+echo "Clean udev rules"
 rm /etc/udev/rules.d/70-persistent-net.rules
 sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
 
-echo "removing excisting ssh server keys"
+echo "Remove SSH host keys"
 rm -f /etc/ssh/ssh_host*key*
 
-echo "removing history"
+echo "Remove history"
 history -c
 unset HISTFILE
-

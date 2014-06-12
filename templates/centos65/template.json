@@ -1,6 +1,5 @@
 {
-  "builders":
-  [
+  "builders": [
     {
       "type": "qemu",
       "iso_url": "http://mirror.pcextreme.nl/centos/6/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
@@ -13,8 +12,7 @@
       "format": "qcow2",
       "headless": true,
       "accelerator": "kvm",
-      "qemuargs":
-      [ 
+      "qemuargs": [
         [ "-smp" , "2"]
       ],
       "http_directory": "httpdir",
@@ -29,23 +27,21 @@
       "vm_name": "centos65",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
-      "boot_command":
-      [
-            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"      
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ]
     }
   ],
-  "provisioners":
-  [
-        {
-            "type": "shell",
-            "scripts": [
-                "scripts/base.sh",
-                "scripts/packages.sh",
-                "../../scripts/install-set-password-script.sh",
-                "scripts/cleanup.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
-        }
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/base.sh",
+        "scripts/packages.sh",
+        "../../scripts/install-set-password-script.sh",
+        "scripts/cleanup.sh"
+      ],
+      "execute_command": "sh '{{.Path}}'"
+    }
   ]
 }

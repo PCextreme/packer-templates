@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo "updating the machine"
+echo "Update packages"
 yum -y update
