@@ -42,7 +42,6 @@
       "type": "shell",
       "scripts": [
         "scripts/base.sh",
-        "scripts/packages.sh",
         "../../scripts/install-set-password-script.sh",
         "scripts/cleanup.sh"
       ],
