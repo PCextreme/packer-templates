@@ -19,3 +19,6 @@ sed -i -e 's|rw|rw,noatime|g' /etc/fstab
 
 echo "setting permission of cloud-set-guest-password"
 chmod +x /usr/local/etc/rc.d/cloud-set-guest-password
+
+echo "setting permission of cloud-set-guest-sshkey"
+chmod +x /usr/local/etc/rc.d/cloud-set-guest-sshkey

@@ -1,0 +1,100 @@
+#!/bin/bash 
+#
+# cloud-set-guest-sshkey    SSH Public Keys Download Client
+#
+# chkconfig: 2345 98 02
+# description: SSH Public Keys Download Client
+#
+# Modify this line to specify the user (default is root)
+user=root
+
+### BEGIN INIT INFO
+# Provides: cloud-set-guest-sshkey
+# Required-Start: $local_fs $network $sshd
+# Required-Stop: $local_fs $syslog
+# Should-Start: $syslog
+# Should-Stop: $network $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: 
+# Description:       SSH Public Keys Download Client
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Add your DHCP lease folders here
+DHCP_FOLDERS="/var/lib/dhclient/*"
+
+keys_received=0
+file_count=0
+
+function cloud_set_guest_sshkey() {
+    for DHCP_FILE in $DHCP_FOLDERS; do
+        if [ -f $DHCP_FILE ]; then
+            file_count=$((file_count+1))
+            SSHKEY_SERVER_IP=$(grep dhcp-server-identifier $DHCP_FILE | tail -1 | awk '{print $NF}' | tr -d '\;')
+
+            if [ -n $SSHKEY_SERVER_IP ]; then
+                logger -t "cloud" "Sending request to ssh key server at $SSHKEY_SERVER_IP"
+
+                publickey=$(wget -t 3 -T 20 -O - http://$SSHKEY_SERVER_IP/latest/public-keys 2>/dev/null)
+
+                if [ $? -eq 0 ]; then
+                    logger -t "cloud" "Got response from server at $SSHKEY_SERVER_IP"
+                    keys_received=1
+                    break
+                fi
+            else
+                logger -t "cloud" "Could not find ssh key server IP in $DHCP_FILE"
+            fi
+        fi
+    done
+
+    # did we find the keys anywhere?
+    if [ "$keys_received" == "0" ]; then
+        logger -t "cloud" "Failed to get ssh keys from any server"
+        exit 1
+    fi
+
+    # set ssh public key
+    homedir=$(grep ^$user /etc/passwd|awk -F ":" '{print $6}')
+    sshdir=$homedir/.ssh
+    authorized=$sshdir/authorized_keys
+
+    if [ ! -e $sshdir ]; then
+        mkdir $sshdir
+    fi
+
+    if [ ! -e $authorized ]; then
+        touch $authorized
+    fi
+
+    if [ `grep -c "$publickey" $authorized` == 0 ]; then
+            echo "$publickey" >> $authorized
+            /sbin/restorecon -R $homedir/.ssh
+    fi
+}
+
+# See how we were called.
+case "$1" in
+  start)
+      action $"Starting cloud-set-guest-sshkey: " /bin/true
+      cloud_set_guest_sshkey
+      RETVAL=$?
+    ;;
+  stop)
+      action $"Shutting down cloud-set-guest-sshkey: " /bin/true
+      RETVAL=$?
+      ;;
+  restart)
+      $0 stop
+      $0 start
+      ;;
+  *)
+      echo $"Usage: cloud-set-guest-sshey {start}"
+      RETVAL=2
+      ;;
+esac
+
+exit $RETVAL

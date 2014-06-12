@@ -45,6 +45,21 @@
   "provisioners":
   [
         {
+            "type": "file",
+            "source": "../../files/99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
+            "type": "file",
+            "source": "../../files/cloud-set-guest-sshkey-ubuntu",
+            "destination": "/etc/init.d/cloud-set-guest-sshkey"
+        },
+        {
+            "type": "file",
+            "source": "../../files/cloud-set-hostname-script",
+            "destination": "/etc/dhcp/dhclient-exit-hooks.d/cloud-sethostname"
+        },
+        {
             "type": "shell",
             "scripts": [
                 "scripts/base.sh",
@@ -53,16 +68,6 @@
                 "scripts/cleanup.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
-        },
-        {
-            "type": "file",
-            "source": "../../files/99-disable-ipv6-tempaddr.conf",
-            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
-        },
-        {
-            "type": "file",
-            "source": "../../files/cloud-set-hostname-script",
-            "destination": "/etc/dhcp/dhclient-exit-hooks.d/cloud-sethostname"
         }
   ]
 }

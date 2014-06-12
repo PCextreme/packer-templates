@@ -34,6 +34,11 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "../../files/cloud-set-guest-sshkey-centos",
+      "destination": "/etc/init.d/cloud-set-guest-sshkey"
+    },
+    {
       "type": "shell",
       "scripts": [
         "scripts/base.sh",
