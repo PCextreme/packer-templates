@@ -7,5 +7,5 @@ echo "installing cloud-set-guest-sshkey"
 chmod +x /etc/init.d/cloud-set-guest-sshkey
 chkconfig --add cloud-set-guest-sshkey
 
-echo "setting noatime option"
-sed -i 's|defaults|defaults,noatime|g' /etc/fstab
+echo "Set noatime option"
+sed -i '0,/defaults/{s/defaults/defaults,noatime/g}' /etc/fstab
