@@ -24,7 +24,7 @@ user=root
 . /etc/rc.d/init.d/functions
 
 # Add your DHCP lease folders here
-DHCP_FOLDERS="/var/lib/dhclient/*"
+DHCP_FOLDERS="/var/lib/dhclient/* /var/lib/dhcp3/* /var/lib/dhcp/* /var/lib/NetworkManager/*.lease"
 
 keys_received=0
 file_count=0
