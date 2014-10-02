@@ -3,8 +3,8 @@
   [
     {
       "type": "qemu",
-      "iso_url": "http://nl3.releases.ubuntu.com/precise/ubuntu-12.04.4-server-amd64.iso",
-      "iso_checksum": "e83adb9af4ec0a039e6a5c6e145a34de",
+      "iso_url": "http://nl3.releases.ubuntu.com/precise/ubuntu-12.04.5-server-amd64.iso",
+      "iso_checksum": "769474248a3897f4865817446f9a4a53",
       "iso_checksum_type": "md5",
       "output_directory": "output_ubuntu1204",
       "ssh_wait_timeout": "30s",
@@ -63,7 +63,6 @@
             "type": "shell",
             "scripts": [
                 "scripts/base.sh",
-                "scripts/packages.sh",
                 "../../scripts/install-set-password-script.sh",
                 "scripts/cleanup.sh"
             ],
