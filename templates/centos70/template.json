@@ -5,7 +5,7 @@
       "iso_url": "http://mirror.pcextreme.nl/centos/7/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
       "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
       "iso_checksum_type": "md5",
-      "output_directory": "output_centos70",
+      "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
       "shutdown_command": "shutdown -P now",
       "disk_size": 20480,

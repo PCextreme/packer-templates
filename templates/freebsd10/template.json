@@ -6,7 +6,7 @@
       "iso_url": "http://ftp.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/10.0/FreeBSD-10.0-RELEASE-amd64-disc1.iso",
       "iso_checksum": "fd25619fa0d69c29bea8347b1070ac75",
       "iso_checksum_type": "md5",
-      "output_directory": "output_freebsd10",
+      "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
       "shutdown_command": "halt -p",
       "disk_size": 20480,

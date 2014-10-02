@@ -6,7 +6,7 @@
       "iso_url": "http://nl3.releases.ubuntu.com/14.04.1/ubuntu-14.04.1-server-amd64.iso",
       "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
       "iso_checksum_type": "md5",
-      "output_directory": "output_ubuntu1404",
+      "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
       "shutdown_command": "shutdown -P now",
       "disk_size": 20480,

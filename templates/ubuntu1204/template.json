@@ -6,7 +6,7 @@
       "iso_url": "http://nl3.releases.ubuntu.com/precise/ubuntu-12.04.5-server-amd64.iso",
       "iso_checksum": "769474248a3897f4865817446f9a4a53",
       "iso_checksum_type": "md5",
-      "output_directory": "output_ubuntu1204",
+      "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
       "shutdown_command": "shutdown -P now",
       "disk_size": 20480,
