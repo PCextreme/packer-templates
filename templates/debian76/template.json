@@ -3,8 +3,8 @@
   [
     {
       "type": "qemu",
-      "iso_url": "http://debian.apt-get.eu/cd-images/current/amd64/iso-cd/debian-7.5.0-amd64-netinst.iso",
-      "iso_checksum": "8fdb6715228ea90faba58cb84644d296",
+      "iso_url": "http://debian.apt-get.eu/cd-images/current/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
+      "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
       "iso_checksum_type": "md5",
       "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
@@ -26,7 +26,7 @@
       "ssh_password": "installer",
       "ssh_port": 22,
       "ssh_wait_timeout": "90m",
-      "vm_name": "debian75",
+      "vm_name": "debian76",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
       "boot_command":
@@ -36,7 +36,7 @@
             "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
             "keyboard-configuration/xkb-keymap=us ",
-            "netcfg/get_hostname=debian75 ",
+            "netcfg/get_hostname=debian76 ",
             "netcfg/get_domain=auroracompute.com ",
             "fb=false debconf/frontend=noninteractive ",
             "console-setup/ask_detect=false <wait>",
@@ -57,6 +57,11 @@
             "destination": "/etc/init.d/cloud-set-guest-sshkey"
         },
         {
+	    "type": "file",
+	    "source": "../../files/cloud-set-guest-password-debian",
+	    "destination": "/etc/network/if-up.d/cloud-set-guest-password"
+	},
+        {
             "type": "file",
             "source": "../../files/cloud-set-hostname-script",
             "destination": "/etc/dhcp/dhclient-exit-hooks.d/cloud-sethostname"
@@ -66,7 +71,6 @@
             "scripts": [
                 "scripts/base.sh",
                 "scripts/packages.sh",
-                "../../scripts/install-set-password-script.sh",
                 "scripts/cleanup.sh"
             ],
             "execute_command": "sh '{{.Path}}'"

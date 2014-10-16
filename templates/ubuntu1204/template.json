@@ -51,6 +51,11 @@
         },
         {
             "type": "file",
+            "source": "../../files/cloud-set-guest-password-ubuntu",
+            "destination": "/etc/init.d/cloud-set-guest-password"
+        },
+        {
+            "type": "file",
             "source": "../../files/cloud-set-guest-sshkey-ubuntu",
             "destination": "/etc/init.d/cloud-set-guest-sshkey"
         },
@@ -63,7 +68,6 @@
             "type": "shell",
             "scripts": [
                 "scripts/base.sh",
-                "../../scripts/install-set-password-script.sh",
                 "scripts/cleanup.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
