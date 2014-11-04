@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "updating the machine"
+rm -fR /var/lib/apt/lists/*
 apt-get update
 apt-get -y upgrade
 
