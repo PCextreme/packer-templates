@@ -2,8 +2,8 @@
   "builders": [
     {
       "type": "qemu",
-      "iso_url": "http://mirror.pcextreme.nl/centos/6/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
-      "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+      "iso_url": "http://mirror.pcextreme.nl/centos/6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso",
+      "iso_checksum": "eb3c8be6ab668e6d83a118323a789e6c",
       "iso_checksum_type": "md5",
       "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
@@ -24,7 +24,7 @@
       "ssh_password": "installer",
       "ssh_port": 22,
       "ssh_wait_timeout": "90m",
-      "vm_name": "centos65",
+      "vm_name": "centos66",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
       "boot_command": [
@@ -35,6 +35,11 @@
   "provisioners": [
     {
       "type": "file",
+      "source": "../../files/cloud-set-guest-password-centos",
+      "destination": "/etc/init.d/cloud-set-guest-password"
+    },
+    {
+      "type": "file",
       "source": "../../files/cloud-set-guest-sshkey-centos",
       "destination": "/etc/init.d/cloud-set-guest-sshkey"
     },
@@ -43,8 +48,8 @@
       "scripts": [
         "scripts/base.sh",
         "scripts/packages.sh",
-        "../../scripts/install-set-password-script.sh",
-        "scripts/cleanup.sh"
+        "scripts/cleanup.sh",
+        "../../scripts/zerodisk.sh"
       ],
       "execute_command": "sh '{{.Path}}'"
     }
