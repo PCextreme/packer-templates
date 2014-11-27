@@ -2,7 +2,7 @@
 
 This repository contains configurations and scripts to build templates to be used in AuroraCompute.
 
-This are Linux or *BSD based templates which can be generated using the tool 'packer'.
+These are Linux or *BSD based templates which can be generated using [Packer.io](https://packer.io/).
 
 ## Usage
 
@@ -15,6 +15,6 @@ $ cd templates/ubuntu1404
 $ packer build template.json
 ```
 
-Make sure that packer is installed. It can be obtained from http://packer.io/
+Make sure that `packer` is installed. It can be obtained from [Packer.io](https://packer.io/). Unzip and place in `/usr/local/bin` or `~/bin`.
 
-Unzip and place in /usr/local/bin
+You also need `qemu-system`.
