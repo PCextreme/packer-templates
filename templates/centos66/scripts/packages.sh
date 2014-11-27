@@ -1,6 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-echo "Install Basic Server packages"
+echo "Install packages"
 yum -y groupinstall base
-yum -y install ndisc6
-chkconfig rdisc on
