@@ -18,3 +18,9 @@ $ packer build template.json
 Make sure that `packer` is installed. It can be obtained from [Packer.io](https://packer.io/). Unzip and place in `/usr/local/bin` or `~/bin`.
 
 You also need `qemu-system`.
+
+Compress image:
+
+```
+$ qemu-img convert -c -f qcow2 -O qcow2 <input>.qcow2 <compressed>.qcow2
+```
