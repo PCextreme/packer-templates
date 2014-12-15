@@ -22,5 +22,5 @@ You also need `qemu-system`.
 Compress image:
 
 ```
-$ qemu-img convert -c -f qcow2 -O qcow2 <input>.qcow2 <compressed>.qcow2
+$ qemu-img convert -c -f qcow2 -O qcow2 <input>.qcow2 <compressed>_`date +%d-%m-%Y`.qcow2
 ```
