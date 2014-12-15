@@ -51,18 +51,23 @@
         },
         {
             "type": "file",
-            "source": "../../files/cloud-set-hostname-script",
-            "destination": "/etc/dhcp/dhclient-exit-hooks.d/cloud-sethostname"
-        },
-        {
-            "type": "file",
             "source": "../../files/cloud-set-guest-password-ubuntu",
             "destination": "/etc/init.d/cloud-set-guest-password"
         },
         {
             "type": "file",
-            "source": "../../files/cloud-set-guest-sshkey-ubuntu",
-            "destination": "/etc/init.d/cloud-set-guest-sshkey"
+            "source": "../../files/cloudinit/ubuntu/70_apt.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/70_apt.cfg"
+        },
+        {
+            "type": "file",
+            "source": "../../files/cloudinit/ubuntu/80_users.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
+        },
+                {
+            "type": "file",
+            "source": "../../files/cloudinit/ubuntu/99_cloudstack.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
         },
         {
             "type": "shell",
