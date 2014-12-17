@@ -11,7 +11,7 @@
       "shutdown_command": "shutdown -P now",
       "disk_size": 20480,
       "format": "qcow2",
-      "headless": true,
+      "headless": false,
       "accelerator": "kvm",
       "qemuargs":
       [ 
@@ -46,29 +46,46 @@
   [
         {
             "type": "file",
-            "source": "../../files/99-disable-ipv6-tempaddr.conf",
+            "source": "files/99-disable-ipv6-tempaddr.conf",
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
         },
         {
             "type": "file",
-            "source": "../../files/cloud-set-guest-password-ubuntu",
+            "source": "files/cloud-set-guest-password-ubuntu",
             "destination": "/etc/init.d/cloud-set-guest-password"
-        },
-        {
-            "type": "file",
-            "source": "../../files/cloud-set-guest-sshkey-ubuntu",
-            "destination": "/etc/init.d/cloud-set-guest-sshkey"
-        },
-        {
-            "type": "file",
-            "source": "../../files/cloud-set-hostname-script",
-            "destination": "/etc/dhcp/dhclient-exit-hooks.d/cloud-sethostname"
         },
         {
             "type": "shell",
             "scripts": [
-                "scripts/base.sh",
-                "scripts/cleanup.sh"
+                "scripts/base.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "files/70_apt.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/70_apt.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/80_users.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/99_cloudstack.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/DataSourceCloudStack.py",
+            "destination": "/usr/share/pyshared/cloudinit/DataSourceCloudStack.py"
+        },
+        {
+            "type": "shell",
+            "scripts": [
+                "scripts/cleanup.sh",
+                "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         }
