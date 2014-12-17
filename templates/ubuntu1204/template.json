@@ -11,7 +11,7 @@
       "shutdown_command": "shutdown -P now",
       "disk_size": 20480,
       "format": "qcow2",
-      "headless": false,
+      "headless": true,
       "accelerator": "kvm",
       "qemuargs":
       [ 

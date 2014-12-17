@@ -36,36 +36,37 @@
     {
       "type": "shell",
       "scripts": [
-        "scripts/base.sh"
+        "scripts/base.sh",
+        "scripts/packages.sh"
       ],
       "execute_command": "sh '{{.Path}}'"
     },
     {
       "type": "file",
-      "source": "../../files/cloud-set-guest-password-centos",
+      "source": "files/cloud-set-guest-password-centos",
       "destination": "/usr/lib/systemd/scripts/cloud-set-guest-password"
     },
     {
       "type": "file",
-      "source": "../../files/cloud-set-guest-password.service",
+      "source": "files/cloud-set-guest-password.service",
       "destination": "/etc/systemd/system/cloud-set-guest-password.service"
     },
     {
       "type": "file",
-      "source": "../../files/cloud-set-guest-sshkey-centos",
-      "destination": "/usr/lib/systemd/scripts/cloud-set-guest-sshkey"
+      "source": "files/80_users.cfg",
+      "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
     },
     {
       "type": "file",
-      "source": "../../files/cloud-set-guest-sshkey.service",
-      "destination": "/etc/systemd/system/cloud-set-guest-sshkey.service"
+      "source": "files/99_cloudstack.cfg",
+      "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
     },
     {
       "type": "shell",
       "scripts": [
-        "scripts/packages.sh",
         "scripts/scripts.sh",
-        "scripts/cleanup.sh"
+        "scripts/cleanup.sh",
+        "../../scripts/zerodisk.sh"
       ],
       "execute_command": "sh '{{.Path}}'"
     }
