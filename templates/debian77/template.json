@@ -3,15 +3,15 @@
   [
     {
       "type": "qemu",
-      "iso_url": "http://debian.apt-get.eu/cd-images/current/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
-      "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
+      "iso_url": "http://debian.apt-get.eu/cd-images/current/amd64/iso-cd/debian-7.7.0-amd64-netinst.iso",
+      "iso_checksum": "0b31bccccb048d20b551f70830bb7ad0",
       "iso_checksum_type": "md5",
       "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
       "shutdown_command": "/sbin/shutdown -hP now",
       "disk_size": 20480,
       "format": "qcow2",
-      "headless": true,
+      "headless": false,
       "accelerator": "kvm",
       "qemuargs":
       [ 
@@ -26,7 +26,7 @@
       "ssh_password": "installer",
       "ssh_port": 22,
       "ssh_wait_timeout": "90m",
-      "vm_name": "debian76",
+      "vm_name": "debian77",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
       "boot_command":
@@ -36,7 +36,7 @@
             "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
             "keyboard-configuration/xkb-keymap=us ",
-            "netcfg/get_hostname=debian76 ",
+            "netcfg/get_hostname=debian77 ",
             "netcfg/get_domain=auroracompute.com ",
             "fb=false debconf/frontend=noninteractive ",
             "console-setup/ask_detect=false <wait>",
@@ -48,30 +48,42 @@
   [
         {
             "type": "file",
-            "source": "../../files/99-disable-ipv6-tempaddr.conf",
+            "source": "files/99-disable-ipv6-tempaddr.conf",
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
         },
         {
-            "type": "file",
-            "source": "../../files/cloud-set-guest-sshkey-debian",
-            "destination": "/etc/init.d/cloud-set-guest-sshkey"
-        },
-        {
 	    "type": "file",
-	    "source": "../../files/cloud-set-guest-password-debian",
+	    "source": "files/cloud-set-guest-password-debian",
 	    "destination": "/etc/network/if-up.d/cloud-set-guest-password"
 	},
+	{
+            "type": "shell",
+            "scripts": [
+                "scripts/base.sh",
+                "scripts/packages.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+	{
+            "type": "file",
+            "source": "files/70_apt.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/70_apt.cfg"
+        },
         {
             "type": "file",
-            "source": "../../files/cloud-set-hostname-script",
-            "destination": "/etc/dhcp/dhclient-exit-hooks.d/cloud-sethostname"
+            "source": "files/80_users.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
+        },
+                {
+            "type": "file",
+            "source": "files/99_cloudstack.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
         },
         {
             "type": "shell",
             "scripts": [
-                "scripts/base.sh",
-                "scripts/packages.sh",
-                "scripts/cleanup.sh"
+                "scripts/cleanup.sh",
+                "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         }
