@@ -48,12 +48,12 @@
   [
         {
             "type": "file",
-            "source": "../../files/cloud-set-guest-password-freebsd",
+            "source": "files/cloud-set-guest-password-freebsd",
             "destination": "/usr/local/etc/rc.d/cloud-set-guest-password"
         },
         {
             "type": "file",
-            "source": "../../files/cloud-set-guest-sshkey-freebsd",
+            "source": "files/cloud-set-guest-sshkey-freebsd",
             "destination": "/usr/local/etc/rc.d/cloud-set-guest-sshkey"
         },
         {
