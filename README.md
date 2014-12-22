@@ -1,6 +1,6 @@
 # Packer Templates
 
-This repository contains configurations and scripts to build templates to be used in AuroraCompute.
+This repository contains configurations and scripts to build templates to be used in [AuroraCompute](https://www.pcextreme.nl/aurora/compute).
 
 These are Linux or *BSD based templates which can be generated using [Packer.io](https://packer.io/).
 
