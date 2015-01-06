@@ -18,6 +18,8 @@ ifconfig_vtnet0_name="em0"
 EOF
 
 cat >> /etc/resolv.conf <<EOF
+nameserver 2a00:f10:10a:9::53
+nameserver 2001:14a0:300:4::53
 nameserver 109.72.90.52
 nameserver 217.115.199.215
 EOF
