@@ -10,3 +10,6 @@ update-rc.d cloud-set-guest-password defaults
 
 echo "setting noatime option"
 sed -i 's|errors=remount-ro|errors=remount-ro,noatime|g' /etc/fstab
+
+echo "setting ntp server"
+sed -i 's|ntp.ubuntu.com|ntp.pcextreme.nl|g' /etc/ntp.conf
