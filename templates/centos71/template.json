@@ -24,7 +24,7 @@
       "ssh_password": "installer",
       "ssh_port": 22,
       "ssh_wait_timeout": "90m",
-      "vm_name": "centos70",
+      "vm_name": "centos71",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
       "boot_command": [
