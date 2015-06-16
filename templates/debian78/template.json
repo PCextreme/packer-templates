@@ -3,7 +3,7 @@
   [
     {
       "type": "qemu",
-      "iso_url": "http://debian.apt-get.eu/cd-images/current/amd64/iso-cd/debian-7.8.0-amd64-netinst.iso",
+      "iso_url": "http://debian.apt-get.eu/cd-images/7.8.0/amd64/iso-cd/debian-7.8.0-amd64-netinst.iso",
       "iso_checksum": "a91fba5001cf0fbccb44a7ae38c63b6e",
       "iso_checksum_type": "md5",
       "output_directory": "packer_output",
@@ -14,7 +14,7 @@
       "headless": true,
       "accelerator": "kvm",
       "qemuargs":
-      [ 
+      [
         [ "-smp" , "2"]
       ],
       "http_directory": "httpdir",
@@ -31,7 +31,7 @@
       "disk_interface": "virtio",
       "boot_command":
       [
-            "<esc><wait>",
+            "<esc><wait5>",
             "install <wait>",
             "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
