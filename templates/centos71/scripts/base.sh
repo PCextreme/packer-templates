@@ -1,5 +1,7 @@
 #!/bin/bash
 
+unset HISTFILE
+
 echo "Update packages"
 yum -y upgrade
 
