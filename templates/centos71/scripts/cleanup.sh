@@ -2,9 +2,6 @@
 
 unset HISTFILE
 
-echo "Clean yum cache"
-yum -y clean all
-
 echo "Remove DHCP leases"
 rm -f /var/lib/NetworkManager/*.lease
 
