@@ -3,7 +3,6 @@
 unset HISTFILE
 
 echo "Update packages"
-yum -y install deltarpm
 yum -y upgrade
 
 echo "Create directories"

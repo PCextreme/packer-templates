@@ -35,8 +35,7 @@
     {
       "type": "shell",
       "scripts": [
-        "scripts/base.sh",
-        "scripts/packages.sh"
+        "scripts/base.sh"
       ],
       "execute_command": "sh '{{.Path}}'"
     },
