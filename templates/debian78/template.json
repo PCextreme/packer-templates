@@ -11,7 +11,6 @@
       "shutdown_command": "/sbin/shutdown -hP now",
       "disk_size": 20480,
       "format": "qcow2",
-      "headless": true,
       "accelerator": "kvm",
       "qemuargs":
       [
