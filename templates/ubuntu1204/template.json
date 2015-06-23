@@ -11,10 +11,9 @@
       "shutdown_command": "shutdown -P now",
       "disk_size": 20480,
       "format": "qcow2",
-      "headless": true,
       "accelerator": "kvm",
       "qemuargs":
-      [ 
+      [
         [ "-smp" , "2"]
       ],
       "http_directory": "httpdir",
@@ -29,9 +28,10 @@
       "vm_name": "ubuntu1204",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
+      "boot_wait": "15s",
       "boot_command":
       [
-            "<esc><esc><enter><wait>",
+            "<esc><esc><enter><wait5>",
             "/install/vmlinuz noapic ",
             "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",

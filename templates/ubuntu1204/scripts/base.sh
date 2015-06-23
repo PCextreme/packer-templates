@@ -5,8 +5,8 @@ rm -fR /var/lib/apt/lists/*
 apt-get update
 apt-get -y dist-upgrade
 
-echo "installing cloud-init"
-apt-get -y install cloud-init
+echo "installing additional packages"
+apt-get -y install cloud-init ndisc6 resolvconf
 
 echo "installing cloud-set-guest-password"
 chmod +x /etc/init.d/cloud-set-guest-password
@@ -26,6 +26,5 @@ GRUB_CMDLINE_LINUX="\$(echo \$GRUB_CMDLINE_LINUX | sed 's/\(quiet\|splash\|nomod
 TOGRUB
 update-grub2
 
-echo "Prioritizing IPv6 resolvers" 
+echo "Prioritizing IPv6 resolvers"
 sed -i '2i 000.*' /etc/resolvconf/interface-order
-
