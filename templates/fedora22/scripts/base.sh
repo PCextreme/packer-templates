@@ -2,6 +2,9 @@
 
 unset HISTFILE
 
+echo "Update packages"
+dnf -y upgrade
+
 echo "Create directories"
 mkdir -p /usr/lib/systemd/scripts
 

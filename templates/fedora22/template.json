@@ -2,9 +2,9 @@
   "builders": [
     {
       "type": "qemu",
-      "iso_url": "http://mirror.pcextreme.nl/centos/7.1.1503/isos/x86_64/CentOS-7-x86_64-NetInstall-1503.iso",
-      "iso_checksum": "111379a06402e1e445c6aeee9401d031",
-      "iso_checksum_type": "md5",
+      "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/22/Server/x86_64/iso/Fedora-Server-netinst-x86_64-22.iso",
+      "iso_checksum": "9f1f2f19f75cc3b97da41878b5c86188fa8d27ed446bd97d9df615c137c77cfc",
+      "iso_checksum_type": "sha256",
       "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
       "shutdown_command": "systemctl poweroff",
@@ -23,7 +23,7 @@
       "ssh_password": "installer",
       "ssh_port": 22,
       "ssh_wait_timeout": "90m",
-      "vm_name": "centos71",
+      "vm_name": "fedora22",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
       "boot_command": [
@@ -35,13 +35,14 @@
     {
       "type": "shell",
       "scripts": [
-        "scripts/base.sh"
+        "scripts/base.sh",
+        "scripts/packages.sh"
       ],
       "execute_command": "sh '{{.Path}}'"
     },
     {
       "type": "file",
-      "source": "files/cloud-set-guest-password-centos",
+      "source": "files/cloud-set-guest-password-fedora",
       "destination": "/usr/lib/systemd/scripts/cloud-set-guest-password"
     },
     {
@@ -63,8 +64,7 @@
       "type": "shell",
       "scripts": [
         "scripts/scripts.sh",
-        "scripts/cleanup.sh",
-        "../../scripts/zerodisk.sh"
+        "scripts/cleanup.sh"
       ],
       "execute_command": "sh '{{.Path}}'"
     }
