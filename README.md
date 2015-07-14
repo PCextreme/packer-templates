@@ -4,6 +4,8 @@ This repository contains configurations and scripts to build templates to be use
 
 These are Linux or *BSD based templates which can be generated using [Packer.io](https://packer.io/).
 
+Packer version >= 0.8 is required
+
 ## Usage
 
 All templates can be found in templates/ directory.
