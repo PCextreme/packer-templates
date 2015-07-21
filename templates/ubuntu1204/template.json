@@ -82,6 +82,11 @@
             "destination": "/usr/share/pyshared/cloudinit/DataSourceCloudStack.py"
         },
         {
+            "type": "file",
+            "source": "../../httpdir/meta.data",
+            "destination": "/var/opt/aurora-build-metadata.txt"
+        },
+        {
             "type": "shell",
             "scripts": [
                 "scripts/cleanup.sh",

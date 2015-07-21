@@ -56,6 +56,11 @@
       "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
     },
     {
+      "type": "file",
+      "source": "../../httpdir/meta.data",
+      "destination": "/var/opt/aurora-build-metadata.txt"
+    },
+    {
       "type": "shell",
       "scripts": [
         "scripts/cleanup.sh",
