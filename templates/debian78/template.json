@@ -16,7 +16,7 @@
       [
         [ "-smp" , "2"]
       ],
-      "http_directory": "httpdir",
+      "http_directory": "../../httpdir",
       "http_port_min": 10082,
       "http_port_max": 10089,
       "ssh_host_port_min": 2222,
@@ -32,7 +32,7 @@
       [
             "<esc><wait5>",
             "install <wait>",
-            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/debian78.preseed ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
             "keyboard-configuration/xkb-keymap=us ",
             "netcfg/get_hostname=debian78 ",
