@@ -9,7 +9,7 @@ fi
 
 GIT_REVISION=$(git rev-parse HEAD)
 DATE=$(date -R)
-PACKER_VERSION=$(packer --version|awk '{print $2}')
+PACKER_VERSION=$(packer --version)
 
 echo "# PCextreme Aurora Packer Template" > $OUTPUT
 echo "git revision: $GIT_REVISION" >> $OUTPUT
