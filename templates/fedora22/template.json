@@ -69,7 +69,8 @@
       "type": "shell",
       "scripts": [
         "scripts/scripts.sh",
-        "scripts/cleanup.sh"
+        "scripts/cleanup.sh",
+	"../../scripts/zerodisk.sh"
       ],
       "execute_command": "sh '{{.Path}}'"
     }
