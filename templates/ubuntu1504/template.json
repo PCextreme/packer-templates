@@ -12,6 +12,7 @@
       "disk_size": 20480,
       "format": "qcow2",
       "accelerator": "kvm",
+      "headless": "true",
       "qemuargs":
       [
         [ "-smp" , "2"]
