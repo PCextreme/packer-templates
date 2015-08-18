@@ -17,7 +17,7 @@ for TEMPLATE in $(find $TEMPLATES_DIR -maxdepth 1 -mindepth 1 -type d); do
         continue
     fi
 
-    $PACKER build -force template.json
+    sh build.sh
     if [ "$?" -ne 0 ]; then
         echo "Error: Failed to build $TEMPLATE"
         continue
