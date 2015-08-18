@@ -2,8 +2,8 @@
   "builders": [
     {
       "type": "qemu",
-      "iso_url": "http://mirror.pcextreme.nl/centos/6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso",
-      "iso_checksum": "eb3c8be6ab668e6d83a118323a789e6c",
+      "iso_url": "http://mirror.pcextreme.nl/centos/6/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+      "iso_checksum": "9381a24b8bee2fed0c26896141a64b69",
       "iso_checksum_type": "md5",
       "output_directory": "packer_output",
       "ssh_wait_timeout": "30s",
@@ -11,7 +11,7 @@
       "disk_size": 20480,
       "format": "qcow2",
       "accelerator": "kvm",
-      "headless": "true",
+      "headless": "false",
       "qemuargs": [
         [ "-smp" , "2"]
       ],
@@ -24,11 +24,11 @@
       "ssh_password": "installer",
       "ssh_port": 22,
       "ssh_wait_timeout": "90m",
-      "vm_name": "centos66",
+      "vm_name": "centos67",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos66.ks<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos67.ks<enter><wait>"
       ]
     }
   ],
