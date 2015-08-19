@@ -22,7 +22,7 @@ fi
 REMOVE_CACHE=0
 
 # Loop over all arguments.
-if [ $# > 1 ]; then
+if [ $# -gt 1 ]; then
     for ARGUMENT in "$@"
     do
         case $ARGUMENT in
