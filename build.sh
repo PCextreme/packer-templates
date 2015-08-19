@@ -8,16 +8,29 @@
 
 EXIT_CODE=0
 
-if [ $# == 0 ]; then
+# Fucntions to display usage.
+usage(){
     echo ""
     echo " Usage:"
     echo "        $0 template_name [-r]  Will build the specified template."
     echo "        $0 --all         [-r]  Will build all templates."
     echo ""
+    echo "        $0 --help              Will show this."
+    echo ""
     echo " Options:"
     echo "        -r    Will remove cached iso."
     echo ""
     exit 1
+}
+
+# Show usage if no options are given.
+if [ $# == 0 ]; then
+    usage
+fi
+
+# Show usage if --help is specified.
+if [ $1 == "--help" ]; then
+    usage
 fi
 
 # Set all options to false.
@@ -28,6 +41,9 @@ if [ $# -gt 1 ]; then
     for ARGUMENT in "$@"
     do
         case $ARGUMENT in
+        "--help")
+            usage
+            ;;
         "-r")
             REMOVE_CACHE=1
             ;;
