@@ -4,25 +4,28 @@ This repository contains configurations and scripts to build templates to be use
 
 These are Linux or *BSD based templates which can be generated using [Packer.io](https://packer.io/).
 
-Packer version >= 0.8 is required
+Packer version >= 0.8.5 is required
 
 ## Usage
 
+Run `./build.sh` to get the usage info. 
+
 All templates can be found in templates/ directory.
 
-To build a template run for example:
+## Examples
+
+To build a single template:
 
 ```
-$ cd templates/ubuntu1404
-$ packer build template.json
+$ ./build.sh ubuntu1404
 ```
 
-Make sure that `packer` is installed. It can be obtained from [Packer.io](https://packer.io/). Unzip and place in `/usr/local/bin` or `~/bin`.
-
-You also need `qemu-system`.
-
-Compress image:
+To build all templates:
 
 ```
-$ qemu-img convert -c -f qcow2 -O qcow2 <input>.qcow2 <compressed>_`date +%d-%m-%Y`.qcow2
+$ ./build.sh --all
 ```
+
+## Requirements
+
+Make sure that `packer`, `qemu-img` and `qemu-system` are installed. Packer can be obtained from [Packer.io](https://packer.io/). Unzip and place in `/usr/local/sbin` or `~/sbin`.

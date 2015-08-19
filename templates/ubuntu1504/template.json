@@ -1,50 +1,56 @@
 {
-  "builders":
-  [
+    "variables":
     {
-      "type": "qemu",
-      "iso_url": "http://nl3.releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
-      "iso_checksum": "487f4a81f22f8597503db3d51a1b502e",
-      "iso_checksum_type": "md5",
-      "output_directory": "packer_output",
-      "ssh_wait_timeout": "30s",
-      "shutdown_command": "shutdown -P now",
-      "disk_size": 20480,
-      "format": "qcow2",
-      "accelerator": "kvm",
-      "headless": "true",
-      "qemuargs":
-      [
-        [ "-smp" , "2"]
-      ],
-      "http_directory": "../../httpdir",
-      "http_port_min": 10082,
-      "http_port_max": 10089,
-      "ssh_host_port_min": 2222,
-      "ssh_host_port_max": 2229,
-      "ssh_username": "root",
-      "ssh_password": "installer",
-      "ssh_port": 22,
-      "ssh_wait_timeout": "90m",
-      "vm_name": "ubuntu1504",
-      "net_device": "virtio-net",
-      "disk_interface": "virtio",
-      "boot_wait": "15s",
-      "boot_command":
-      [
-            "<esc><esc><enter><wait5>",
-            "/install/vmlinuz noapic ",
-            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/ubuntu1504.preseed ",
-            "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-            "hostname=ubuntu1504 ",
-            "fb=false debconf/frontend=noninteractive ",
-            "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-            "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-            "initrd=/install/initrd.gz -- <enter>"      ]
-    }
-  ],
-  "provisioners":
-  [
+        "ncpu": "",
+        "template_name": ""
+    },
+    "builders":
+    [
+        {
+            "type": "qemu",
+            "iso_url": "http://nl3.releases.ubuntu.com/vivid/ubuntu-15.04-server-amd64.iso",
+            "iso_checksum": "487f4a81f22f8597503db3d51a1b502e",
+            "iso_checksum_type": "md5",
+            "output_directory": "packer_output",
+            "ssh_wait_timeout": "30s",
+            "shutdown_command": "shutdown -P now",
+            "disk_size": 20480,
+            "format": "qcow2",
+            "accelerator": "kvm",
+            "headless": "true",
+            "qemuargs":
+            [
+                [ "-smp" , "{{user `ncpu`}}"]
+            ],
+            "http_directory": "../../httpdir",
+            "http_port_min": 10082,
+            "http_port_max": 10089,
+            "ssh_host_port_min": 2222,
+            "ssh_host_port_max": 2229,
+            "ssh_username": "root",
+            "ssh_password": "installer",
+            "ssh_port": 22,
+            "ssh_wait_timeout": "90m",
+            "vm_name": "{{user `template_name`}}",
+            "net_device": "virtio-net",
+            "disk_interface": "virtio",
+            "boot_wait": "15s",
+            "boot_command":
+            [
+                "<esc><esc><enter><wait5>",
+                "/install/vmlinuz noapic ",
+                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/{{user `template_name`}}.preseed ",
+                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+                "hostname={{user `template_name`}} ",
+                "fb=false debconf/frontend=noninteractive ",
+                "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+                "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+                "initrd=/install/initrd.gz -- <enter>"
+            ]
+        }
+    ],
+    "provisioners":
+    [
         {
             "type": "file",
             "source": "files/99-disable-ipv6-tempaddr.conf",
@@ -77,12 +83,13 @@
         },
         {
             "type": "shell",
-            "scripts": [
+            "scripts":
+            [
                 "scripts/base.sh",
                 "scripts/cleanup.sh",
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         }
-  ]
+    ]
 }
