@@ -10,7 +10,7 @@ Packer version >= 0.8.5 is required
 
 Run `./build.sh` to get the usage info. 
 
-All templates can be found in templates/ directory.
+All templates can be found in `templates/` directory.
 
 ## Examples
 
