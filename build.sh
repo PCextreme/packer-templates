@@ -6,6 +6,8 @@
 #
 # Running build.sh without any arguments will show the help
 
+EXIT_CODE=0
+
 if [ $# == 0 ]; then
     echo ""
     echo " Usage:"
@@ -31,13 +33,11 @@ if [ $# -gt 1 ]; then
             ;;
         esac
     done
-    
+
 fi
 
 TEMPLATE_ARGUMENT=$1
-
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
 TEMPLATES_DIR="${SCRIPT_DIR}/templates"
 
 PACKER=$(which packer)
@@ -61,49 +61,49 @@ build_template(){
     local TEMPLATE_NAME=$1
     local TEMPLATE_DIR_DISPLAY="templates/$TEMPLATE_NAME"
     local RETURN_CODE=0
-    
+
     echo "Info: Entering directory $TEMPLATE_DIR_DISPLAY"
     cd "$TEMPLATES_DIR/$TEMPLATE_NAME"
-    
+
     if [ -d "packer_output" ]; then
         echo "Info: Folder packer_output exists. Removing folder."
         rm -fr packer_output
     fi
-    
+
     echo "Info: Generating meta.data file."
     ../../scripts/gen-metadata.sh ../../httpdir/meta.data
-    
+
     echo "Info: Starting Packer.IO build of $TEMPLATE_DIR_DISPLAY/template.json."
     packer build \
         -var "ncpu=$GOMAXPROCS" \
         -var "template_name=$TEMPLATE_NAME" \
         template.json
-        
+
     if [ ! $? -eq 0 ]; then
         echo "Error: Packer.IO build unsuccesfull, stopping."
         RETURN_CODE=1
     else
         echo "Info: Converting template packer_output/$TEMPLATE_NAME to $TEMPLATE_NAME.qcow2."
         qemu-img convert -c -f qcow2 -O qcow2 packer_output/$TEMPLATE_NAME $TEMPLATE_NAME.qcow2
-        
+
         if [ ! $? -eq 0 ]; then
             echo "Error: qemu-img failed to convert template."
             RETURN_CODE=1
         fi
     fi
-    
+
     if [ -d "packer_output" ]; then
         echo "Info: Removing temporary folder packer_output"
         rm -fr packer_output
     fi
-    
+
     if [ $REMOVE_CACHE == 1 ]; then
         if [ -d "packer_cache" ]; then
             echo "Info: Removing cached iso and folder packer_cache."
             rm -rf packer_cache
         fi
     fi
-    
+
     return $RETURN_CODE
 }
 
@@ -111,25 +111,32 @@ build_template(){
 if [ $TEMPLATE_ARGUMENT == '--all' ]; then
     echo "Info: Building all!"
     cd $TEMPLATES_DIR
-    
+
     for TEMPLATE in $(find $TEMPLATES_DIR -maxdepth 1 -mindepth 1 -type d -printf "%f\n"); do
         cd $TEMPLATE
         if [ -f "template.json" ]; then
             build_template $TEMPLATE
-            
+
             if [ "$?" -ne 0 ]; then
                 echo "Error: Failed to build $TEMPLATE"
+                EXIT_CODE=1
             fi
         fi
         cd $TEMPLATES_DIR
     done
 
-    
 elif [ -f "$TEMPLATES_DIR/$TEMPLATE_ARGUMENT/template.json" ]; then
     echo "Info: Building template $TEMPLATE_ARGUMENT"
     build_template $TEMPLATE_ARGUMENT
 
+    if [ "$?" -ne 0 ]; then
+        echo "Error: Failed to build $TEMPLATE"
+        EXIT_CODE=1
+    fi
+
 else
     echo "Error: Template $TEMPLATE_ARGUMENT doesn't exist!"
-    exit 1
+    EXIT_CODE=1
 fi
+
+exit $EXIT_CODE
