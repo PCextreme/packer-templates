@@ -57,6 +57,9 @@ export GOMAXPROCS=`nproc`
 
 # Fucntions to build template
 build_template(){
+    START_MIN=$(date +%M)
+    START_SEC=$(date +%S)
+
     # First argument passed to build_template is the name.
     local TEMPLATE_NAME=$1
     local TEMPLATE_DIR_DISPLAY="templates/$TEMPLATE_NAME"
@@ -84,7 +87,7 @@ build_template(){
         RETURN_CODE=1
     else
         echo "Info: Converting template packer_output/$TEMPLATE_NAME to $TEMPLATE_NAME.qcow2."
-        qemu-img convert -c -f qcow2 -O qcow2 packer_output/$TEMPLATE_NAME $TEMPLATE_NAME.qcow2
+        qemu-img convert -c -p -f qcow2 -O qcow2 packer_output/$TEMPLATE_NAME $TEMPLATE_NAME.qcow2
 
         if [ ! $? -eq 0 ]; then
             echo "Error: qemu-img failed to convert template."
@@ -103,6 +106,12 @@ build_template(){
             rm -rf packer_cache
         fi
     fi
+
+    END_MIN=$(date +%M)
+    END_SEC=$(date +%S)
+    DIFF_MIN=$(echo "$END_MIN - $START_MIN" | bc)
+    DIFF_SEC=$(echo "$END_SEC - $START_SEC" | bc)
+    echo "Info: Time to build template $TEMPLATE_NAME: $DIFF_MIN minutes $DIFF_SEC seconds"
 
     return $RETURN_CODE
 }
@@ -130,7 +139,7 @@ elif [ -f "$TEMPLATES_DIR/$TEMPLATE_ARGUMENT/template.json" ]; then
     build_template $TEMPLATE_ARGUMENT
 
     if [ "$?" -ne 0 ]; then
-        echo "Error: Failed to build $TEMPLATE"
+        echo "Error: Failed to build $TEMPLATE_ARGUMENT"
         EXIT_CODE=1
     fi
 
