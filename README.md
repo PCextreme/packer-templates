@@ -8,7 +8,7 @@ Packer version >= 0.8.5 is required
 
 ## Usage
 
-Run `./build.sh` to get the usage info. 
+Run `./build.sh -h` to get the usage info.
 
 All templates can be found in `templates/` directory.
 
@@ -17,15 +17,17 @@ All templates can be found in `templates/` directory.
 To build a single template:
 
 ```
-$ ./build.sh ubuntu1404
+$ ./build.sh -t ubuntu1404
 ```
 
 To build all templates:
 
 ```
-$ ./build.sh --all
+$ ./build.sh -a
 ```
 
 ## Requirements
 
 Make sure that `packer`, `qemu-img` and `qemu-system` are installed. Packer can be obtained from [Packer.io](https://packer.io/). Unzip and place in `/usr/local/sbin` or `~/sbin`.
+
+If you want to use the functionality to upload to S3 you will need to have `s3cmd` installed and configured.
