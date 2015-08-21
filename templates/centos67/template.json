@@ -1,73 +1,84 @@
 {
-  "builders": [
+    "variables":
     {
-      "type": "qemu",
-      "iso_url": "http://mirror.pcextreme.nl/centos/6/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
-      "iso_checksum": "9381a24b8bee2fed0c26896141a64b69",
-      "iso_checksum_type": "md5",
-      "output_directory": "packer_output",
-      "ssh_wait_timeout": "30s",
-      "shutdown_command": "shutdown -P now",
-      "disk_size": 20480,
-      "format": "qcow2",
-      "accelerator": "kvm",
-      "headless": "false",
-      "qemuargs": [
-        [ "-smp" , "2"]
-      ],
-      "http_directory": "../../httpdir",
-      "http_port_min": 10082,
-      "http_port_max": 10089,
-      "ssh_host_port_min": 2222,
-      "ssh_host_port_max": 2229,
-      "ssh_username": "root",
-      "ssh_password": "installer",
-      "ssh_port": 22,
-      "ssh_wait_timeout": "90m",
-      "vm_name": "centos67",
-      "net_device": "virtio-net",
-      "disk_interface": "virtio",
-      "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos67.ks<enter><wait>"
-      ]
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "file",
-      "source": "files/cloud-set-guest-password-centos",
-      "destination": "/etc/init.d/cloud-set-guest-password"
+        "ncpu": "",
+        "template_name": ""
     },
-    {
-      "type": "shell",
-      "scripts": [
-        "scripts/base.sh",
-        "scripts/packages.sh"
-      ],
-      "execute_command": "sh '{{.Path}}'"
-    },
-    {
-      "type": "file",
-      "source": "files/80_users.cfg",
-      "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
-    },
-    {
-      "type": "file",
-      "source": "files/99_cloudstack.cfg",
-      "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
-    },
-    {
-      "type": "file",
-      "source": "../../httpdir/meta.data",
-      "destination": "/var/opt/aurora-build-metadata.txt"
-    },
-    {
-      "type": "shell",
-      "scripts": [
-        "scripts/cleanup.sh",
-        "../../scripts/zerodisk.sh"
-      ],
-      "execute_command": "sh '{{.Path}}'"
-    }
-  ]
+    "builders":
+    [
+        {
+            "type": "qemu",
+            "iso_url": "http://mirror.pcextreme.nl/centos/6/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+            "iso_checksum": "9381a24b8bee2fed0c26896141a64b69",
+            "iso_checksum_type": "md5",
+            "output_directory": "packer_output",
+            "ssh_wait_timeout": "30s",
+            "shutdown_command": "shutdown -P now",
+            "disk_size": 20480,
+            "format": "qcow2",
+            "accelerator": "kvm",
+            "headless": "true",
+            "qemuargs":
+            [
+                [ "-smp" , "{{user `ncpu`}}" ]
+            ],
+            "http_directory": "../../httpdir",
+            "http_port_min": 10082,
+            "http_port_max": 10089,
+            "ssh_host_port_min": 2222,
+            "ssh_host_port_max": 2229,
+            "ssh_username": "root",
+            "ssh_password": "installer",
+            "ssh_port": 22,
+            "ssh_wait_timeout": "90m",
+            "vm_name": "{{user `template_name`}}",
+            "net_device": "virtio-net",
+            "disk_interface": "virtio",
+            "boot_command":
+            [
+                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"
+            ]
+        }
+    ],
+    "provisioners":
+    [
+        {
+            "type": "file",
+            "source": "files/cloud-set-guest-password-centos",
+            "destination": "/etc/init.d/cloud-set-guest-password"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/base.sh",
+                "scripts/packages.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "files/80_users.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/99_cloudstack.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
+        },
+        {
+            "type": "file",
+            "source": "../../httpdir/meta.data",
+            "destination": "/var/opt/aurora-build-metadata.txt"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/cleanup.sh",
+                "../../scripts/zerodisk.sh"
+            ],
+        "execute_command": "sh '{{.Path}}'"
+        }
+    ]
 }
