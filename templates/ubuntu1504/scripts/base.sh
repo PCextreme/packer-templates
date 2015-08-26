@@ -4,6 +4,9 @@ echo "updating the machine"
 apt-get update
 apt-get -y dist-upgrade
 
+echo "installing packages"
+apt-get -y install at binutils byobu curl dstat fping git htop iftop incron iotop ipset jq lsof mc mtr ncdu nmap pciutils rsync screen sl strace tcpdump unzip util-linux whois uuid wget acpid apparmor-utils apparmor-profiles apt-file dnsutils conntrack iptraf vim lsb-release xfsprogs apt-transport-https software-properties-common sysstat python-software-properties
+
 echo "installing cloud-set-guest-password"
 chmod +x /etc/init.d/cloud-set-guest-password
 update-rc.d cloud-set-guest-password defaults
