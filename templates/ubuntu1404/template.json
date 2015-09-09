@@ -58,8 +58,8 @@
         },
         {
             "type": "file",
-            "source": "files/cloud-set-guest-password-ubuntu",
-            "destination": "/etc/init.d/cloud-set-guest-password"
+            "source": "files/cloud.cfg",
+            "destination": "/etc/cloud/cloud.cfg.custom"
         },
         {
             "type": "file",

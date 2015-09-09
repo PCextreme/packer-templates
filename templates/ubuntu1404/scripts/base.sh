@@ -10,9 +10,8 @@ apt-get -y install at binutils byobu curl dstat fping git htop iftop incron ioto
 echo "install cloud-init"
 apt-get -y install cloud-init
 
-#echo "installing cloud-set-guest-password"
-#chmod +x /etc/init.d/cloud-set-guest-password
-#update-rc.d cloud-set-guest-password defaults
+echo "Moving cloud-init config file"
+mv /etc/cloud/cloud.cfg.custom /etc/cloud/cloud.cfg
 
 echo "setting noatime option"
 sed -i 's|errors=remount-ro|errors=remount-ro,noatime|g' /etc/fstab
@@ -30,4 +29,3 @@ update-grub2
 
 echo "Prioritizing IPv6 resolvers"
 sed -i '2i 000.*' /etc/resolvconf/interface-order
-
