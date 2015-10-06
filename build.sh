@@ -12,10 +12,11 @@ EXIT_CODE=0
 usage(){
     echo ""
     echo " Usage:"
-    echo "        $0 [-a] [-c] [-d] [-h] [-r] [-t TEMPLATE ] [-u BUCKET]"
+    echo "        $0 [-a] [-c] [-d] [-h] [-r] [-s SIZE] [-t TEMPLATE ] [-u BUCKET]"
     echo ""
     echo " Parameters: (required)"
     echo "        -a                   Will build all the templates. [Cannot be used in combination with -t]"
+    echo "        -s SIZE              Will build the template with this size. In MB, 1024 MB == 1 GB."
     echo "        -t TEMPLATE          Will build the specified template. [Cannot be used in combination with -a]"
     echo ""
     echo " Options:"
@@ -34,6 +35,7 @@ if [ $# == 0 ]; then
 fi
 
 # Set all options to false.
+DISK_SIZE=0
 REMOVE_CACHE=0
 REMOVE_QCOW=0
 UPLOAD_S3=0
@@ -44,7 +46,7 @@ BUILD_ALL=0
 DEBUG=0
 
 # Loop over all arguments.
-while getopts ":u:t:acdrh" OPT; do
+while getopts ":s:u:t:acdrh" OPT; do
     case $OPT in
     a)
         BUILD_ALL=1
@@ -60,6 +62,9 @@ while getopts ":u:t:acdrh" OPT; do
         ;;
     r)
         REMOVE_QCOW=1
+        ;;
+    s)
+        DISK_SIZE=$OPTARG
         ;;
     t)
         BUILD_TEMPLATE=1
@@ -81,9 +86,16 @@ if [ $BUILD_ALL -eq $BUILD_TEMPLATE ]; then
     usage
 fi
 
+# If disk size is equal to zero, show usage.
+if [ $DISK_SIZE -eq 0 ]; then
+    echo "Error: Must define disk size."
+    usage
+fi
+
 # DEBUG
 if [ $DEBUG -eq 1 ]; then
     echo ""
+    echo "DEBUG: DISK_SIZE: $DISK_SIZE"
     echo "DEBUG: REMOVE_CACHE: $REMOVE_CACHE"
     echo "DEBUG: REMOVE_QCOW: $REMOVE_QCOW"
     echo "DEBUG: UPLOAD_S3: $UPLOAD_S3"
@@ -134,6 +146,7 @@ build_template(){
 
     echo "Info: Starting Packer.IO build of $TEMPLATE_DIR_DISPLAY/template.json."
     packer build \
+        -var "disk_size=$DISK_SIZE" \
         -var "ncpu=$GOMAXPROCS" \
         -var "template_name=$TEMPLATE_NAME" \
         template.json
