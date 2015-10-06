@@ -2,7 +2,8 @@
     "variables":
     {
         "ncpu": "",
-        "template_name": ""
+        "template_name": "",
+        "disk_size": ""
     },
     "builders":
     [
@@ -14,7 +15,7 @@
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
             "shutdown_command": "systemctl poweroff",
-            "disk_size": 20480,
+            "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
             "headless": "true",
