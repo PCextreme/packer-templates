@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://debian.apt-get.eu/cd/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso",
-            "iso_checksum": "762eb3dfc22f85faf659001ebf270b4f",
+            "iso_url": "http://debian.apt-get.eu/cd-image/7.9.0/amd64/iso-cd/debian-7.9.0-amd64-netinst.iso",
+            "iso_checksum": "774d1fc8c5364e63b22242c33a89c1a3",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
@@ -35,7 +35,6 @@
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio",
-            "boot_wait": "15s",
             "boot_command":
             [
                 "<esc><wait5>",
@@ -68,7 +67,8 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh"
+                "scripts/base.sh",
+                "scripts/packages.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
@@ -82,7 +82,7 @@
             "source": "files/80_users.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
         },
-                {
+        {
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
