@@ -9,12 +9,12 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://debian.apt-get.eu/cd-images/7.8.0/amd64/iso-cd/debian-7.8.0-amd64-netinst.iso",
-            "iso_checksum": "a91fba5001cf0fbccb44a7ae38c63b6e",
+            "iso_url": "http://apt-get.eu/centos/7.2.1511/isos/x86_64/CentOS-7-x86_64-NetInstall-1511.iso",
+            "iso_checksum": "99d305fa40ec9e28ef8450c3bcc45f85",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
-            "shutdown_command": "/sbin/shutdown -hP now",
+            "shutdown_command": "systemctl poweroff",
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
@@ -37,45 +37,29 @@
             "disk_interface": "virtio",
             "boot_command":
             [
-                "<esc><wait5>",
-                "install <wait>",
-                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/{{user `template_name`}}.preseed ",
-                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-                "keyboard-configuration/xkb-keymap=us ",
-                "netcfg/get_hostname={{user `template_name`}} ",
-                "netcfg/get_domain=auroracompute.com ",
-                "fb=false debconf/frontend=noninteractive ",
-                "console-setup/ask_detect=false <wait>",
-                "console-keymaps-at/keymap=us <wait>",
-                "<enter>"
+                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"
             ]
         }
     ],
     "provisioners":
     [
         {
-            "type": "file",
-            "source": "files/99-disable-ipv6-tempaddr.conf",
-            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
-        },
-        {
-            "type": "file",
-            "source": "files/cloud-set-guest-password-debian",
-            "destination": "/etc/network/if-up.d/cloud-set-guest-password"
-        },
-        {
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh",
-                "scripts/packages.sh"
+                "scripts/base.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
         {
             "type": "file",
-            "source": "files/70_apt.cfg",
-            "destination": "/etc/cloud/cloud.cfg.d/70_apt.cfg"
+            "source": "files/cloud-set-guest-password-centos",
+            "destination": "/usr/lib/systemd/scripts/cloud-set-guest-password"
+        },
+        {
+            "type": "file",
+            "source": "files/cloud-set-guest-password.service",
+            "destination": "/etc/systemd/system/cloud-set-guest-password.service"
         },
         {
             "type": "file",
@@ -96,6 +80,7 @@
             "type": "shell",
             "scripts":
             [
+                "scripts/scripts.sh",
                 "scripts/cleanup.sh",
                 "../../scripts/zerodisk.sh"
             ],
