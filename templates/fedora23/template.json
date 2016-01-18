@@ -10,7 +10,7 @@
         {
             "type": "qemu",
             "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/23/Server/x86_64/iso/Fedora-Server-netinst-x86_64-23.iso",
-            "iso_checksum": "30758dc821d1530de427c9e35212bd79b058bd4282e64b7b34ae1a40c87c05ae",
+            "iso_checksum": "32e0a15a1c71d0e2fd36a0af5b67a3b3af82976d2dfca0aefcb90d42f2ae6844",
             "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
