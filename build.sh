@@ -103,6 +103,7 @@ if [ $DEBUG -eq 1 ]; then
     echo "DEBUG: DISK_SIZE: $DISK_SIZE"
     echo "DEBUG: REMOVE_CACHE: $REMOVE_CACHE"
     echo "DEBUG: REMOVE_QCOW: $REMOVE_QCOW"
+    echo "DEBUG: HEADLESS: $HEADLESS"
     echo "DEBUG: UPLOAD_S3: $UPLOAD_S3"
     echo "DEBUG: S3_BUCKET: $S3_BUCKET"
     echo "DEBUG: BUILD_TEMPLATE: $BUILD_TEMPLATE"
@@ -154,6 +155,7 @@ build_template(){
         -var "disk_size=$DISK_SIZE" \
         -var "ncpu=$GOMAXPROCS" \
         -var "template_name=$TEMPLATE_NAME" \
+        -var "headless=$HEADLESS" \
         template.json
 
     if [ ! $? -eq 0 ]; then
