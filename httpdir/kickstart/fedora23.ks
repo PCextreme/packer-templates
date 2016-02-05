@@ -1,8 +1,6 @@
 install
-repo --name=base --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
-repo --name=updates --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
-repo --name=extras --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
-url --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
+repo --name=fedora --mirrorlist https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
+url --mirrorlist https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
 eula --agreed
 
 lang en_US.UTF-8
@@ -10,9 +8,8 @@ keyboard us
 timezone --utc Europe/Amsterdam
 
 network --onboot yes --device eth0 --bootproto dhcp
-network  --hostname=centos7
+network  --hostname=fedora22
 firewall --enabled --service=ssh
-services --enabled=chronyd,rdisc
 
 auth --useshadow --enablemd5
 authconfig --enableshadow --passalgo=sha512
@@ -27,13 +24,11 @@ zerombr
 
 clearpart --all --initlabel
 
-part / --fstype ext4 --size=1 --grow
+part / --size=1 --grow
 part swap --size=512
 
-%packages --nobase --ignoremissing
+%packages --ignoremissing
 @core
-@base
-deltarpm
 %end
 
 %post

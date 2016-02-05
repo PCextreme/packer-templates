@@ -18,7 +18,7 @@
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
-            "headless": "true",
+            "headless": "{{user `headless`}}",
             "qemuargs":
             [
                 [ "-smp" , "{{user `ncpu`}}"]
@@ -31,13 +31,13 @@
             "ssh_username": "root",
             "ssh_password": "installer",
             "ssh_port": 22,
-            "ssh_wait_timeout": "90m",
+            "ssh_wait_timeout": "180m",
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio",
             "boot_command":
             [
-                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"
+                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks <enter><wait>"
             ]
         }
     ],
@@ -48,7 +48,6 @@
             "scripts":
             [
                 "scripts/base.sh",
-                "scripts/packages.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
