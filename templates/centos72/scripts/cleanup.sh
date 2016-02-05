@@ -2,6 +2,9 @@
 
 unset HISTFILE
 
+echo "Clean dnf cache"
+dnf -y clean all
+
 echo "Remove DHCP leases"
 rm -f /var/lib/NetworkManager/*.lease
 

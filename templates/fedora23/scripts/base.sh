@@ -27,4 +27,4 @@ TOGRUB
 grub2-mkconfig > /boot/grub2/grub.cfg
 
 echo "Do not use IPv4 DHCP DNS"
-sed -i 's|^PEERDNS=yes|PEERDNS=no|g' /etc/sysconfig/network-scripts/ifcfg-eth0
+sed -i 's|^PEERDNS=yes|PEERDNS=no|g' /etc/sysconfig/network-scripts/ifcfg-e*
