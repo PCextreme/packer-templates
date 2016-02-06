@@ -9,7 +9,7 @@ echo "Remove DHCP leases"
 rm -f /var/lib/NetworkManager/*.lease
 
 echo "Clean udev rules"
-sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
+sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-e*
 
 echo "Remove SSH host keys"
 rm -f /etc/ssh/ssh_host*key*

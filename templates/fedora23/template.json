@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/22/Server/x86_64/iso/Fedora-Server-netinst-x86_64-22.iso",
-            "iso_checksum": "9f1f2f19f75cc3b97da41878b5c86188fa8d27ed446bd97d9df615c137c77cfc",
+            "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/23/Server/x86_64/iso/Fedora-Server-netinst-x86_64-23.iso",
+            "iso_checksum": "32e0a15a1c71d0e2fd36a0af5b67a3b3af82976d2dfca0aefcb90d42f2ae6844",
             "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
@@ -18,7 +18,7 @@
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
-            "headless": "true",
+            "headless": "{{user `headless`}}",
             "qemuargs":
             [
                 [ "-smp" , "{{user `ncpu`}}"]
@@ -31,13 +31,13 @@
             "ssh_username": "root",
             "ssh_password": "installer",
             "ssh_port": 22,
-            "ssh_wait_timeout": "90m",
+            "ssh_wait_timeout": "180m",
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio",
             "boot_command":
             [
-                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"
+                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks <enter><wait>"
             ]
         }
     ],
@@ -47,8 +47,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh",
-                "scripts/packages.sh"
+                "scripts/base.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },

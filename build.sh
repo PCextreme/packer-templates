@@ -12,7 +12,7 @@ EXIT_CODE=0
 usage(){
     echo ""
     echo " Usage:"
-    echo "        $0 [-a] [-c] [-d] [-h] [-r] [-s SIZE] [-t TEMPLATE ] [-u BUCKET]"
+    echo "        $0 [-a] [-c] [-d] [-n] [-h] [-r] [-s SIZE] [-t TEMPLATE ] [-u BUCKET]"
     echo ""
     echo " Parameters: (required)"
     echo "        -a                   Will build all the templates. [Cannot be used in combination with -t]"
@@ -22,6 +22,7 @@ usage(){
     echo " Options:"
     echo "        -c                   Will remove cached iso."
     echo "        -d                   Will show debug info."
+    echo "        -n                   Will disable headless build"
     echo "        -h                   Will show this."
     echo "        -r                   Will remove qcow on finish."
     echo "        -u BUCKET            Will upload the template to the specified S3 bucket when build successfull."
@@ -44,9 +45,10 @@ BUILD_TEMPLATE=0
 BUILD_TEMPLATE_NAME=0
 BUILD_ALL=0
 DEBUG=0
+HEADLESS=1
 
 # Loop over all arguments.
-while getopts ":s:u:t:acdrh" OPT; do
+while getopts ":s:u:t:acdrnh" OPT; do
     case $OPT in
     a)
         BUILD_ALL=1
@@ -56,6 +58,9 @@ while getopts ":s:u:t:acdrh" OPT; do
         ;;
     d)
         DEBUG=1
+        ;;
+    n)
+        HEADLESS=0
         ;;
     h)
         usage
@@ -98,6 +103,7 @@ if [ $DEBUG -eq 1 ]; then
     echo "DEBUG: DISK_SIZE: $DISK_SIZE"
     echo "DEBUG: REMOVE_CACHE: $REMOVE_CACHE"
     echo "DEBUG: REMOVE_QCOW: $REMOVE_QCOW"
+    echo "DEBUG: HEADLESS: $HEADLESS"
     echo "DEBUG: UPLOAD_S3: $UPLOAD_S3"
     echo "DEBUG: S3_BUCKET: $S3_BUCKET"
     echo "DEBUG: BUILD_TEMPLATE: $BUILD_TEMPLATE"
@@ -149,6 +155,7 @@ build_template(){
         -var "disk_size=$DISK_SIZE" \
         -var "ncpu=$GOMAXPROCS" \
         -var "template_name=$TEMPLATE_NAME" \
+        -var "headless=$HEADLESS" \
         template.json
 
     if [ ! $? -eq 0 ]; then
