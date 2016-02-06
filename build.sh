@@ -8,7 +8,7 @@
 
 EXIT_CODE=0
 
-# Fucntions to display usage.
+# Functions to display usage.
 usage(){
     echo ""
     echo " Usage:"
@@ -130,7 +130,7 @@ fi
 # Export environment variable GOMAXPROCS
 export GOMAXPROCS=`nproc`
 
-# Fucntions to build template
+# Functions to build template
 build_template(){
     START_MIN=$(date +%s)
 
