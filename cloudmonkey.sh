@@ -7,8 +7,6 @@ set -e
 # Usage example:
 # ./cloudmonkey.sh -t centos72 -u http://o.auroraobjects.eu/{bucket}
 
-EXIT_CODE=0
-
 # Functions to display usage.
 usage(){
     echo ""
@@ -157,7 +155,6 @@ if [ $UPLOAD_ALL -eq 1 ]; then
 
             if [ "$?" -ne 0 ]; then
                 echo "Error: Failed to upload $TEMPLATE"
-                EXIT_CODE=1
             fi
         fi
         cd $TEMPLATES_DIR
@@ -169,12 +166,8 @@ elif [ -f "$TEMPLATES_DIR/$TEMPLATE/cloudmonkey.conf" ]; then
 
     if [ "$?" -ne 0 ]; then
         echo "Error: Failed to upload $TEMPLATE"
-        EXIT_CODE=1
     fi
 
 else
     echo "Error: Template $TEMPLATE doesn't exist!"
-    EXIT_CODE=1
 fi
-
-exit $EXIT_CODE
