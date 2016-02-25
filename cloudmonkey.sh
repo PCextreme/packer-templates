@@ -11,12 +11,13 @@ set -e
 usage(){
     echo ""
     echo " Usage:"
-    echo "        $0 [-a] [-t TEMPLATE_NAME ] [-u URL ] [-r] [-d] [-h]"
+    echo "        $0 [-a] [-t TEMPLATE_NAME ] [-u URL ] [-s SIZE] [-r] [-d] [-h]"
     echo ""
     echo " Parameters: (required)"
     echo "        -a                 Uploads all templates."
     echo "        -t TEMPLATE        Uploads a single template. Cannot be combined with -a."
     echo "        -u URL             HTTP folder URL where templates can be downloaded from."
+    echo "        -s SIZE            Size of the template that will be added"
     echo ""
     echo " Options:"
     echo "        -r                 Unfeatures the older version of the template, if found."
@@ -39,7 +40,7 @@ UNFEATURE=0
 DEBUG=0
 
 # Loop over all arguments.
-while getopts ":t:u:ardh" OPT; do
+while getopts ":t:u:s:ardh" OPT; do
     case $OPT in
     a)
         UPLOAD_ALL=1
@@ -53,6 +54,9 @@ while getopts ":t:u:ardh" OPT; do
         ;;
     r)
         UNFEATURE=1
+        ;;
+    s)
+        SIZE=$OPTARG
         ;;
     d)
         DEBUG=1
@@ -79,6 +83,7 @@ if [ $DEBUG -eq 1 ]; then
     echo "DEBUG: SINGLE: $SINGLE"
     echo "DEBUG: TEMPLATE: $TEMPLATE"
     echo "DEBUG: DOWNLOAD_URL: $DOWNLOAD_URL"
+    echo "DEBUG: SIZE: $SIZE"
     echo "DEBUG: UNFEATURE: $UNFEATURE"
     echo "DEBUG: DEBUG: $DEBUG"
     echo ""
@@ -86,6 +91,11 @@ fi
 
 if [ -z $DOWNLOAD_URL ]; then
     echo "Error: Must define a valid URL"
+    usage
+fi
+
+if [ -z $SIZE ]; then
+    echo "Error: You must specify the size of the template that will be added"
     usage
 fi
 
@@ -125,14 +135,14 @@ upload_template(){
     echo "Info: Found ostypeid ${ostypeid}"
 
     echo "Info: Adding $TEMPLATE_NAME"
-    added=$(cloudmonkey register template name="${name}" displaytext="${displaytext}" isextractable=${extractable} isfeatured=${featured} ispublic=${public} passwordenabled=${passwordenabled} ostypeid=${ostypeid} format=${format} hypervisor=${hypervisor} zoneid=${zoneid} url="${DOWNLOAD_URL}/${TEMPLATE_NAME}.qcow2" | awk '/^id =/ {print $3}')
+    added=$(cloudmonkey register template name="${name}" displaytext="${SIZE}" isextractable=${extractable} isfeatured=${featured} ispublic=${public} passwordenabled=${passwordenabled} ostypeid=${ostypeid} format=${format} hypervisor=${hypervisor} zoneid=${zoneid} url="${DOWNLOAD_URL}/${TEMPLATE_NAME}.qcow2" | awk '/^id =/ {print $3}')
 
     echo "Info: Adding tags to $TEMPLATE_NAME"
-    tags=$(cloudmonkey create tags resourcetype=template resourceids=$added tags[0].key=oscategory tags[0].value=$oscategory tags[1].key=osversion tags[1].value=$osversion | awk '/^id =/ {print $3}')
+    tags=$(cloudmonkey create tags resourcetype=template resourceids=$added tags[0].key=oscategory tags[0].value=$oscategory tags[1].key=osversion tags[1].value=$osversion tags[2].key=size tags[2].value=$SIZE | awk '/^id =/ {print $3}')
 
     if [ $UNFEATURE -eq 1 ]; then
       echo "Info: Searching for old template  -> $name"
-      old=$(cloudmonkey list templates name="$name" templatefilter=featured | awk '/^id =/ {print $3}')
+      old=$(cloudmonkey list templates name="$name" templatefilter=featured tags[0].key=size tags[0].value=$SIZE | awk '/^id =/ {print $3}')
 
       if [ -z "${old}" ]; then
           echo "Warning: Could not find old template"
