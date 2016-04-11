@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://debian.apt-get.eu/cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
-            "iso_checksum": "a9b490b4215d1e72e876b031dafa7184",
+            "iso_url": "http://cdimage.debian.org/debian-cd/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-netinst.iso",
+            "iso_checksum": "8d52d1b7789cd5a464aae719f05299ec",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
