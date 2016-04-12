@@ -18,6 +18,7 @@
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
+            "headless": "true",
             "qemuargs":
             [
                 [ "-smp" , "{{user `ncpu`}}" ]
