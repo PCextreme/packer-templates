@@ -18,7 +18,6 @@
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
-            "headless": "true",
             "qemuargs":
             [
                 [ "-smp" , "{{user `ncpu`}}" ]
@@ -35,7 +34,7 @@
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio",
-            "boot_wait": "15s",
+            "boot_wait": "30s",
             "boot_command":
             [
                 "<esc><wait5>",
