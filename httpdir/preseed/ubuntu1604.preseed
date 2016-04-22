@@ -60,7 +60,7 @@ d-i pkgsel/update-policy select unattended-upgrades
 d-i pkgsel/upgrade select full-upgrade
 
 # Update sshd_config to ensure root user is able to login
-d-i preseed/late_command string sed -i 's/PermitRootLogin.*/PermitRootLogin yes/g' /target/etc/ssh/sshd_config
+d-i preseed/late_command string sed -i 's/^PermitRootLogin \(without\|prohibit\)-password/PermitRootLogin yes/' /target/etc/ssh/sshd_config
 
 # Bootloader
 d-i grub-installer/only_debian boolean true
