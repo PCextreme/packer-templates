@@ -9,7 +9,7 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://debian.apt-get.eu/cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
+            "iso_url": "http://debian.apt-get.eu/cd-image/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
             "iso_checksum": "a9b490b4215d1e72e876b031dafa7184",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
