@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 # First argument must be the name for the template to build or all.
 # eg. build.sh ubuntu1404 -r
 # eg. build.sh --all
