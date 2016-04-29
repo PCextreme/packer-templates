@@ -104,11 +104,6 @@
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
-        },
-        {
-            "type": "file",
-            "source": "files/DataSourceCloudStack.py",
-            "destination": "/usr/lib/python3/dist-packages/cloudinit/sources/DataSourceCloudStack.py"
         }
     ]
 }
