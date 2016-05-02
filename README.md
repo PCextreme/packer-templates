@@ -28,5 +28,17 @@ Make sure that `packer`, `qemu-img` and `qemu-system` are installed. Packer can 
 
 If you want to use the functionality to upload to S3 you will need to have `s3cmd` installed and configured.
 
+## Downloads
+At PCextreme we use [Jenkins](https://jenkins.io/) to automatically build the templates from this Git repository.
+
+The results are afterwards uploaded to [AuroraObjects](https://www.pcextreme.com/aurora/objects) from where they are available to download.
+
+Take the Ubuntu 16.04 template for example, both the 20G and 50G version can be downloaded:
+
+* http://o.auroraobjects.eu/packer20G/ubuntu1604.qcow2
+* http://o.auroraobjects.eu/packer50G/ubuntu1604.qcow2
+
+You can replace *ubuntu1604* by any directory found in the *templates* directory.
+
 ## License
 Apache License. Please see [License File](LICENSE) for more information.
