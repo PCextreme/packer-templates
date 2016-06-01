@@ -5,7 +5,7 @@ apt-get update
 apt-get -y dist-upgrade
 
 echo "installing packages"
-apt-get -y install at binutils byobu curl dstat fping git htop iftop incron iotop ipset jq lsof mc mtr ncdu nmap pciutils rsync screen sl strace tcpdump unzip util-linux whois uuid wget acpid apparmor-utils apparmor-profiles apt-file dnsutils conntrack iptraf vim lsb-release xfsprogs apt-transport-https software-properties-common sysstat python-software-properties rdnssd qemu-guest-agent
+apt-get -y install at binutils byobu curl dstat fping git htop iftop incron iotop ipset jq lsof mc mtr ncdu nmap pciutils rsync screen sl strace tcpdump unzip util-linux whois uuid wget acpid apparmor-utils apparmor-profiles apt-file dnsutils conntrack iptraf vim lsb-release xfsprogs apt-transport-https software-properties-common sysstat python-software-properties rdnssd qemu-guest-agent watchdog
 
 echo "install cloud-init"
 apt-get -y install cloud-init
@@ -59,3 +59,6 @@ echo "iface ${IFACE} inet6 auto" >> /etc/network/interfaces
 echo "# To enable IPv6 Prefix Delegation uncomment the lines below" >> /etc/network/interfaces
 echo "#    dhcp 1" >> /etc/network/interfaces
 echo "#    request_prefix 1" >> /etc/network/interfaces
+
+echo "Making sure i6300esb Watchdog is loaded"
+echo i6300esb >> /etc/modules
