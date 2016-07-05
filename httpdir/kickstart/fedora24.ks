@@ -8,7 +8,7 @@ keyboard us
 timezone --utc Europe/Amsterdam
 
 network --onboot yes --device eth0 --bootproto dhcp
-network  --hostname=fedora23
+network  --hostname=fedora24
 firewall --enabled --service=ssh
 
 auth --useshadow --enablemd5

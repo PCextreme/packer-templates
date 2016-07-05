@@ -9,19 +9,19 @@
     [
         {
             "type": "qemu",
-            "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/23/Server/x86_64/iso/Fedora-Server-netinst-x86_64-23.iso",
-            "iso_checksum": "32e0a15a1c71d0e2fd36a0af5b67a3b3af82976d2dfca0aefcb90d42f2ae6844",
-            "iso_checksum_type": "sha256",
+            "iso_url": "http://debian.apt-get.eu/cd-image/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-netinst.iso",
+            "iso_checksum": "8d52d1b7789cd5a464aae719f05299ec",
+            "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
-            "shutdown_command": "systemctl poweroff",
+            "shutdown_command": "/sbin/shutdown -hP now",
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
-            "headless": "{{user `headless`}}",
+            "headless": "true",
             "qemuargs":
             [
-                [ "-smp" , "{{user `ncpu`}}"]
+                [ "-smp" , "{{user `ncpu`}}" ]
             ],
             "http_directory": "../../httpdir",
             "http_port_min": 10082,
@@ -31,18 +31,39 @@
             "ssh_username": "root",
             "ssh_password": "installer",
             "ssh_port": 22,
-            "ssh_wait_timeout": "180m",
+            "ssh_wait_timeout": "90m",
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio",
+            "boot_wait": "15s",
             "boot_command":
             [
-                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks <enter><wait>"
+                "<esc><wait5>",
+                "install <wait>",
+                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/{{user `template_name`}}.preseed ",
+                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+                "keyboard-configuration/xkb-keymap=us ",
+                "netcfg/get_hostname={{user `template_name`}} ",
+                "netcfg/get_domain=auroracompute.com ",
+                "fb=false debconf/frontend=noninteractive ",
+                "console-setup/ask_detect=false <wait>",
+                "console-keymaps-at/keymap=us <wait>",
+                "<enter>"
             ]
         }
     ],
     "provisioners":
     [
+        {
+            "type": "file",
+            "source": "files/99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
+            "type": "file",
+            "source": "files/cloud-set-guest-password-debian",
+            "destination": "/etc/network/if-up.d/cloud-set-guest-password"
+        },
         {
             "type": "shell",
             "scripts":
@@ -53,20 +74,15 @@
         },
         {
             "type": "file",
-            "source": "files/cloud-set-guest-password-fedora",
-            "destination": "/usr/lib/systemd/scripts/cloud-set-guest-password"
-        },
-        {
-            "type": "file",
-            "source": "files/cloud-set-guest-password.service",
-            "destination": "/etc/systemd/system/cloud-set-guest-password.service"
+            "source": "files/70_apt.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/70_apt.cfg"
         },
         {
             "type": "file",
             "source": "files/80_users.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
         },
-        {
+                {
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
@@ -80,7 +96,6 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/scripts.sh",
                 "scripts/cleanup.sh",
                 "../../scripts/zerodisk.sh"
             ],
