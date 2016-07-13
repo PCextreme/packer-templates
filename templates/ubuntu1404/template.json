@@ -91,6 +91,11 @@
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "files/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
         }
     ]
 }
