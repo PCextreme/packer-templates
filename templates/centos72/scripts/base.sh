@@ -31,3 +31,9 @@ sed -i 's|^PEERDNS=yes|PEERDNS=no|g' /etc/sysconfig/network-scripts/ifcfg-eth0
 
 echo "Making sure i6300esb Watchdog is loaded"
 echo i6300esb >> /etc/modules
+
+echo "Enabling watchdog on boot"
+systemctl enable watchdog
+
+echo "Enabling qemu-guest-agent"
+systemctl enable qemu-guest-agent
