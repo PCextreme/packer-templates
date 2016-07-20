@@ -4,7 +4,7 @@ echo "Update packages"
 yum -y upgrade
 
 echo "Install packages"
-yum -y install at binutils curl dstat git iotop ipset lsof mc mtr nmap pciutils rsync screen strace tcpdump unzip util-linux-ng uuid wget acpid policycoreutils policycoreutils-python bind-utils redhat-lsb-core vim-enhanced watchdog
+yum -y install at binutils curl dstat git iotop ipset lsof mc mtr nmap pciutils rsync screen strace tcpdump unzip util-linux-ng uuid wget acpid policycoreutils policycoreutils-python bind-utils redhat-lsb-core vim-enhanced qemu-guest-agent watchdog
 
 echo "Install cloud-set-guest-password"
 chmod +x /etc/init.d/cloud-set-guest-password
@@ -18,3 +18,6 @@ echo i6300esb >> /etc/modules
 
 echo "Enabling watchdog"
 chkconfig watchdog on
+
+echo "Enabling qemu-guest-agent"
+chkconfig qemu-guest-agent on

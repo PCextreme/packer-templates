@@ -34,3 +34,6 @@ echo i6300esb >> /etc/modules
 
 echo "Enabling watchdog on boot"
 systemctl enable watchdog
+
+echo "Enabling qemu-guest-agent"
+systemctl enable qemu-guest-agent
