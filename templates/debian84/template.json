@@ -93,6 +93,11 @@
             "destination": "/var/opt/aurora-build-metadata.txt"
         },
         {
+            "type": "file",
+            "source": "files/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
+        },
+        {
             "type": "shell",
             "scripts":
             [
@@ -100,11 +105,6 @@
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
-        },
-        {
-            "type": "file",
-            "source": "files/watchdog.conf",
-            "destination": "/etc/watchdog.conf"
         }
     ]
 }
