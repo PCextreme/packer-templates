@@ -63,6 +63,11 @@
         },
         {
             "type": "file",
+            "source": "files/cloud-password-fix.pp",
+            "destination": "/tmp/cloud-password-fix.pp"
+        },
+        {
+            "type": "file",
             "source": "files/80_users.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
         },
