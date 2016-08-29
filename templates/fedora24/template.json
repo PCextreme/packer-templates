@@ -9,7 +9,7 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://ftp.nluug.nl/pub/os/Linux/distr/fedora/linux/releases/24/Server/x86_64/iso/Fedora-Server-netinst-x86_64-24-1.2.iso",
+            "iso_url": "https://mirror.i3d.net/pub/fedora/linux/releases/24/Server/x86_64/iso/Fedora-Server-netinst-x86_64-24-1.2.iso",
             "iso_checksum": "071c30520775b3e93bb4c34edab4eab3badc26fbb8473ad3a9458614ba85a4e5",
             "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
