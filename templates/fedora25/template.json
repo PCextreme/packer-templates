@@ -1,0 +1,90 @@
+{
+    "variables":
+    {
+        "ncpu": "",
+        "template_name": "",
+        "disk_size": ""
+    },
+    "builders":
+    [
+        {
+            "type": "qemu",
+            "iso_url": "https://mirror.i3d.net/pub/fedora/linux/releases/25/Server/x86_64/iso/Fedora-Server-netinst-x86_64-25-1.3.iso",
+            "iso_checksum": "86bc3694f4938382753d1e9536f2140a6c9c1978207766340c679a89509073c7",
+            "iso_checksum_type": "sha256",
+            "output_directory": "packer_output",
+            "ssh_wait_timeout": "30s",
+            "shutdown_command": "systemctl poweroff",
+            "disk_size": "{{user `disk_size`}}",
+            "format": "qcow2",
+            "accelerator": "kvm",
+            "headless": "{{user `headless`}}",
+            "qemuargs":
+            [
+                [ "-smp" , "{{user `ncpu`}}"]
+            ],
+            "http_directory": "../../httpdir",
+            "http_port_min": 10082,
+            "http_port_max": 10089,
+            "ssh_host_port_min": 2222,
+            "ssh_host_port_max": 2229,
+            "ssh_username": "root",
+            "ssh_password": "installer",
+            "ssh_port": 22,
+            "ssh_wait_timeout": "180m",
+            "vm_name": "{{user `template_name`}}",
+            "net_device": "virtio-net",
+            "disk_interface": "virtio",
+            "boot_command":
+            [
+                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks <enter><wait>"
+            ]
+        }
+    ],
+    "provisioners":
+    [
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/base.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "files/cloud-set-guest-password-fedora",
+            "destination": "/usr/lib/systemd/scripts/cloud-set-guest-password"
+        },
+        {
+            "type": "file",
+            "source": "files/cloud-set-guest-password.service",
+            "destination": "/etc/systemd/system/cloud-set-guest-password.service"
+        },
+        {
+            "type": "file",
+            "source": "files/80_users.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/99_cloudstack.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
+        },
+        {
+            "type": "file",
+            "source": "../../httpdir/meta.data",
+            "destination": "/var/opt/aurora-build-metadata.txt"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/scripts.sh",
+                "scripts/cleanup.sh",
+                "../../scripts/zerodisk.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        }
+    ]
+}
