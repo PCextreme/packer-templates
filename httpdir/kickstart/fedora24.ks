@@ -1,5 +1,5 @@
 install
-repo --name=fedora --mirrorlist https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
+text
 url --mirrorlist https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
 eula --agreed
 
@@ -7,7 +7,7 @@ lang en_US.UTF-8
 keyboard us
 timezone --utc Europe/Amsterdam
 
-network --onboot yes --device eth0 --bootproto dhcp
+network --onboot yes --device ens3 --bootproto dhcp
 network  --hostname=fedora24
 firewall --enabled --service=ssh
 
@@ -18,13 +18,12 @@ rootpw --plaintext installer
 
 bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet"
 
-text
 skipx
 zerombr
 
 clearpart --all --initlabel
 
-part / --size=1 --grow
+part / --fstype xfs --size=1 --grow
 part swap --size=512
 
 %packages --ignoremissing
@@ -32,9 +31,9 @@ part swap --size=512
 %end
 
 %post
-yum update -y
-yum install -y cloud-init
-yum clean all
+dnf upgrade -y
+dnf install -y cloud-init
+dnf clean all
 echo "This template was provided by PCextreme B.V." > /root/.pcextreme
 %end
 
