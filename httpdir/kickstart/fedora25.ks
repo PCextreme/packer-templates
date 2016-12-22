@@ -28,7 +28,6 @@ part swap --size=512
 
 %packages --ignoremissing
 @core
-kernel-core
 %end
 
 %post

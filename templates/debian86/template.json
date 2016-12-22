@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://debian.apt-get.eu/cd-image/7.11.0/amd64/iso-cd/debian-7.11.0-amd64-netinst.iso",
-            "iso_checksum": "096c1c18b44c269808bd815d58c53c8f",
+            "iso_url": "http://cdimage.debian.org/debian-cd/8.6.0/amd64/iso-cd/debian-8.6.0-amd64-netinst.iso",
+            "iso_checksum": "e9f61bf327db6d8f7cee05a99f2353cc",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
@@ -35,6 +35,7 @@
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio",
+            "boot_wait": "15s",
             "boot_command":
             [
                 "<esc><wait5>",
@@ -67,8 +68,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh",
-                "scripts/packages.sh"
+                "scripts/base.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
@@ -82,7 +82,7 @@
             "source": "files/80_users.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
         },
-        {
+                {
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
@@ -91,6 +91,11 @@
             "type": "file",
             "source": "../../httpdir/meta.data",
             "destination": "/var/opt/aurora-build-metadata.txt"
+        },
+        {
+            "type": "file",
+            "source": "files/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
         },
         {
             "type": "shell",
