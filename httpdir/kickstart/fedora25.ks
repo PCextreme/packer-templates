@@ -7,7 +7,7 @@ lang en_US.UTF-8
 keyboard us
 timezone --utc Europe/Amsterdam
 
-network --onboot yes --device eth0 --bootproto dhcp
+network --onboot yes --device eno3 --bootproto dhcp
 network  --hostname=fedora25
 firewall --enabled --service=ssh
 
