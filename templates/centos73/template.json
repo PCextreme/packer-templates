@@ -10,8 +10,8 @@
         {
             "type": "qemu",
             "iso_url": "http://mirror.pcextreme.nl/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-NetInstall-1611.iso",
-            "iso_checksum": "99d305fa40ec9e28ef8450c3bcc45f85",
-            "iso_checksum_type": "md5",
+            "iso_checksum": "f2f7367deb90a25822947660c71638333ca0eceeabecc2d631be6cd508c24494",
+            "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
             "shutdown_command": "systemctl poweroff",
