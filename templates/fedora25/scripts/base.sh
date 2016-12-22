@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "Update packages"
-yum -y upgrade
+dnf -y upgrade
 
 echo "Install packages"
-yum -y install at binutils curl dstat git iotop ipset lsof mc mtr nmap pciutils rsync screen strace tcpdump unzip net-tools uuid wget acpid policycoreutils iptraf-ng policycoreutils-python bind-utils redhat-lsb-core vim-enhanced
+dnf -y install at binutils curl dstat git iotop ipset lsof mc mtr nmap pciutils rsync screen strace tcpdump unzip net-tools uuid wget acpid policycoreutils iptraf-ng policycoreutils-python bind-utils redhat-lsb-core vim-enhanced
 
 unset HISTFILE
 
