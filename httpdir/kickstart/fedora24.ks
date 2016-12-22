@@ -7,8 +7,8 @@ lang en_US.UTF-8
 keyboard us
 timezone --utc Europe/Amsterdam
 
-network --onboot yes --device eno3 --bootproto dhcp
-network  --hostname=fedora25
+network --onboot yes --device ens3 --bootproto dhcp
+network  --hostname=fedora24
 firewall --enabled --service=ssh
 
 auth --useshadow --enablemd5
@@ -28,7 +28,6 @@ part swap --size=512
 
 %packages --ignoremissing
 @core
-kernel-core
 %end
 
 %post

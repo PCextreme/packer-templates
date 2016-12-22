@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "https://mirror.i3d.net/pub/fedora/linux/releases/25/Server/x86_64/iso/Fedora-Server-netinst-x86_64-25-1.3.iso",
-            "iso_checksum": "86bc3694f4938382753d1e9536f2140a6c9c1978207766340c679a89509073c7",
+            "iso_url": "https://mirror.i3d.net/pub/fedora/linux/releases/24/Server/x86_64/iso/Fedora-Server-netinst-x86_64-24-1.2.iso",
+            "iso_checksum": "071c30520775b3e93bb4c34edab4eab3badc26fbb8473ad3a9458614ba85a4e5",
             "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
@@ -46,7 +46,6 @@
         {
             "type": "shell",
             "scripts":
-
             [
                 "scripts/base.sh"
             ],
