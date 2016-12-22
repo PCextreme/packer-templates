@@ -8,7 +8,7 @@ keyboard us
 timezone --utc Europe/Amsterdam
 
 network --onboot yes --device eth0 --bootproto dhcp
-network  --hostname=fedora24
+network  --hostname=fedora25
 firewall --enabled --service=ssh
 
 auth --useshadow --enablemd5
@@ -24,7 +24,7 @@ zerombr
 
 clearpart --all --initlabel
 
-part / --size=1 --grow
+part / --fstype xfs --size=1 --grow
 part swap --size=512
 
 %packages --ignoremissing
@@ -32,9 +32,9 @@ part swap --size=512
 %end
 
 %post
-yum update -y
-yum install -y cloud-init
-yum clean all
+dnf update -y
+dnf install -y cloud-init
+dnf clean all
 echo "This template was provided by PCextreme B.V." > /root/.pcextreme
 %end
 
