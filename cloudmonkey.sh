@@ -26,7 +26,7 @@ usage(){
     echo "        -h                 Will show this."
     echo
     echo " Usage example:"
-    echo "         ${0} -t centos72 -u http://o.auroraobjects.eu/{bucket} -s 20"
+    echo "         ${0} -t centos73 -u http://o.auroraobjects.eu/{bucket} -s 20GB"
     echo
     exit 1
 }
@@ -46,34 +46,24 @@ DEBUG=0
 # Loop over all arguments.
 while getopts ":p:t:u:s:ardh" OPT; do
     case $OPT in
-    a)
-        UPLOAD_ALL=1
-        ;;
-    t)
-        SINGLE=1
-        TEMPLATE=$OPTARG
-        ;;
-    u)
-        DOWNLOAD_URL=$OPTARG
-        ;;
-    r)
-        UNFEATURE=1
-        ;;
-    s)
-        SIZE=$OPTARG
-        ;;
-    d)
-        DEBUG=1
-        ;;
-    h)
-        usage
-	;;
-    p)
-        CMPROFILE="-p ${OPTARG}"
-        ;;
-    \?)
-        usage
-        ;;
+    a) UPLOAD_ALL=1;;
+    t) SINGLE=1
+       TEMPLATE=$OPTARG
+       ;;
+    u) DOWNLOAD_URL=$OPTARG
+       ;;
+    r) UNFEATURE=1
+       ;;
+    s) SIZE=$OPTARG
+       ;;
+    d) DEBUG=1
+       ;;
+    h) usage
+	     ;;
+    p) CMPROFILE="-p ${OPTARG}"
+       ;;
+    \?) usage
+       ;;
     esac
 done
 
@@ -132,7 +122,7 @@ upload_template(){
     # Not the best solution, but it works for now.
     #
     echo "Info: Looking up ostypeid -> ${osdescription}"
-    ostypeid=$(cloudmonkey ${CMPROFILE} list ostypes filter=id description="${osdescription}" | awk '/id = / {print $3}'|head -n 1)
+    ostypeid=$(cloudmonkey ${CMPROFILE} -d table list ostypes filter=id description="${osdescription}" | awk '/id = / {print $3}'|head -n 1)
 
     if [ -z "${ostypeid}" ]; then
         echo "Error: Could not find ostypeid for ${osdescription}"
@@ -142,14 +132,14 @@ upload_template(){
     echo "Info: Found ostypeid ${ostypeid}"
 
     echo "Info: Adding $TEMPLATE_NAME"
-    added=$(cloudmonkey ${CMPROFILE} register template name="${name}" displaytext="${SIZE}" isextractable=${extractable} isfeatured=${featured} ispublic=${public} passwordenabled=${passwordenabled} ostypeid=${ostypeid} format=${format} hypervisor=${hypervisor} zoneid=${zoneid} url="${DOWNLOAD_URL}/${TEMPLATE_NAME}.qcow2" | awk '/^id =/ {print $3}')
+    added=$(cloudmonkey ${CMPROFILE} -d table register template name="${name}" displaytext="${SIZE}" isextractable=${extractable} isfeatured=${featured} ispublic=${public} passwordenabled=${passwordenabled} ostypeid=${ostypeid} format=${format} hypervisor=${hypervisor} zoneid=${zoneid} url="${DOWNLOAD_URL}/${TEMPLATE_NAME}.qcow2" | awk '/^id =/ {print $3}')
 
     echo "Info: Adding tags to $TEMPLATE_NAME"
-    tags=$(cloudmonkey ${CMPROFILE} create tags resourcetype=template resourceids=$added tags[0].key=oscategory tags[0].value=$oscategory tags[1].key=osversion tags[1].value=$osversion tags[2].key=size tags[2].value=$SIZE | awk '/^id =/ {print $3}')
+    tags=$(cloudmonkey ${CMPROFILE} -d table create tags resourcetype=template resourceids=$added tags[0].key=oscategory tags[0].value=$oscategory tags[1].key=osversion tags[1].value=$osversion tags[2].key=size tags[2].value=$SIZE | awk '/^id =/ {print $3}')
 
     if [ $UNFEATURE -eq 1 ]; then
       echo "Info: Searching for old template  -> $name"
-      old=$(cloudmonkey ${CMPROFILE} list templates name="$name" templatefilter=featured tags[0].key=size tags[0].value=$SIZE | awk '/^id =/ {print $3}')
+      old=$(cloudmonkey ${CMPROFILE} -d table list templates name="$name" templatefilter=featured tags[0].key=size tags[0].value=$SIZE | awk '/^id =/ {print $3}')
 
       if [ -z "${old}" ]; then
           echo "Warning: Could not find old template"
