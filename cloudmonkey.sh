@@ -46,7 +46,8 @@ DEBUG=0
 # Loop over all arguments.
 while getopts ":p:t:u:s:ardh" OPT; do
     case $OPT in
-    a) UPLOAD_ALL=1;;
+    a) UPLOAD_ALL=1
+       ;;
     t) SINGLE=1
        TEMPLATE=$OPTARG
        ;;
@@ -59,7 +60,7 @@ while getopts ":p:t:u:s:ardh" OPT; do
     d) DEBUG=1
        ;;
     h) usage
-	     ;;
+       ;;
     p) CMPROFILE="-p ${OPTARG}"
        ;;
     \?) usage
@@ -122,7 +123,7 @@ upload_template(){
     # Not the best solution, but it works for now.
     #
     echo "Info: Looking up ostypeid -> ${osdescription}"
-    ostypeid=$(cloudmonkey ${CMPROFILE} -d table list ostypes filter=id description="${osdescription}" | awk '/id = / {print $3}'|head -n 1)
+    ostypeid=$(cloudmonkey ${CMPROFILE} -d default list ostypes filter=id description="${osdescription}" | awk '/id = / {print $3}'|head -n 1)
 
     if [ -z "${ostypeid}" ]; then
         echo "Error: Could not find ostypeid for ${osdescription}"
@@ -132,20 +133,20 @@ upload_template(){
     echo "Info: Found ostypeid ${ostypeid}"
 
     echo "Info: Adding $TEMPLATE_NAME"
-    added=$(cloudmonkey ${CMPROFILE} -d table register template name="${name}" displaytext="${SIZE}" isextractable=${extractable} isfeatured=${featured} ispublic=${public} passwordenabled=${passwordenabled} ostypeid=${ostypeid} format=${format} hypervisor=${hypervisor} zoneid=${zoneid} url="${DOWNLOAD_URL}/${TEMPLATE_NAME}.qcow2" | awk '/^id =/ {print $3}')
+    added=$(cloudmonkey ${CMPROFILE} -d default register template name="${name}" displaytext="${SIZE}" isextractable=${extractable} isfeatured=${featured} ispublic=${public} passwordenabled=${passwordenabled} ostypeid=${ostypeid} format=${format} hypervisor=${hypervisor} zoneid=${zoneid} url="${DOWNLOAD_URL}/${TEMPLATE_NAME}.qcow2" | awk '/^id =/ {print $3}')
 
     echo "Info: Adding tags to $TEMPLATE_NAME"
-    tags=$(cloudmonkey ${CMPROFILE} -d table create tags resourcetype=template resourceids=$added tags[0].key=oscategory tags[0].value=$oscategory tags[1].key=osversion tags[1].value=$osversion tags[2].key=size tags[2].value=$SIZE | awk '/^id =/ {print $3}')
+    tags=$(cloudmonkey ${CMPROFILE} -d default create tags resourcetype=template resourceids=$added tags[0].key=oscategory tags[0].value=$oscategory tags[1].key=osversion tags[1].value=$osversion tags[2].key=size tags[2].value=$SIZE | awk '/^id =/ {print $3}')
 
     if [ $UNFEATURE -eq 1 ]; then
       echo "Info: Searching for old template  -> $name"
-      old=$(cloudmonkey ${CMPROFILE} -d table list templates name="$name" templatefilter=featured tags[0].key=size tags[0].value=$SIZE | awk '/^id =/ {print $3}')
+      old=$(cloudmonkey ${CMPROFILE} -d default list templates name="$name" templatefilter=featured tags[0].key=size tags[0].value=$SIZE | awk '/^id =/ {print $3}')
 
       if [ -z "${old}" ]; then
           echo "Warning: Could not find old template"
       else
           echo "Info: Found $old setting featured to false"
-          unf=$(cloudmonkey ${CMPROFILE} update templatepermissions id=$old isfeatured=false)
+          unf=$(cloudmonkey ${CMPROFILE} -d default update templatepermissions id=$old isfeatured=false)
       fi
     fi
     echo "Info: Finished $TEMPLATE_NAME"
