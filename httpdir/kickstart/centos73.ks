@@ -7,7 +7,7 @@ eula --agreed
 
 lang en_US.UTF-8
 keyboard us
-timezone --utc Europe/Amsterdam
+timezone --utc UTC
 
 network --onboot yes --device eth0 --bootproto dhcp
 network  --hostname=centos7

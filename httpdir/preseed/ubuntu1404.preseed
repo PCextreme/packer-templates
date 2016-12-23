@@ -18,8 +18,6 @@ d-i netcfg/get_domain string this-host
 d-i time/zone string UTC
 d-i clock-setup/utc-auto boolean true
 d-i clock-setup/utc boolean true
-d-i time/zone string Europe/Amsterdam
-
 
 # Software
 d-i debconf debconf/frontend select Noninteractive
@@ -65,4 +63,3 @@ d-i preseed/late_command string sed -i 's/PermitRootLogin without-password/Permi
 # Bootloader
 d-i grub-installer/only_debian boolean true
 d-i finish-install/reboot_in_progress note
-

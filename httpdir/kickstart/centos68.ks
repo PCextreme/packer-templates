@@ -7,7 +7,7 @@ rootpw --plaintext installer
 firewall --enabled --service=ssh
 authconfig --enableshadow --passalgo=sha512
 selinux --enforcing
-timezone --utc Europe/Amsterdam
+timezone --utc UTC
 bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet"
 
 text
