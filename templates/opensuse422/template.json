@@ -69,6 +69,20 @@
         },
         {
             "type": "file",
+            "source": "files/cloud-init-prep.sh",
+            "destination": "/usr/local/sbin/cloud-init-prep.sh"
+        },
+        {
+            "type": "shell",
+            "inline": ["chmod +x /usr/local/sbin/cloud-init-prep.sh"]
+        },
+        {
+            "type": "file",
+            "source": "files/override.conf",
+            "destination": "/etc/systemd/system/cloud-init.service.d/override.conf"
+        },
+        {
+            "type": "file",
             "source": "files/80_users.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
         },
