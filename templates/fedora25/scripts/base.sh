@@ -6,8 +6,6 @@ dnf -y upgrade
 echo "Install packages"
 dnf -y install at binutils curl dstat git iotop ipset lsof mc mtr nmap pciutils rsync screen strace tcpdump unzip net-tools uuid wget acpid policycoreutils iptraf-ng policycoreutils-python bind-utils redhat-lsb-core vim-enhanced
 
-unset HISTFILE
-
 echo "Create directories"
 mkdir -p /usr/lib/systemd/scripts
 
@@ -28,3 +26,5 @@ grub2-mkconfig > /boot/grub2/grub.cfg
 
 echo "Do not use IPv4 DHCP DNS"
 sed -i 's|^PEERDNS=yes|PEERDNS=no|g' /etc/sysconfig/network-scripts/ifcfg-e*
+
+unset HISTFILE
