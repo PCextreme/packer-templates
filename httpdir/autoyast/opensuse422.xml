@@ -123,6 +123,7 @@
             <package>sudo</package>
             <package>zypper</package>
             <package>bash</package>
+            <package>wget</package>
             <package>autoyast2-installation</package>
             <package>autoyast2</package>
             <package>yast2-installation</package>
