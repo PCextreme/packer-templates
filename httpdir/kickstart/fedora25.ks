@@ -16,23 +16,50 @@ authconfig --enableshadow --passalgo=sha512
 selinux --enforcing
 rootpw --plaintext installer
 
-bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet"
+bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet nomodeset"
 
 skipx
 zerombr
 
 clearpart --all --initlabel
 
-part / --fstype xfs --size=1 --grow
+part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
 part swap --size=512
 
 %packages --ignoremissing
 @core
+cloud-init
+at
+binutils
+curl
+dstat
+git
+iotop
+ipset
+lsof
+mc
+mtr
+nmap
+pciutils
+rsync
+screen
+strace
+tcpdump
+unzip
+net-tools
+uuid
+wget
+acpid
+policycoreutils
+iptraf-ng
+policycoreutils-python
+bind-utils
+redhat-lsb-core
+vim-enhanced
 %end
 
 %post
 dnf upgrade -y
-dnf install -y cloud-init
 dnf clean all
 echo "This template was provided by PCextreme B.V." > /root/.pcextreme
 %end
