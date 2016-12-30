@@ -28,34 +28,34 @@ part swap --size=512
 
 %packages --ignoremissing
 @core
-cloud-init
+acpid
 at
+bind-utils
 binutils
+cloud-init
 curl
 dstat
 git
 iotop
 ipset
+iptraf-ng
 lsof
 mc
 mtr
+net-tools
 nmap
 pciutils
+policycoreutils
+policycoreutils-python
+redhat-lsb-core
 rsync
 screen
 strace
 tcpdump
 unzip
-net-tools
 uuid
-wget
-acpid
-policycoreutils
-iptraf-ng
-policycoreutils-python
-bind-utils
-redhat-lsb-core
 vim-enhanced
+wget
 %end
 
 %post
