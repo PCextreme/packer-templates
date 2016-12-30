@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "installing cloud-set-guest-password"
-chmod +x /usr/lib/systemd/scripts/cloud-set-guest-password
-
 echo "enable cloud-init"
 systemctl enable cloud-init cloud-set-guest-password NetworkManager-wait-online
 

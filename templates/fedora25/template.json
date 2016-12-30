@@ -47,7 +47,6 @@
         {
             "type": "shell",
             "scripts":
-
             [
                 "scripts/pre.sh"
             ],
