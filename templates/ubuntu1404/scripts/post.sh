@@ -19,6 +19,4 @@ logrotate -f /etc/logrotate.conf 2>/dev/null
 rm -f /var/log/*-* /var/log/*.gz 2>/dev/null
 rm -f /var/log/upstart/*.log /var/log/upstart/*.log.*.gz
 
-echo "removing history"
-history -c
 unset HISTFILE
