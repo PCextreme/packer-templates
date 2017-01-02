@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-echo "Clean yum cache"
-yum -y clean all
-
 echo "Remove DHCP leases"
 rm /var/lib/dhclient/*
 
