@@ -23,7 +23,7 @@ zerombr
 
 clearpart --all --initlabel
 
-part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
+part / --fstype ext4 --fsoptions="rw,noatime" --size=1 --grow
 part swap --size=512
 
 %packages --ignoremissing
