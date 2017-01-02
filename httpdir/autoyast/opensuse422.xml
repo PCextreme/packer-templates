@@ -48,13 +48,6 @@
             <initialize config:type="boolean">true</initialize>
             <partitions config:type="list">
                 <partition>
-                    <label>boot</label>
-                    <mount>/boot</mount>
-                    <mountby config:type="symbol">label</mountby>
-                    <partition_type>primary</partition_type>
-                    <size>256M</size>
-                </partition>
-                <partition>
                     <label>swap</label>
                     <mountby config:type="symbol">label</mountby>
                     <filesystem config:type="symbol">swap</filesystem>
