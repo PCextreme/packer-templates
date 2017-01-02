@@ -1,13 +1,16 @@
 install
 text
-url --url http://mirror.pcextreme.nl/centos/6/os/x86_64/
-repo --name=updates --baseurl=http://mirror.pcextreme.nl/centos/6/updates/x86_64/
+repo --name=os --mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=os
+repo --name=updates --mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=updates
+repo --name=extras --mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=extras
+#url --url=http://mirror.pcextreme.nl/centos/6/os/x86_64/
+cdrom
 
 lang en_US.UTF-8
 keyboard us
 timezone --utc UTC
 
-network --onboot yes --device eth0 --bootproto dhcp
+network --onboot=on --device eth0 --bootproto=dhcp
 network --hostname=centos6
 firewall --enabled --service=ssh
 
@@ -63,6 +66,8 @@ wget
 %post
 yum upgrade -y
 yum clean all
+chkconfig cloud-init off
+sed -i '/^PasswordAuthentication/s/no/yes/g ; /^UsePAM/s/no/yes/g ; /^#PermitRootLogin/s/^#//g' /etc/ssh/sshd_config
 echo "This template was provided by PCextreme B.V." > /root/.pcextreme
 %end
 

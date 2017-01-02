@@ -45,7 +45,7 @@ BUILD_TEMPLATE=0
 BUILD_TEMPLATE_NAME=0
 BUILD_ALL=0
 DEBUG=0
-HEADLESS=1
+HEADLESS=true
 
 # Loop over all arguments.
 while getopts ":s:u:t:acdrnh" OPT; do
@@ -56,7 +56,7 @@ while getopts ":s:u:t:acdrnh" OPT; do
        ;;
     d) DEBUG=1
        ;;
-    n) HEADLESS=0
+    n) HEADLESS=false
        ;;
     h) usage
        ;;
