@@ -51,15 +51,14 @@
                     <label>swap</label>
                     <mountby config:type="symbol">label</mountby>
                     <filesystem config:type="symbol">swap</filesystem>
-                    <lv_name>swap</lv_name>
                     <mount>swap</mount>
                     <size>512M</size>
                 </partition>
                 <partition>
                     <label>root</label>
                     <mountby config:type="symbol">label</mountby>
-                    <filesystem config:type="symbol">ext4</filesystem>
-                    <lv_name>root</lv_name>
+                    <filesystem config:type="symbol">xfs</filesystem>
+                    <fstopt>rw,noatime</fstopt>
                     <mount>/</mount>
                     <size>max</size>
                 </partition>
