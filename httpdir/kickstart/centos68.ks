@@ -1,6 +1,7 @@
 install
 text
-cdrom
+url --url http://mirror.pcextreme.nl/centos/6/os/x86_64/
+repo --name=updates --baseurl=http://mirror.pcextreme.nl/centos/6/updates/x86_64/
 
 lang en_US.UTF-8
 keyboard us
