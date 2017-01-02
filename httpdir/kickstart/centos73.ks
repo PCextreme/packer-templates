@@ -1,4 +1,5 @@
 install
+text
 repo --name=base --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
 repo --name=updates --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
 repo --name=extras --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
@@ -21,24 +22,49 @@ rootpw --plaintext installer
 
 bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet nomodeset"
 
-text
 skipx
 zerombr
 
 clearpart --all --initlabel
 
-part / --fstype xfs --size=1 --grow
+part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
 part swap --size=512
 
-%packages --nobase --ignoremissing
+%packages --ignoremissing
 @core
-@base
+acpid
+at
+bind-utils
+binutils
+cloud-init
+curl
 deltarpm
+dstat
+git
+iotop
+ipset
+iptraf-ng
+lsof
+mc
+mtr
+net-tools
+nmap
+pciutils
+policycoreutils
+policycoreutils-python
+redhat-lsb-core
+rsync
+screen
+strace
+tcpdump
+unzip
+uuid
+vim-enhanced
+wget
 %end
 
 %post
 yum update -y
-yum install -y cloud-init
 yum clean all
 echo "This template was provided by PCextreme B.V." > /root/.pcextreme
 %end

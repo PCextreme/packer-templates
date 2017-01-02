@@ -2,6 +2,7 @@ install
 text
 url --url http://mirror.pcextreme.nl/centos/6/os/x86_64/
 repo --name=updates --baseurl=http://mirror.pcextreme.nl/centos/6/updates/x86_64/
+eula --agreed
 
 lang en_US.UTF-8
 keyboard us
@@ -34,6 +35,7 @@ bind-utils
 binutils
 cloud-init
 curl
+deltarpm
 dstat
 git
 iotop
