@@ -3,7 +3,6 @@ text
 repo --name=os --mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=os
 repo --name=updates --mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=updates
 repo --name=extras --mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=extras
-#url --url=http://mirror.pcextreme.nl/centos/6/os/x86_64/
 cdrom
 
 lang en_US.UTF-8
