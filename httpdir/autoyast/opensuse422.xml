@@ -39,7 +39,7 @@
     </language>
     <timezone>
         <hwclock>UTC</hwclock>
-        <timezone>Europe/Amsterdam</timezone>
+        <timezone>UTC</timezone>
     </timezone>
 
     <partitioning config:type="list">
