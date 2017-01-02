@@ -8,11 +8,7 @@ sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-eth0
 echo "Remove SSH host keys"
 rm -f /etc/ssh/ssh_host*key*
 
-echo "installing cloud-set-guest-password"
-chmod +x /usr/lib/systemd/scripts/cloud-set-guest-password
-systemctl enable cloud-set-guest-password
-
-echo "Enable NetworkManager-wait-online"
-systemctl enable NetworkManager-wait-online.service
+echo "Enable services: cloud-init cloud-set-guest-password NetworkManager-wait-online"
+systemctl enable cloud-init cloud-set-guest-password NetworkManager-wait-online
 
 unset HISTFILE
