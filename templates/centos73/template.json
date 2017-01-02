@@ -48,7 +48,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh"
+                "scripts/pre.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
@@ -81,8 +81,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/scripts.sh",
-                "scripts/cleanup.sh",
+                "scripts/post.sh",
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
