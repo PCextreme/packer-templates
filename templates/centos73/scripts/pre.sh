@@ -6,8 +6,6 @@ yum -y upgrade
 echo "Install packages"
 yum -y install at binutils curl dstat git iotop ipset lsof mc mtr nmap pciutils rsync screen strace tcpdump unzip net-tools uuid wget acpid policycoreutils iptraf-ng policycoreutils-python bind-utils redhat-lsb-core vim-enhanced qemu-guest-agent watchdog
 
-unset HISTFILE
-
 echo "Create directories"
 mkdir -p /usr/lib/systemd/scripts
 
@@ -31,3 +29,5 @@ sed -i 's|^PEERDNS=yes|PEERDNS=no|g' /etc/sysconfig/network-scripts/ifcfg-eth0
 
 echo "Making sure i6300esb Watchdog is loaded"
 echo i6300esb >> /etc/modules
+
+unset HISTFILE
