@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-echo "Update packages"
-yum -y upgrade
-
-echo "Install packages"
-yum -y install at binutils curl dstat git iotop ipset lsof mc mtr nmap pciutils rsync screen strace tcpdump unzip util-linux-ng uuid wget acpid policycoreutils policycoreutils-python bind-utils redhat-lsb-core vim-enhanced
-
 echo "Install cloud-set-guest-password"
 chmod +x /etc/init.d/cloud-set-guest-password
 chkconfig --add cloud-set-guest-password
