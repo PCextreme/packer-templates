@@ -64,11 +64,6 @@
         },
         {
             "type": "file",
-            "source": "files/80_users.cfg",
-            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
-        },
-        {
-            "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
         },
