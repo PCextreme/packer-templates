@@ -59,7 +59,10 @@
         },
         {
             "type": "shell",
-            "inline": ["chmod +x /usr/lib/systemd/scripts/cloud-set-guest-password"]
+            "inline":
+            [
+              "chmod +x /usr/lib/systemd/scripts/cloud-set-guest-password"
+            ]
         },
         {
             "type": "file",
