@@ -19,7 +19,7 @@ authconfig --enableshadow --passalgo=sha512
 selinux --enforcing
 rootpw --plaintext installer
 
-bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet"
+bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet nomodeset"
 
 text
 skipx
