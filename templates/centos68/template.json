@@ -51,6 +51,20 @@
         },
         {
             "type": "shell",
+            "inline":
+            [
+              "chmod +x /usr/lib/systemd/scripts/cloud-set-guest-password"
+            ]
+        },
+        {
+            "type": "shell",
+            "inline":
+            [
+              "chkconfig --add cloud-set-guest-password"
+            ]
+        },
+        {
+            "type": "shell",
             "scripts":
             [
                 "scripts/base.sh"
