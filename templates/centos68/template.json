@@ -64,14 +64,6 @@
             ]
         },
         {
-            "type": "shell",
-            "scripts":
-            [
-                "scripts/base.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
-        },
-        {
             "type": "file",
             "source": "files/80_users.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
