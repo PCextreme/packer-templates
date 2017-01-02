@@ -54,6 +54,14 @@
     "provisioners":
     [
         {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/pre.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
             "type": "file",
             "source": "files/99-disable-ipv6-tempaddr.conf",
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
@@ -87,8 +95,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh",
-                "scripts/cleanup.sh",
+                "scripts/post.sh",
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
