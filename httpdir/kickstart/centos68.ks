@@ -26,6 +26,39 @@ clearpart --all --initlabel
 part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
 part swap --size=512
 
+%packages --ignoremissing
+@core
+acpid
+at
+bind-utils
+binutils
+cloud-init
+curl
+dstat
+git
+iotop
+ipset
+iptraf-ng
+lsof
+mc
+mtr
+net-tools
+nmap
+ntp
+pciutils
+policycoreutils
+policycoreutils-python
+redhat-lsb-core
+rsync
+screen
+strace
+tcpdump
+unzip
+uuid
+vim-enhanced
+wget
+%end
+
 %post
 yum upgrade -y
 yum clean all

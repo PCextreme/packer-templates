@@ -21,7 +21,8 @@
             "headless": "true",
             "qemuargs":
             [
-                [ "-smp" , "{{user `ncpu`}}" ]
+                [ "-smp" , "{{user `ncpu`}}" ],
+                [ "-m", "1024M" ]
             ],
             "http_directory": "../../httpdir",
             "http_port_min": 10082,
@@ -52,8 +53,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh",
-                "scripts/packages.sh"
+                "scripts/base.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
