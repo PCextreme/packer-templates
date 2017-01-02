@@ -13,9 +13,6 @@ echo "Symlink dhclient folder to NetworkManager so cloud-init is able to find th
 rm -rf /var/lib/dhclient
 ln -s /var/lib/NetworkManager /var/lib/dhclient
 
-echo "Set noatime option"
-sed -i '0,/defaults/{s/defaults/defaults,noatime/g}' /etc/fstab
-
 echo "Do not use IPv4 DHCP DNS"
 sed -i 's|^PEERDNS=yes|PEERDNS=no|g' /etc/sysconfig/network-scripts/ifcfg-eth0
 
