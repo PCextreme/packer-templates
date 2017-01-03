@@ -49,7 +49,7 @@ d-i passwd/root-password-again password installer
 d-i pkgsel/install-language-support boolean false
 
 # Additional packages
-d-i pkgsel/include string ssh acpid ntp ndisc6 cloud-init resolvconf
+d-i pkgsel/include string ssh acpid ntp ndisc6 cloud-init resolvconf at binutils byobu curl dstat fping git htop iftop incron iotop ipset jq lsof mc mtr ncdu nmap pciutils rsync screen sl strace tcpdump unzip util-linux whois uuid wget acpid apparmor-utils apparmor-profiles apt-file dnsutils conntrack iptraf vim lsb-release xfsprogs apt-transport-https software-properties-common sysstat python-software-properties rdnssd qemu-guest-agent watchdog
 
 # Security updates
 d-i pkgsel/update-policy select unattended-upgrades

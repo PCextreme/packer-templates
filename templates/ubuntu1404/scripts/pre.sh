@@ -1,15 +1,5 @@
 #!/bin/bash
 
-echo "updating the machine"
-apt-get update
-apt-get -y dist-upgrade
-
-echo "installing packages"
-apt-get -y install at binutils byobu curl dstat fping git htop iftop incron iotop ipset jq lsof mc mtr ncdu nmap pciutils rsync screen sl strace tcpdump unzip util-linux whois uuid wget acpid apparmor-utils apparmor-profiles apt-file dnsutils conntrack iptraf vim lsb-release xfsprogs apt-transport-https software-properties-common sysstat python-software-properties rdnssd qemu-guest-agent watchdog
-
-echo "install cloud-init"
-apt-get -y install cloud-init
-
 echo "Moving cloud-init config file"
 mv /etc/cloud/cloud.cfg.custom /etc/cloud/cloud.cfg
 
