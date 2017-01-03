@@ -1,0 +1,12 @@
+packer20G:
+  script:
+    - chmod +x build.sh
+    - find templates/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n"|xargs -n 1 -P 3 ./build.sh -d -s 20480 -t
+  tags:
+    - packer
+    - kvm
+  artifacts:
+    name: templates
+    paths:
+      - templates/*.qcow2
+    expire_in: 3 days
