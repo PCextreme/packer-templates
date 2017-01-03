@@ -82,7 +82,7 @@
         {
             "type": "file",
             "source": "files/cloud.cfg",
-            "destination": "/etc/cloud/cloud.cfg.custom"
+            "destination": "/etc/cloud/cloud.cfg"
         },
         {
             "type": "file",
