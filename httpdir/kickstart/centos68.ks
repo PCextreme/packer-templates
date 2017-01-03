@@ -66,7 +66,6 @@ wget
 yum upgrade -y
 yum clean all
 chkconfig cloud-init off
-sed -i '/^PasswordAuthentication/s/no/yes/g ; /^UsePAM/s/no/yes/g ; /^#PermitRootLogin/s/^#//g' /etc/ssh/sshd_config
 sed -i '/^disable_root/s/1/0/ ; /^ssh_pwauth/s/0/1/' /etc/cloud/cloud.cfg
 echo "This template was provided by PCextreme B.V." > /root/.pcextreme
 %end
