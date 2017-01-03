@@ -57,8 +57,13 @@ d-i pkgsel/update-policy select unattended-upgrades
 # Upgrade
 d-i pkgsel/upgrade select full-upgrade
 
-# Update sshd_config to ensure root user is able to login
+# Customizations
 d-i preseed/late_command string sed -i 's/^PermitRootLogin \(without\|prohibit\)-password/PermitRootLogin yes/' /target/etc/ssh/sshd_config
+d-i preseed/late_command string mv /etc/cloud/cloud.cfg.custom /etc/cloud/cloud.cfg
+d-i preseed/late_command string sed -i 's|errors=remount-ro|errors=remount-ro,noatime|g' /etc/fstab
+d-i preseed/late_command string sed -i 's|ntp.ubuntu.com|ntp.pcextreme.nl|g' /etc/ntp.conf
+d-i preseed/late_command string sed -i '2i 000.*' /etc/resolvconf/interface-order
+d-i preseed/late_command string echo i6300esb >> /etc/modules
 
 # Bootloader
 d-i grub-installer/only_debian boolean true

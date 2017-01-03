@@ -67,6 +67,13 @@
         },
         {
             "type": "shell",
+            "inline":
+            [
+              "chmod +x /etc/network/if-up.d/cloud-set-guest-password"
+            ]
+        },
+        {
+            "type": "shell",
             "scripts":
             [
                 "scripts/pre.sh"
