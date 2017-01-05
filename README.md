@@ -6,7 +6,7 @@ These are Linux or *BSD based templates which can be generated using [Packer.io]
 Packer version >= 0.8.5 is required
 
 ## Usage
-Run `./build.sh -h` to get the usage info.
+Run `./build.sh <template>` to build a template
 
 All templates can be found in `templates/` directory.
 
@@ -14,29 +14,27 @@ All templates can be found in `templates/` directory.
 To build a single template:
 
 ```
-$ ./build.sh -t ubuntu1404
+$ ./build.sh ubuntu1604
 ```
 
 To build all templates:
 
 ```
-$ ./build.sh -a
+$ find templates/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n"|xargs -n 1 ./build.sh
 ```
 
 ## Requirements
-Make sure that `packer`, `qemu-img` and `qemu-system` are installed. Packer can be obtained from [Packer.io](https://packer.io/). Unzip and place in `/usr/local/sbin` or `~/sbin`.
-
-If you want to use the functionality to upload to S3 you will need to have `s3cmd` installed and configured.
+Make sure that `packer`, `qemu-img`, `qemu-system` and `virt-resize` are installed. Packer can be obtained from [Packer.io](https://packer.io/). Unzip and place in `/usr/local/sbin` or `~/sbin`.
 
 ## Downloads
-At PCextreme we use [Jenkins](https://jenkins.io/) to automatically build the templates from this Git repository.
+At PCextreme we use [Gitlab CI](https://gitlab.com/) to automatically build the templates from this Git repository.
 
 The results are afterwards uploaded to [AuroraObjects](https://www.pcextreme.com/aurora/objects) from where they are available to download.
 
 Take the Ubuntu 16.04 template for example, both the 20G and 50G version can be downloaded:
 
-* http://o.auroraobjects.eu/packer20G/ubuntu1604.qcow2
-* http://o.auroraobjects.eu/packer50G/ubuntu1604.qcow2
+* http://o.auroraobjects.eu/packer/ubuntu1604-20G.qcow2
+* http://o.auroraobjects.eu/packer/ubuntu1604-50G.qcow2
 
 You can replace *ubuntu1604* by any directory found in the *templates* directory.
 

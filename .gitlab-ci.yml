@@ -1,12 +1,119 @@
-packer20G:
-  script:
-    - chmod +x build.sh
-    - find templates/ -mindepth 1 -maxdepth 1 -type d -printf "%f\n"|xargs -n 1 -P 3 ./build.sh -d -s 20480 -t
-  tags:
-    - packer
-    - kvm
-  artifacts:
-    name: templates
-    paths:
-      - templates/*.qcow2
-    expire_in: 3 days
+variables:
+    DISK_SIZE: 3072
+    HEADLESS: 1
+    MAXPROCS: 2
+
+stages:
+    - build
+
+ubuntu1404:
+    stage: build
+    script:
+        - ./build.sh ubuntu1404
+    tags:
+        - packer
+        - kvm
+    artifacts:
+        paths:
+            - templates/ubuntu1404/ubuntu1404-20G.qcow2
+            - templates/ubuntu1404/ubuntu1404-50G.qcow2
+            - templates/ubuntu1404/ubuntu1404-100G.qcow2
+        expire_in: 3 days
+
+ubuntu1604:
+    stage: build
+    script:
+        - ./build.sh ubuntu1604
+    tags:
+        - packer
+        - kvm
+    artifacts:
+        paths:
+            - templates/ubuntu1604/ubuntu1604-20G.qcow2
+            - templates/ubuntu1604/ubuntu1604-50G.qcow2
+            - templates/ubuntu1604/ubuntu1604-100G.qcow2
+        expire_in: 3 days
+
+centos68:
+    stage: build
+    script:
+        - ./build.sh centos68
+    tags:
+        - packer
+        - kvm
+    artifacts:
+        paths:
+            - templates/centos68/centos68-20G.qcow2
+            - templates/centos68/centos68-50G.qcow2
+            - templates/centos68/centos68-100G.qcow2
+        expire_in: 3 days
+
+centos73:
+    stage: build
+    script:
+        - ./build.sh centos73
+    tags:
+        - packer
+        - kvm
+    artifacts:
+        paths:
+            - templates/centos73/centos73-20G.qcow2
+            - templates/centos73/centos73-50G.qcow2
+            - templates/centos73/centos73-100G.qcow2
+        expire_in: 3 days
+
+debian86:
+    stage: build
+    script:
+        - ./build.sh debian86
+    tags:
+        - packer
+        - kvm
+    artifacts:
+        paths:
+            - templates/debian86/debian86-20G.qcow2
+            - templates/debian86/debian86-50G.qcow2
+            - templates/debian86/debian86-100G.qcow2
+        expire_in: 3 days
+
+fedora24:
+    stage: build
+    script:
+        - ./build.sh fedora24
+    tags:
+        - packer
+        - kvm
+    artifacts:
+        paths:
+            - templates/fedora24/fedora24-20G.qcow2
+            - templates/fedora24/fedora24-50G.qcow2
+            - templates/fedora24/fedora24-100G.qcow2
+        expire_in: 3 days
+
+fedora25:
+    stage: build
+    script:
+        - ./build.sh fedora25
+    tags:
+        - packer
+        - kvm
+    artifacts:
+        paths:
+            - templates/fedora25/fedora25-20G.qcow2
+            - templates/fedora25/fedora25-50G.qcow2
+            - templates/fedora25/fedora25-100G.qcow2
+        expire_in: 3 days
+
+opensuse422:
+    stage: build
+    script:
+        - ./build.sh opensuse422
+    tags:
+        - packer
+        - kvm
+    artifacts:
+        paths:
+            - templates/opensuse422/opensuse422-20G.qcow2
+            - templates/opensuse422/opensuse422-50G.qcow2
+            - templates/opensuse422/opensuse422-100G.qcow2
+        expire_in: 3 days
