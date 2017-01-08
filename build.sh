@@ -45,43 +45,33 @@ BUILD_TEMPLATE=0
 BUILD_TEMPLATE_NAME=0
 BUILD_ALL=0
 DEBUG=0
-HEADLESS=1
+HEADLESS=true
 
 # Loop over all arguments.
 while getopts ":s:u:t:acdrnh" OPT; do
     case $OPT in
-    a)
-        BUILD_ALL=1
-        ;;
-    c)
-        REMOVE_CACHE=1
-        ;;
-    d)
-        DEBUG=1
-        ;;
-    n)
-        HEADLESS=0
-        ;;
-    h)
-        usage
-        ;;
-    r)
-        REMOVE_QCOW=1
-        ;;
-    s)
-        DISK_SIZE=$OPTARG
-        ;;
-    t)
-        BUILD_TEMPLATE=1
-        BUILD_TEMPLATE_NAME=$OPTARG
-        ;;
-    u)
-        UPLOAD_S3=1
-        S3_BUCKET=$OPTARG
-        ;;
-    \?)
-        usage
-        ;;
+    a) BUILD_ALL=1
+       ;;
+    c) REMOVE_CACHE=1
+       ;;
+    d) DEBUG=1
+       ;;
+    n) HEADLESS=false
+       ;;
+    h) usage
+       ;;
+    r) REMOVE_QCOW=1
+       ;;
+    s) DISK_SIZE=$OPTARG
+       ;;
+    t) BUILD_TEMPLATE=1
+       BUILD_TEMPLATE_NAME=$OPTARG
+       ;;
+    u) UPLOAD_S3=1
+       S3_BUCKET=$OPTARG
+       ;;
+    \?) usage
+       ;;
     esac
 done
 

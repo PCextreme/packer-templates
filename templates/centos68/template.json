@@ -10,8 +10,8 @@
         {
             "type": "qemu",
             "iso_url": "http://mirror.pcextreme.nl/centos/6/isos/x86_64/CentOS-6.8-x86_64-minimal.iso",
-            "iso_checksum": "0ca12fe5f28c2ceed4f4084b41ff8a0b",
-            "iso_checksum_type": "md5",
+            "iso_checksum": "ec49c297d484b9da0787e5944edc38f7c70f21c0f6a60178d8e9a8926d1949f4",
+            "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
             "shutdown_command": "shutdown -P now",
@@ -21,7 +21,8 @@
             "headless": "true",
             "qemuargs":
             [
-                [ "-smp" , "{{user `ncpu`}}" ]
+                [ "-smp" , "{{user `ncpu`}}" ],
+                [ "-m", "1024M" ]
             ],
             "http_directory": "../../httpdir",
             "http_port_min": 10082,
@@ -50,17 +51,17 @@
         },
         {
             "type": "shell",
-            "scripts":
+            "inline":
             [
-                "scripts/base.sh",
-                "scripts/packages.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
+              "chmod +x /etc/init.d/cloud-set-guest-password"
+            ]
         },
         {
-            "type": "file",
-            "source": "files/80_users.cfg",
-            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
+            "type": "shell",
+            "inline":
+            [
+              "chkconfig --add cloud-set-guest-password"
+            ]
         },
         {
             "type": "file",
@@ -76,7 +77,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/cleanup.sh",
+                "scripts/post.sh",
                 "../../scripts/zerodisk.sh"
             ],
         "execute_command": "sh '{{.Path}}'"

@@ -21,7 +21,8 @@
             "headless": "true",
             "qemuargs":
             [
-                [ "-smp" , "{{user `ncpu`}}" ]
+                [ "-smp" , "{{user `ncpu`}}" ],
+                [ "-m", "1024M" ]
             ],
             "http_directory": "../../httpdir",
             "http_port_min": 10082,
@@ -53,6 +54,14 @@
     "provisioners":
     [
         {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/pre.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
             "type": "file",
             "source": "files/99-disable-ipv6-tempaddr.conf",
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
@@ -60,19 +69,9 @@
         {
             "type": "file",
             "source": "files/cloud.cfg",
-            "destination": "/etc/cloud/cloud.cfg.custom"
+            "destination": "/etc/cloud/cloud.cfg"
         },
         {
-            "type": "file",
-            "source": "files/70_apt.cfg",
-            "destination": "/etc/cloud/cloud.cfg.d/70_apt.cfg"
-        },
-        {
-            "type": "file",
-            "source": "files/80_users.cfg",
-            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
-        },
-                {
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
@@ -86,8 +85,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh",
-                "scripts/cleanup.sh",
+                "scripts/post.sh",
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"

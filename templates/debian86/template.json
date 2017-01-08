@@ -21,7 +21,8 @@
             "headless": "true",
             "qemuargs":
             [
-                [ "-smp" , "{{user `ncpu`}}" ]
+                [ "-smp" , "{{user `ncpu`}}" ],
+                [ "-m", "1024M" ]
             ],
             "http_directory": "../../httpdir",
             "http_port_min": 10082,
@@ -66,23 +67,20 @@
         },
         {
             "type": "shell",
+            "inline":
+            [
+              "chmod +x /etc/network/if-up.d/cloud-set-guest-password"
+            ]
+        },
+        {
+            "type": "shell",
             "scripts":
             [
-                "scripts/base.sh"
+                "scripts/pre.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
         {
-            "type": "file",
-            "source": "files/70_apt.cfg",
-            "destination": "/etc/cloud/cloud.cfg.d/70_apt.cfg"
-        },
-        {
-            "type": "file",
-            "source": "files/80_users.cfg",
-            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
-        },
-                {
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
@@ -101,7 +99,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/cleanup.sh",
+                "scripts/post.sh",
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"

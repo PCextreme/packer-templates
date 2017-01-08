@@ -53,7 +53,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/base.sh"
+                "scripts/pre.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
@@ -83,11 +83,6 @@
         },
         {
             "type": "file",
-            "source": "files/80_users.cfg",
-            "destination": "/etc/cloud/cloud.cfg.d/80_users.cfg"
-        },
-        {
-            "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
         },
@@ -100,8 +95,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/scripts.sh",
-                "scripts/cleanup.sh",
+                "scripts/post.sh",
                 "../../scripts/zerodisk.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
