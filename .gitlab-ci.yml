@@ -1,7 +1,7 @@
 variables:
-    DISK_SIZE: 3072
-    HEADLESS: 1
-    MAXPROCS: 2
+    DISK_SIZE: "3072"
+    HEADLESS: "1"
+    MAXPROCS: "2"
 
 stages:
     - build
