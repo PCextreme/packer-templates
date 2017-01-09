@@ -32,10 +32,13 @@
             "ssh_username": "root",
             "ssh_password": "installer",
             "ssh_port": 22,
-            "ssh_wait_timeout": "90m",
+            "ssh_wait_timeout": "15m",
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
-            "disk_interface": "virtio",
+            "disk_interface": "virtio-scsi",
+            "disk_cache": "unsafe",
+            "disk_discard": "unmap",
+            "disk_compression": true,
             "boot_command":
             [
                 "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"
@@ -77,10 +80,16 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/post.sh",
-                "../../scripts/zerodisk.sh"
+                "scripts/post.sh"
             ],
-        "execute_command": "sh '{{.Path}}'"
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "inline":
+            [
+              "fstrim -v /"
+            ]
         }
     ]
 }
