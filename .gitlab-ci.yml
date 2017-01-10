@@ -17,6 +17,9 @@ ubuntu1404:
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -32,6 +35,9 @@ ubuntu1604:
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -47,6 +53,9 @@ centos68:
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -62,6 +71,9 @@ centos73:
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -77,6 +89,9 @@ debian86:
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -92,6 +107,9 @@ fedora24:
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -107,6 +125,9 @@ fedora25:
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -122,6 +143,9 @@ opensuse422:
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm

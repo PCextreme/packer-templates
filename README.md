@@ -31,10 +31,11 @@ At PCextreme we use [Gitlab CI](https://gitlab.com/) to automatically build the 
 
 The results are afterwards uploaded to [AuroraObjects](https://www.pcextreme.com/aurora/objects) from where they are available to download.
 
-Take the Ubuntu 16.04 template for example, both the 20G and 50G version can be downloaded:
+Take the Ubuntu 16.04 template for example, both the 20G, 50G and 100G version can be downloaded:
 
-* http://o.auroraobjects.eu/packer/ubuntu1604-20G.qcow2
-* http://o.auroraobjects.eu/packer/ubuntu1604-50G.qcow2
+* http://packer-temlates.o.auroraobjects.eu/ubuntu1604-20G.qcow2
+* http://packer-templates.o.auroraobjects.eu/ubuntu1604-50G.qcow2
+* http://packer-templates.o.auroraobjects.eu/ubuntu1604-100G.qcow2
 
 You can replace *ubuntu1604* by any directory found in the *templates* directory.
 
