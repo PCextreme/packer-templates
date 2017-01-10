@@ -68,6 +68,8 @@ in-target echo i6300esb >> /etc/modules
 
 # Bootloader
 d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+d-i grub-installer/bootdev string /dev/sda
 
 #finish
 d-i finish-install/reboot_in_progress note
