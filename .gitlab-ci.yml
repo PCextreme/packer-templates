@@ -11,9 +11,9 @@ ubuntu1404:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 20G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 50G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 100G
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp
@@ -32,9 +32,9 @@ ubuntu1604:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 20G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 50G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 100G
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 
@@ -53,9 +53,9 @@ centos68:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 20G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 50G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 100G
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 
@@ -74,9 +74,9 @@ centos73:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 20G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 50G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 100G
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 
@@ -95,9 +95,9 @@ debian86:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 20G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 50G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 100G
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 
@@ -116,9 +116,9 @@ fedora25:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 20G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 50G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 100G
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 
@@ -137,9 +137,9 @@ opensuse422:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 20G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 50G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 100G
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.tmp 
         - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.tmp 
