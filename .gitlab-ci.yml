@@ -1,3 +1,11 @@
+#
+# BUILDING UNDER UBUNTU MAY FAIL DUE TO /boot/vmlinuz* NOT BEING WORLD-READABLE
+# See the libguestfs FAQ: http://libguestfs.org/guestfs-faq.1.html 
+#
+# If /boot/vmlinuz* is world-readable non super-users are able to use virt-resize
+#
+# $ find /boot -name 'vmlinuz*' -exec chmod 644 {} \;
+
 variables:
     DISK_SIZE: "10240"
     HEADLESS: "1"
