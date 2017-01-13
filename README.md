@@ -3,7 +3,7 @@ This repository contains configurations and scripts to build templates to be use
 
 These are Linux or *BSD based templates which can be generated using [Packer.io](https://packer.io/).
 
-Packer version >= 0.8.5 is required
+Packer version >= 0.12.1 is required
 
 ## Usage
 Run `./build.sh <template>` to build a template
