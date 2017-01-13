@@ -38,7 +38,7 @@
             "disk_interface": "virtio-scsi",
             "disk_cache": "unsafe",
             "disk_discard": "unmap",
-            "disk_compression": false,
+            "disk_compression": true,
             "boot_command":
             [
                 "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"

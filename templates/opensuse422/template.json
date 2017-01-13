@@ -38,7 +38,7 @@
             "disk_interface": "virtio-scsi",
             "disk_cache": "unsafe",
             "disk_discard": "unmap",
-            "disk_compression": false,
+            "disk_compression": true,
             "boot_command":
             [
                 "<esc><enter><wait>",
