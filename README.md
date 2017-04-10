@@ -33,7 +33,7 @@ The results are afterwards uploaded to [AuroraObjects](https://www.pcextreme.com
 
 Take the Ubuntu 16.04 template for example, both the 20G, 50G and 100G version can be downloaded:
 
-* http://packer-temlates.o.auroraobjects.eu/ubuntu1604-20G.qcow2
+* http://packer-templates.o.auroraobjects.eu/ubuntu1604-20G.qcow2
 * http://packer-templates.o.auroraobjects.eu/ubuntu1604-50G.qcow2
 * http://packer-templates.o.auroraobjects.eu/ubuntu1604-100G.qcow2
 
