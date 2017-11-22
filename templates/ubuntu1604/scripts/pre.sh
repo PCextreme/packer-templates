@@ -8,6 +8,9 @@ GRUB_CMDLINE_LINUX="\$(echo \$GRUB_CMDLINE_LINUX | sed 's/\(quiet\|splash\|nomod
 TOGRUB
 update-grub2
 
+echo "Ensure ens3 is used instead of ens4 in interfaces file"
+sed -i 's/ens4/ens3/g' /etc/network/interfaces
+
 echo "Adding IPv6 configuration to interfaces file"
 IFACE=$(cat /etc/network/interfaces|grep iface|tail -1|awk '{print $2}')
 

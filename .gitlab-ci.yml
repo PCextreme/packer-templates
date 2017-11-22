@@ -1,6 +1,6 @@
 #
 # BUILDING UNDER UBUNTU MAY FAIL DUE TO /boot/vmlinuz* NOT BEING WORLD-READABLE
-# See the libguestfs FAQ: http://libguestfs.org/guestfs-faq.1.html 
+# See the libguestfs FAQ: http://libguestfs.org/guestfs-faq.1.html
 #
 # If /boot/vmlinuz* is world-readable non super-users are able to use virt-resize
 #
@@ -13,27 +13,6 @@ variables:
 
 stages:
     - build
-
-ubuntu1404:
-    stage: build
-    script:
-        - env
-        - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
-    tags:
-        - packer
-        - kvm
 
 ubuntu1604:
     stage: build
@@ -51,7 +30,6 @@ ubuntu1604:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -72,7 +50,7 @@ centos68:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
+
     tags:
         - packer
         - kvm
@@ -93,7 +71,6 @@ centos73:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
@@ -114,49 +91,6 @@ debian86:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
-    tags:
-        - packer
-        - kvm
-
-fedora25:
-    stage: build
-    script:
-        - env
-        - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
-    tags:
-        - packer
-        - kvm
-
-opensuse422:
-    stage: build
-    script:
-        - env
-        - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 100G
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2
-        - virt-resize --expand /dev/sda2 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2
-        - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-100G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-100G.qcow2
     tags:
         - packer
         - kvm
