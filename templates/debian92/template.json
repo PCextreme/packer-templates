@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://cdimage.debian.org/debian-cd/8.6.0/amd64/iso-cd/debian-8.6.0-amd64-netinst.iso",
-            "iso_checksum": "e9f61bf327db6d8f7cee05a99f2353cc",
+            "iso_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.2.1-amd64-netinst.iso",
+            "iso_checksum": "5c583fd40360fd039b3ac98387b77dbb",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
@@ -18,6 +18,7 @@
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
+            "vnc_bind_address": "0.0.0.0",
             "headless": "true",
             "qemuargs":
             [
@@ -64,18 +65,6 @@
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
         },
         {
-            "type": "file",
-            "source": "files/cloud-set-guest-password-debian",
-            "destination": "/etc/network/if-up.d/cloud-set-guest-password"
-        },
-        {
-            "type": "shell",
-            "inline":
-            [
-              "chmod +x /etc/network/if-up.d/cloud-set-guest-password"
-            ]
-        },
-        {
             "type": "shell",
             "scripts":
             [
@@ -87,6 +76,11 @@
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/cloud.cfg",
+            "destination": "/etc/cloud/cloud.cfg"
         },
         {
             "type": "file",

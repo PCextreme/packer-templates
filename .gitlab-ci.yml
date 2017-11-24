@@ -95,7 +95,7 @@ centos73:
         - packer
         - kvm
 
-debian86:
+debian92:
     stage: build
     script:
         - env
