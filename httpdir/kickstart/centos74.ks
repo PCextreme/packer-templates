@@ -25,10 +25,9 @@ bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet
 skipx
 zerombr
 
-clearpart --all --initlabel
+clearpart --all --drives=sda
 
 part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
-part swap --size=512
 
 %packages --ignoremissing
 @core
@@ -37,6 +36,7 @@ at
 bind-utils
 binutils
 cloud-init
+cloud-utils
 curl
 deltarpm
 dstat
@@ -61,6 +61,7 @@ unzip
 uuid
 vim-enhanced
 wget
+nano
 %end
 
 %post
