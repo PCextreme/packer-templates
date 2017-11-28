@@ -22,4 +22,8 @@ echo "#    request_prefix 1" >> /etc/network/interfaces
 echo "Ensure ens3 is used instead of ens4 in interfaces file"
 sed -i 's/ens4/ens3/g' /etc/network/interfaces
 
+echo "Enable fstrim on a weekly basis"
+cp /usr/share/doc/util-linux/examples/fstrim.{service,timer} /etc/systemd/system
+systemctl enable fstrim.timer
+
 unset HISTFILE
