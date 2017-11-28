@@ -19,7 +19,7 @@ ubuntu1604:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 10G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10.qcow2 10G
         - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
         - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
         - virt-resize --expand /dev/sda1 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.qcow2
@@ -40,7 +40,7 @@ ubuntu1710:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 10G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10.qcow2 10G
         - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
         - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
         - virt-resize --expand /dev/sda1 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.qcow2
@@ -61,7 +61,7 @@ centos74:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 10G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10.qcow2 10G
         - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
         - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
         - virt-resize --expand /dev/sda1 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.qcow2
@@ -82,7 +82,7 @@ debian92:
     script:
         - env
         - ./build.sh $CI_BUILD_NAME
-        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 10G
+        - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10.qcow2 10G
         - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 20G
         - qemu-img create -q -f qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 50G
         - virt-resize --expand /dev/sda1 templates/$CI_BUILD_NAME/packer_output/$CI_BUILD_NAME templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.qcow2
