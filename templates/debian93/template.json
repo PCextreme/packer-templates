@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.2.1-amd64-netinst.iso",
-            "iso_checksum": "5c583fd40360fd039b3ac98387b77dbb",
+            "iso_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.3.0-amd64-netinst.iso",
+            "iso_checksum": "db8ab7871bc2b7d456c4746e706fb5d3",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
