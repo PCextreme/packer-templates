@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Ensure everything is up-to-date"
 apt-get update
-sudo apt-get -o Dpkg::Options::="--force-confnew" upgrade
+sudo apt-get -o Dpkg::Options::="--force-confnew" upgrade -y
 
 echo "Ensure latest cloud-init is installed"
 cd /tmp
