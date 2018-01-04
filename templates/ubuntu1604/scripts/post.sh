@@ -1,8 +1,4 @@
 #!/bin/bash
-echo "Ensure everything is up-to-date"
-apt-get update
-apt-get -y upgrade
-
 echo "Removing uneeded packages"
 apt-get -y autoremove
 apt-get -y clean
