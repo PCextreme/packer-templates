@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Ensure everything is up-to-date"
 apt-get update
-sudo apt-get -o Dpkg::Options::="--force-confnew" upgrade -y
+sudo apt-get -o Dpkg::Options::="--force-confnew" dist-upgrade -y
 
 echo "Fixing GRUB"
 cat >>/etc/default/grub <<TOGRUB
