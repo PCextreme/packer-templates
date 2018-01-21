@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://releases.ubuntu.com/17.10/ubuntu-17.10-server-amd64.iso",
-            "iso_checksum": "be2ab38bb169ed9dddc6cd142a8b9d8b",
+            "iso_url": "http://releases.ubuntu.com/17.10/ubuntu-17.10.1-server-amd64.iso",
+            "iso_checksum": "7fe25fa47bebc40f4e5007aa182eb627",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
