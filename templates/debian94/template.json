@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.3.0-amd64-netinst.iso",
-            "iso_checksum": "db8ab7871bc2b7d456c4746e706fb5d3",
+            "iso_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.4.0-amd64-netinst.iso",
+            "iso_checksum": "73bd8aaaeb843745ec939f6ae3906e48",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
@@ -76,11 +76,6 @@
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
-        },
-        {
-            "type": "file",
-            "source": "files/cloud.cfg",
-            "destination": "/etc/cloud/cloud.cfg"
         },
         {
             "type": "file",
