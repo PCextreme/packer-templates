@@ -77,7 +77,7 @@ centos74:
         - packer
         - kvm
 
-debian93:
+debian94:
     stage: build
     script:
         - env

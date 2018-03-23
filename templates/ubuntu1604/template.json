@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://nl3.releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
-            "iso_checksum": "10fcd20619dce11fe094e960c85ba4a9",
+            "iso_url": "http://nl3.releases.ubuntu.com/16.04/ubuntu-16.04.4-server-amd64.iso",
+            "iso_checksum": "6a7f31eb125a0b2908cf2333d7777c82",
             "iso_checksum_type": "md5",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
@@ -82,11 +82,6 @@
             "type": "file",
             "source": "files/99-disable-ipv6-tempaddr.conf",
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
-        },
-        {
-            "type": "file",
-            "source": "files/cloud.cfg",
-            "destination": "/etc/cloud/cloud.cfg"
         },
         {
             "type": "file",
