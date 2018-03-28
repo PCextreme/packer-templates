@@ -28,7 +28,7 @@ ubuntu1604:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
@@ -49,7 +49,7 @@ ubuntu1710:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
@@ -70,7 +70,7 @@ centos74:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
@@ -91,7 +91,7 @@ debian94:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
