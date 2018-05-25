@@ -1,17 +1,13 @@
 install
 text
-repo --name=os --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
-repo --name=updates --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
-repo --name=extras --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra
-url --mirrorlist http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
-eula --agreed
+url --mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-$releasever&arch=$basearch
 
 lang en_US.UTF-8
 keyboard us
 timezone --utc UTC
 
 network --onboot yes --device eth0 --bootproto dhcp
-network  --hostname=centos7
+network  --hostname=fedora28
 
 auth --useshadow --enablemd5
 authconfig --enableshadow --passalgo=sha512
