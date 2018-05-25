@@ -10,8 +10,8 @@
         {
             "type": "qemu",
             "iso_url": "http://nl3.releases.ubuntu.com/16.04/ubuntu-16.04.4-server-amd64.iso",
-            "iso_checksum": "6a7f31eb125a0b2908cf2333d7777c82",
-            "iso_checksum_type": "md5",
+            "iso_checksum_url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/16.04/release/SHA1SUMS",
+            "iso_checksum_type": "sha1",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
             "shutdown_command": "shutdown -P now",
