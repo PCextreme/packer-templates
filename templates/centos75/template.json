@@ -33,7 +33,7 @@
             "ssh_username": "root",
             "ssh_password": "installer",
             "ssh_port": 22,
-            "ssh_wait_timeout": "15m",
+            "ssh_wait_timeout": "30m",
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio-scsi",
@@ -60,11 +60,6 @@
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
-        },
-        {
-            "type": "file",
-            "source": "files/cloud.cfg",
-            "destination": "/etc/cloud/cloud.cfg"
         },
         {
             "type": "file",
