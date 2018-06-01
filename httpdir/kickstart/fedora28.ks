@@ -58,5 +58,10 @@ wget
 nano
 %end
 
+%post
+dnf update -y
+dnf clean all
+%end
+
 firstboot --disabled
 reboot

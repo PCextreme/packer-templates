@@ -131,9 +131,9 @@ alpha:
         - qemu-img resize coreos_$CI_BUILD_NAME-10G.qcow2 10G
         - qemu-img resize coreos_$CI_BUILD_NAME-20G.qcow2 20G
         - qemu-img resize coreos_$CI_BUILD_NAME-50G.qcow2 50G
-        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-10G.qcow2
-        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-20G.qcow2
-        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
         - packer
         - kvm
@@ -150,9 +150,9 @@ beta:
         - qemu-img resize coreos_$CI_BUILD_NAME-10G.qcow2 10G
         - qemu-img resize coreos_$CI_BUILD_NAME-20G.qcow2 20G
         - qemu-img resize coreos_$CI_BUILD_NAME-50G.qcow2 50G
-        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-10G.qcow2
-        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-20G.qcow2
-        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
         - packer
         - kvm
@@ -169,9 +169,9 @@ stable:
         - qemu-img resize coreos_$CI_BUILD_NAME-10G.qcow2 10G
         - qemu-img resize coreos_$CI_BUILD_NAME-20G.qcow2 20G
         - qemu-img resize coreos_$CI_BUILD_NAME-50G.qcow2 50G
-        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-10G.qcow2
-        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-20G.qcow2
-        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/coreos_$CI_BUILD_NAME-50G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
         - packer
         - kvm

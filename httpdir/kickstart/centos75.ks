@@ -63,6 +63,8 @@ nano
 %end
 
 %post
+yum update -y
+yum clean all
 sed -i '/^disable_root/s/1/0/ ; /^disable_root/s/true/false/ ; /^ssh_pwauth/s/0/1/ ; /^ssh_pwauth/s/false/true/' /etc/cloud/cloud.cfg
 %end
 
