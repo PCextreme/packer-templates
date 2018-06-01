@@ -12,8 +12,6 @@ timezone --utc UTC
 
 network --onboot yes --device eth0 --bootproto dhcp
 network  --hostname=centos7
-firewall --enabled --service=ssh
-services --enabled=chronyd,rdisc
 
 auth --useshadow --enablemd5
 authconfig --enableshadow --passalgo=sha512
@@ -68,7 +66,6 @@ nano
 yum update -y
 yum clean all
 sed -i '/^disable_root/s/1/0/ ; /^disable_root/s/true/false/ ; /^ssh_pwauth/s/0/1/ ; /^ssh_pwauth/s/false/true/' /etc/cloud/cloud.cfg
-echo "This template was provided by PCextreme B.V." > /root/.pcextreme
 %end
 
 firstboot --disabled

@@ -9,12 +9,12 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://nl3.releases.ubuntu.com/16.04/ubuntu-16.04.4-server-amd64.iso",
-            "iso_checksum_url": "http://nl3.releases.ubuntu.com/16.04/SHA1SUMS",
+            "iso_url": "http://centos.mirror.pcextreme.nl/7.5.1804/isos/x86_64/CentOS-7-x86_64-NetInstall-1804.iso",
+            "iso_checksum_url": "http://centos.mirror.pcextreme.nl/7.5.1804/isos/x86_64/sha1sum.txt",
             "iso_checksum_type": "sha1",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
-            "shutdown_command": "shutdown -P now",
+            "shutdown_command": "systemctl poweroff",
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
@@ -22,7 +22,7 @@
             "headless": "true",
             "qemuargs":
             [
-                [ "-smp" , "{{user `ncpu`}}"],
+                [ "-smp" , "{{user `ncpu`}}" ],
                 [ "-m", "1024M" ]
             ],
             "http_directory": "../../httpdir",
@@ -33,38 +33,16 @@
             "ssh_username": "root",
             "ssh_password": "installer",
             "ssh_port": 22,
-            "ssh_wait_timeout": "15m",
+            "ssh_wait_timeout": "30m",
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio-scsi",
             "disk_cache": "unsafe",
             "disk_discard": "unmap",
             "disk_compression": true,
-            "boot_wait": "15s",
             "boot_command":
             [
-                "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-                "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-                "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-                "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-                "/install/vmlinuz<wait>",
-                " auto<wait>",
-                " console-setup/ask_detect=false<wait>",
-                " console-setup/layoutcode=us<wait>",
-                " console-setup/modelcode=SKIP<wait>",
-                " debconf/frontend=noninteractive<wait>",
-                " debian-installer=en_US<wait>",
-                " fb=false<wait>",
-                " initrd=/install/initrd.gz<wait>",
-                " kbd-chooser/method=us<wait>",
-                " keyboard-configuration/layout=USA<wait>",
-                " keyboard-configuration/variant=USA<wait>",
-                " locale=en_US<wait>",
-                " noapic<wait>",
-                " netcfg/get_hostname={{user `template_name`}}<wait>",
-                " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/{{user `template_name`}}.preseed ",
-                " -- <wait>",
-                "<enter><wait>"
+                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"
             ]
         }
     ],
@@ -80,11 +58,6 @@
         },
         {
             "type": "file",
-            "source": "files/99-disable-ipv6-tempaddr.conf",
-            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
-        },
-        {
-            "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
         },
@@ -94,17 +67,17 @@
             "destination": "/var/opt/aurora-build-metadata.txt"
         },
         {
-            "type": "file",
-            "source": "files/watchdog.conf",
-            "destination": "/etc/watchdog.conf"
-        },
-        {
             "type": "shell",
             "scripts":
             [
                 "scripts/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "files/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
         },
         {
             "type": "shell",

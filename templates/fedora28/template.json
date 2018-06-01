@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://ftp.nluug.nl/ftp/pub/os/Linux/distr/CentOS/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1708.iso",
-            "iso_checksum": "fe3d960cce4d2c1c9f1b66817fe87cc0ee1a1c6c5dd126204cb5c33d51a45620",
+            "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/28/Server/x86_64/iso/Fedora-Server-netinst-x86_64-28-1.1.iso",
+            "iso_checksum_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/28/Server/x86_64/iso/Fedora-Server-28-1.1-x86_64-CHECKSUM",
             "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
@@ -33,7 +33,7 @@
             "ssh_username": "root",
             "ssh_password": "installer",
             "ssh_port": 22,
-            "ssh_wait_timeout": "15m",
+            "ssh_wait_timeout": "30m",
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio-scsi",
@@ -60,11 +60,6 @@
             "type": "file",
             "source": "files/99_cloudstack.cfg",
             "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
-        },
-        {
-            "type": "file",
-            "source": "files/cloud.cfg",
-            "destination": "/etc/cloud/cloud.cfg"
         },
         {
             "type": "file",

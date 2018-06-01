@@ -35,7 +35,7 @@ ubuntu1604:
         - packer
         - kvm
 
-ubuntu1710:
+ubuntu1804:
     stage: build
     script:
         - env
@@ -56,7 +56,7 @@ ubuntu1710:
         - packer
         - kvm
 
-ubuntu1804:
+centos75:
     stage: build
     script:
         - env
@@ -72,12 +72,12 @@ ubuntu1804:
         - qemu-img convert -c -O qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.qcow2 templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
-        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2        
+        - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
         - packer
         - kvm
 
-centos74:
+fedora28:
     stage: build
     script:
         - env
@@ -115,6 +115,63 @@ debian94:
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-10G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-20G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
         - s3cmd put -P templates/$CI_BUILD_NAME/$CI_BUILD_NAME-50G.upload.qcow2 s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+    tags:
+        - packer
+        - kvm
+
+alpha:
+    stage: build
+    script:
+        - env
+        - wget http://$CI_BUILD_NAME.release.core-os.net/amd64-usr/current/coreos_production_cloudstack_image.bin.bz2 -O - | bzcat > coreos_$CI_BUILD_NAME_qemu_image.img
+        - qemu-img convert -f raw -O qcow2 coreos_$CI_BUILD_NAME_qemu_image.img coreos_$CI_BUILD_NAME.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-10G.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-20G.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-50G.qcow2
+        - qemu-img resize coreos_$CI_BUILD_NAME-10G.qcow2 10G
+        - qemu-img resize coreos_$CI_BUILD_NAME-20G.qcow2 20G
+        - qemu-img resize coreos_$CI_BUILD_NAME-50G.qcow2 50G
+        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+    tags:
+        - packer
+        - kvm
+
+beta:
+    stage: build
+    script:
+        - env
+        - wget http://$CI_BUILD_NAME.release.core-os.net/amd64-usr/current/coreos_production_cloudstack_image.bin.bz2 -O - | bzcat > coreos_$CI_BUILD_NAME_qemu_image.img
+        - qemu-img convert -f raw -O qcow2 coreos_$CI_BUILD_NAME_qemu_image.img coreos_$CI_BUILD_NAME.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-10G.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-20G.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-50G.qcow2
+        - qemu-img resize coreos_$CI_BUILD_NAME-10G.qcow2 10G
+        - qemu-img resize coreos_$CI_BUILD_NAME-20G.qcow2 20G
+        - qemu-img resize coreos_$CI_BUILD_NAME-50G.qcow2 50G
+        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
+    tags:
+        - packer
+        - kvm
+
+stable:
+    stage: build
+    script:
+        - env
+        - wget http://$CI_BUILD_NAME.release.core-os.net/amd64-usr/current/coreos_production_cloudstack_image.bin.bz2 -O - | bzcat > coreos_$CI_BUILD_NAME_qemu_image.img
+        - qemu-img convert -f raw -O qcow2 coreos_$CI_BUILD_NAME_qemu_image.img coreos_$CI_BUILD_NAME.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-10G.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-20G.qcow2
+        - qemu-img convert -c -f qcow2 -O qcow2 coreos_$CI_BUILD_NAME.qcow2 coreos_$CI_BUILD_NAME-50G.qcow2
+        - qemu-img resize coreos_$CI_BUILD_NAME-10G.qcow2 10G
+        - qemu-img resize coreos_$CI_BUILD_NAME-20G.qcow2 20G
+        - qemu-img resize coreos_$CI_BUILD_NAME-50G.qcow2 50G
+        - s3cmd put -P coreos_$CI_BUILD_NAME-10G.qcow2  s3://packer-templates/$CI_BUILD_NAME-10G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-20G.qcow2  s3://packer-templates/$CI_BUILD_NAME-20G.qcow2
+        - s3cmd put -P coreos_$CI_BUILD_NAME-50G.qcow2  s3://packer-templates/$CI_BUILD_NAME-50G.qcow2
     tags:
         - packer
         - kvm
