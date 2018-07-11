@@ -19,4 +19,7 @@ logrotate -f /etc/logrotate.conf 2>/dev/null
 rm -f /var/log/*-* /var/log/*.gz 2>/dev/null
 rm -f /var/log/upstart/*.log /var/log/upstart/*.log.*.gz
 
+echo "Enabling fstrim.timer"
+systemctl enable fstrim.timer
+
 unset HISTFILE
