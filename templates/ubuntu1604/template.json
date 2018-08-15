@@ -9,7 +9,7 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://nl3.releases.ubuntu.com/16.04/ubuntu-16.04.4-server-amd64.iso",
+            "iso_url": "http://nl3.releases.ubuntu.com/16.04/ubuntu-16.04.5-server-amd64.iso",
             "iso_checksum_url": "http://nl3.releases.ubuntu.com/16.04/SHA1SUMS",
             "iso_checksum_type": "sha1",
             "output_directory": "packer_output",
