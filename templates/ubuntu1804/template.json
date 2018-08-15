@@ -9,7 +9,7 @@
     [
         {
             "type": "qemu",
-            "iso_url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/ubuntu-18.04-server-amd64.iso",
+            "iso_url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/ubuntu-18.04.1-server-amd64.iso",
             "iso_checksum_url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/SHA1SUMS",
             "iso_checksum_type": "sha1",
             "output_directory": "packer_output",
