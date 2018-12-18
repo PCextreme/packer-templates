@@ -10,8 +10,8 @@
         {
             "type": "qemu",
             "iso_url": "http://centos.mirror.pcextreme.nl/7.6.1810/isos/x86_64/CentOS-7-x86_64-NetInstall-1810.iso",
-            "iso_checksum_url": "http://centos.mirror.pcextreme.nl/7.6.1810/isos/x86_64/sha1sum.txt",
-            "iso_checksum_type": "sha1",
+            "iso_checksum_url": "http://centos.mirror.pcextreme.nl/7.6.1810/isos/x86_64/sha256sum.txt",
+            "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
             "shutdown_command": "systemctl poweroff",
