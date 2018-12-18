@@ -9,7 +9,7 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.5.0-amd64-netinst.iso",
+            "iso_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-netinst.iso",
             "iso_checksum_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA1SUMS",
             "iso_checksum_type": "sha1",
             "output_directory": "packer_output",

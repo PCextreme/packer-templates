@@ -119,7 +119,7 @@ fedora28:
         - packer
         - kvm
 
-debian95:
+debian96:
     stage: build
     script:
         - env
