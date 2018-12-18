@@ -77,7 +77,7 @@ ubuntu1810:
         - packer
         - kvm
 
-centos75:
+centos76:
     stage: build
     script:
         - env
@@ -98,7 +98,7 @@ centos75:
         - packer
         - kvm
 
-fedora28:
+fedora29:
     stage: build
     script:
         - env
