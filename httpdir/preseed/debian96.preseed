@@ -43,8 +43,8 @@ d-i partman/confirm boolean true
 
 # Mirror
 d-i mirror/country string manual
-d-i mirror/http/hostname string debian.apt-get.eu
-d-i mirror/http/directory string /debian
+d-i mirror/http/hostname string debian.mirror.pcextreme.nl
+d-i mirror/http/directory string /archive
 d-i mirror/http/proxy string
 
 # Users
