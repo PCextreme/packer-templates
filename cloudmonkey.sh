@@ -140,7 +140,7 @@ upload_template(){
     echo "Info: Found ostypeid ${ostypeid}"
 
     echo "Info: Adding $TEMPLATE_NAME"
-    added=$(cloudmonkey ${CMPROFILE} ${CMPLAINTEXT} register template name="${name}" displaytext="${SIZE}" isextractable=${extractable} isfeatured=${featured} ispublic=${public} passwordenabled=${passwordenabled} ostypeid=${ostypeid} format=${format} hypervisor=${hypervisor} zoneid=${zoneid} url="${DOWNLOAD_URL}/${TEMPLATE_NAME}-${DOWNLOAD_SIZE}.qcow2" | awk '/^id =/ {print $3}')
+    added=$(cloudmonkey ${CMPROFILE} ${CMPLAINTEXT} register template name="${name}" displaytext="${SIZE}" details[0].rootDiskController=scsi isextractable=${extractable} isfeatured=${featured} ispublic=${public} passwordenabled=${passwordenabled} ostypeid=${ostypeid} format=${format} hypervisor=${hypervisor} zoneid=${zoneid} url="${DOWNLOAD_URL}/${TEMPLATE_NAME}-${DOWNLOAD_SIZE}.qcow2" | awk '/^id =/ {print $3}')
 
     echo "Info: Adding tags to $TEMPLATE_NAME"
     tags=$(cloudmonkey ${CMPROFILE} ${CMPLAINTEXT} create tags resourcetype=template resourceids=$added tags[0].key=oscategory tags[0].value=$oscategory tags[1].key=osversion tags[1].value=$osversion tags[2].key=size tags[2].value=$SIZE | awk '/^id =/ {print $3}')
