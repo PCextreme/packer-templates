@@ -1,0 +1,114 @@
+{
+    "variables":
+    {
+        "ncpu": "",
+        "template_name": "",
+        "disk_size": ""
+    },
+    "builders":
+    [
+        {
+            "type": "qemu",
+            "iso_url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/ubuntu-18.04.1-server-amd64.iso",
+            "iso_checksum_url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/SHA1SUMS",
+            "iso_checksum_type": "sha1",
+            "output_directory": "packer_output",
+            "ssh_wait_timeout": "30s",
+            "shutdown_command": "shutdown -P now",
+            "disk_size": "{{user `disk_size`}}",
+            "format": "qcow2",
+            "accelerator": "kvm",
+            "vnc_bind_address": "0.0.0.0",
+            "headless": "true",
+            "qemuargs":
+            [
+                [ "-smp" , "{{user `ncpu`}}"],
+                [ "-m", "1024M" ]
+            ],
+            "http_directory": "../../httpdir",
+            "http_port_min": 10082,
+            "http_port_max": 10089,
+            "ssh_host_port_min": 2222,
+            "ssh_host_port_max": 2229,
+            "ssh_username": "root",
+            "ssh_password": "installer",
+            "ssh_port": 22,
+            "ssh_wait_timeout": "15m",
+            "vm_name": "{{user `template_name`}}",
+            "net_device": "virtio-net",
+            "disk_interface": "virtio-scsi",
+            "disk_cache": "unsafe",
+            "disk_discard": "unmap",
+            "disk_compression": true,
+            "boot_wait": "15s",
+            "boot_command": [
+                "<esc><wait>",
+                "<esc><wait>",
+                "<enter><wait>",
+                "/install/vmlinuz<wait>",
+                " auto<wait>",
+                " console-setup/ask_detect=false<wait>",
+                " console-setup/layoutcode=us<wait>",
+                " console-setup/modelcode=pc105<wait>",
+                " debconf/frontend=noninteractive<wait>",
+                " debian-installer=en_US<wait>",
+                " fb=false<wait>",
+                " initrd=/install/initrd.gz<wait>",
+                " kbd-chooser/method=us<wait>",
+                " keyboard-configuration/layout=USA<wait>",
+                " keyboard-configuration/variant=USA<wait>",
+                " locale=en_US<wait>",
+                " netcfg/get_hostname={{user `template_name`}}<wait>",
+                " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/{{user `template_name`}}.preseed ",
+                " -- <wait>",
+                "<enter><wait>"
+            ]
+        }
+    ],
+    "provisioners":
+    [
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/pre.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "files/99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
+            "type": "file",
+            "source": "files/99_cloudstack.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/99_cloudstack.cfg"
+        },
+        {
+            "type": "file",
+            "source": "../../httpdir/meta.data",
+            "destination": "/var/opt/aurora-build-metadata.txt"
+        },
+        {
+            "type": "file",
+            "source": "files/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/post.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "inline":
+            [
+              "fstrim -v /"
+            ]
+        }
+    ]
+}

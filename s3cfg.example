@@ -1,0 +1,7 @@
+[default]
+access_key = <ACCESS KEY>
+secret_key = <SECRET KEY>
+default_mime_type = binary/octet-stream
+host_base = o.auroraobjects.eu
+host_bucket = %(bucket)s.o.auroraobjects.eu
+use_https = False

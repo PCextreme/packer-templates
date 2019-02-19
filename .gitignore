@@ -1,3 +1,6 @@
+*~
 *output*
 *cache*
-
+*.qcow2
+.DS_Store
+meta.data
