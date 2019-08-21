@@ -9,12 +9,12 @@
     [
         {
             "type": "qemu",
-            "iso_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.6.0-amd64-netinst.iso",
-            "iso_checksum_url": "http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA1SUMS",
-            "iso_checksum_type": "sha1",
+            "iso_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/30/Server/x86_64/iso/Fedora-Server-netinst-x86_64-30-1.2.iso",
+            "iso_checksum_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/30/Server/x86_64/iso/Fedora-Server-30-1.2-x86_64-CHECKSUM",
+            "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
-            "shutdown_command": "/sbin/shutdown -hP now",
+            "shutdown_command": "systemctl poweroff",
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
             "accelerator": "kvm",
@@ -33,37 +33,21 @@
             "ssh_username": "root",
             "ssh_password": "installer",
             "ssh_port": 22,
-            "ssh_wait_timeout": "15m",
+            "ssh_wait_timeout": "30m",
             "vm_name": "{{user `template_name`}}",
             "net_device": "virtio-net",
             "disk_interface": "virtio-scsi",
             "disk_cache": "unsafe",
             "disk_discard": "unmap",
             "disk_compression": true,
-            "boot_wait": "15s",
             "boot_command":
             [
-                "<esc><wait5>",
-                "install <wait>",
-                "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/{{user `template_name`}}.preseed ",
-                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-                "keyboard-configuration/xkb-keymap=us ",
-                "netcfg/get_hostname={{user `template_name`}} ",
-                "netcfg/get_domain=auroracompute.com ",
-                "fb=false debconf/frontend=noninteractive ",
-                "console-setup/ask_detect=false <wait>",
-                "console-keymaps-at/keymap=us <wait>",
-                "<enter>"
+                "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"
             ]
         }
     ],
     "provisioners":
     [
-        {
-            "type": "file",
-            "source": "files/99-disable-ipv6-tempaddr.conf",
-            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
-        },
         {
             "type": "shell",
             "scripts":
@@ -83,17 +67,17 @@
             "destination": "/var/opt/aurora-build-metadata.txt"
         },
         {
-            "type": "file",
-            "source": "files/watchdog.conf",
-            "destination": "/etc/watchdog.conf"
-        },
-        {
             "type": "shell",
             "scripts":
             [
                 "scripts/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "file",
+            "source": "files/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
         },
         {
             "type": "shell",
