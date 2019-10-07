@@ -41,8 +41,8 @@ d-i partman/confirm boolean true
 
 # Mirror
 d-i mirror/country string manual
-d-i mirror/http/hostname string ubuntu.apt-get.eu
-d-i mirror/http/directory string /ubuntu
+d-i mirror/http/hostname string ubuntu.mirror.pcextreme.nl
+d-i mirror/http/directory string /archive
 d-i mirror/http/proxy string
 
 # Users
