@@ -30,6 +30,11 @@ ubuntu1604:
     tags:
         - packer
         - kvm
+    only:
+      changes:
+        - templates/$CI_JOB_NAME/**/*
+        - httpdir/preseed/$CI_JOB_NAME.preseed
+        - "*.sh"
 
 ubuntu1804:
     stage: build
@@ -47,6 +52,11 @@ ubuntu1804:
     tags:
         - packer
         - kvm
+    only:
+      changes:
+        - templates/$CI_JOB_NAME/**/*
+        - httpdir/preseed/$CI_JOB_NAME.preseed
+        - "*.sh"
 
 centos76:
     stage: build
@@ -64,6 +74,11 @@ centos76:
     tags:
         - packer
         - kvm
+    only:
+      changes:
+        - templates/$CI_JOB_NAME/**/*
+        - httpdir/kickstart/$CI_JOB_NAME.preseed
+        - "*.sh"
 
 debian10:
     stage: build
@@ -81,6 +96,11 @@ debian10:
     tags:
         - packer
         - kvm
+    only:
+      changes:
+        - templates/$CI_JOB_NAME/**/*
+        - httpdir/preseed/$CI_JOB_NAME.preseed
+        - "*.sh"
 
 
 fedora30:
@@ -99,3 +119,8 @@ fedora30:
     tags:
         - packer
         - kvm
+    only:
+      changes:
+        - templates/$CI_JOB_NAME/**/*
+        - httpdir/kickstart/$CI_JOB_NAME.preseed
+        - "*.sh"
