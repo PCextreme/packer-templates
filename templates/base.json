@@ -1,0 +1,63 @@
+{
+    "variables": {
+        "name": null,
+        "url": null,
+        "url_checksum": null,
+        "boot_command": null
+    },
+    "builders": [
+        {
+            "type": "qemu",
+            "iso_url": "{{user `url`}}",
+            "iso_checksum_url": "{{user `url_checksum`}}",
+            "iso_checksum_type": "file",
+            "vm_name": "{{user `name`}}",
+            "format": "qcow2",
+            "accelerator": "kvm",
+            "headless": true,
+            "cpus": 2,
+            "memory": 2048,
+            "disk_size": "20G",
+            "disk_interface": "virtio-scsi",
+            "disk_discard": "unmap",
+            "disk_compression": true,
+            "boot_command": "{{user `boot_command`}}",
+            "communicator": "ssh",
+            "ssh_wait_timeout": "30m",
+            "ssh_username": "root",
+            "ssh_password": "installer",
+            "http_directory": "files"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "files/generic/cloud-init.cfg",
+            "destination": "/etc/cloud/cloud.cfg.d/zzz-pcextreme.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
+        },
+        {
+            "type": "local-shell",
+            "script": "scripts/sysprep.sh"
+        },
+        {
+            "type": "shell",
+            "command": "fstrim -v /"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "checksum",
+            "checksum_types": ["sha256"],
+            "output": "target/{{.ChecksumType}}s.txt"
+        },
+        {
+            "type": "manifest",
+            "output": "target/manifest.json"
+        }
+    ]
+}
