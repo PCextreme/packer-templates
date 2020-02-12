@@ -1,5 +1,6 @@
 stages:
     - build
+    - deploy
 
 .build_template:
     stage: build
@@ -7,9 +8,24 @@ stages:
         - ./build.sh $CI_BUILD_NAME
     artifacts:
         paths:
-            - target/
+            - output-qemu/
     tags:
         - virt
 
 .register_template:
-    stage: register
+    stage: deploy
+
+centos77:
+    extends: .build_template
+
+debian103:
+    extends: .build_template
+
+fedora31:
+    extends: .build_template
+
+ubuntu1604:
+    extends: .build_template
+
+ubuntu1804:
+    extends: .build_template
