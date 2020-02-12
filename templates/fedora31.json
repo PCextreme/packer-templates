@@ -1,5 +1,5 @@
 {
     "url": "https://fedora.mirror.pcextreme.nl/fedora/linux/releases/31/Server/x86_64/iso/Fedora-Server-netinst-x86_64-31-1.9.iso",
     "url_checksum": "https://fedora.mirror.pcextreme.nl/fedora/linux/releases/31/Server/x86_64/iso/Fedora-Server-31-1.9-x86_64-CHECKSUM",
-    "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/{{user `template_name`}}.ks<enter><wait>"
+    "boot_command": "<tab> text ks=http://185.109.216.113:8000/kickstart/fedora31.ks<enter><wait>"
 }
