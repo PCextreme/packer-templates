@@ -39,10 +39,6 @@
             "type": "file",
             "source": "files/generic/watchdog.conf",
             "destination": "/etc/watchdog.conf"
-        },
-        {
-            "type": "shell",
-            "command": "fstrim -v /"
         }
     ],
     "post-processors": [
