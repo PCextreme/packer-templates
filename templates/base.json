@@ -48,16 +48,16 @@
     "post-processors": [
         {
             "type": "shell-local",
-            "command": "virt-sysprep -a target/*.qcow2"
+            "command": "virt-sysprep -a output-qemu/*.qcow2"
         },
         {
             "type": "checksum",
             "checksum_types": ["sha256"],
-            "output": "target/{{.ChecksumType}}s.txt"
+            "output": "output-qemu/{{user `name`}}_{{.ChecksumType}}.checksum"
         },
         {
             "type": "manifest",
-            "output": "target/manifest.json"
+            "output": "output-qemu/manifest.json"
         }
     ]
 }
