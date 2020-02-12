@@ -41,15 +41,15 @@
             "destination": "/etc/watchdog.conf"
         },
         {
-            "type": "local-shell",
-            "script": "scripts/sysprep.sh"
-        },
-        {
             "type": "shell",
             "command": "fstrim -v /"
         }
     ],
     "post-processors": [
+        {
+            "type": "shell-local",
+            "command": "virt-sysprep -a target/*.qcow2"
+        },
         {
             "type": "checksum",
             "checksum_types": ["sha256"],
