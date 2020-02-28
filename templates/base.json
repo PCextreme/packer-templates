@@ -46,7 +46,7 @@
     "post-processors": [
         {
             "type": "shell-local",
-            "command": "virt-sysprep -a output-qemu/*.qcow2"
+            "command": "virt-sysprep -a output-qemu/{{user `name`}}"
         },
         {
             "type": "checksum",
