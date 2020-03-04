@@ -28,7 +28,8 @@
             "ssh_password": "installer",
             "http_directory": "files",
             "http_port_min": 8000,
-            "http_port_max": 8000
+            "http_port_max": 8000,
+            "output_directory": "build"
         }
     ],
     "provisioners": [
@@ -46,16 +47,16 @@
     "post-processors": [
         {
             "type": "shell-local",
-            "command": "virt-sysprep -a output-qemu/{{user `name`}}"
+            "command": "virt-sysprep -a build/{{user `name`}}"
         },
         {
             "type": "checksum",
             "checksum_types": ["sha256"],
-            "output": "output-qemu/{{user `name`}}_{{.ChecksumType}}.checksum"
+            "output": "build/{{user `name`}}_{{.ChecksumType}}.checksum"
         },
         {
             "type": "manifest",
-            "output": "output-qemu/manifest.json"
+            "output": "build/manifest.json"
         }
     ]
 }
