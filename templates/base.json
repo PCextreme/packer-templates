@@ -23,7 +23,7 @@
             "disk_compression": true,
             "boot_command": "{{user `boot_command`}}",
             "communicator": "ssh",
-            "ssh_wait_timeout": "30m",
+            "ssh_wait_timeout": "60m",
             "ssh_username": "root",
             "ssh_password": "installer",
             "http_directory": "files",
