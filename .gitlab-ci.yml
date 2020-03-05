@@ -8,7 +8,7 @@ stages:
         - ./build.sh $CI_BUILD_NAME
     artifacts:
         paths:
-            - output-qemu/
+            - build/
     tags:
         - virt
 
@@ -16,6 +16,9 @@ stages:
     stage: deploy
 
 centos77:
+    extends: .build_template
+
+centos81:
     extends: .build_template
 
 debian103:
