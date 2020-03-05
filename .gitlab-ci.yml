@@ -1,5 +1,6 @@
 stages:
     - build
+    - publish
     - deploy
 
 .build_template:
@@ -8,12 +9,17 @@ stages:
         - ./build.sh $CI_BUILD_NAME
     artifacts:
         paths:
-            - build/
+            - build_$CI_JOB_NAME/
     tags:
         - virt
-
-.register_template:
-    stage: deploy
+    rules:
+        - changes:
+            - .gitlab-ci.yml
+            - build.sh
+            - generic/*
+            - files/**/$CI_JOB_NAME.*
+            - templates/base.json
+            - templates/$CI_JOB_NAME.json
 
 centos77:
     extends: .build_template
@@ -32,3 +38,21 @@ ubuntu1604:
 
 ubuntu1804:
     extends: .build_template
+
+upload_templates:
+    stage: publish
+    before_script:
+        - mc config host add objects $OBJECTS_ENDPOINT $OBJECTS_ACCESS_KEY $OBJECTS_SECRET_KEY
+    script:
+        - mc cp -r build_*/ objects/compute-templates
+    rules:
+        - if: "$CI_COMMIT_REF_NAME == 'master'"
+
+register_templates:
+    stage: deploy
+    script:
+        - echo "uploading"
+    needs:
+        - upload_templates
+    rules:
+        - if: "$CI_COMMIT_REF_NAME == 'master'"
