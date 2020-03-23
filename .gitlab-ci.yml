@@ -21,22 +21,22 @@ stages:
             - templates/base.json
             - templates/$CI_JOB_NAME.json
 
-centos77:
-    extends: .build_template
+#centos-7.7:
+#    extends: .build_template
+#
+#centos-8.1:
+#    extends: .build_template
+#
+#debian-10.3:
+#    extends: .build_template
+#
+#fedora-31:
+#    extends: .build_template
+#
+#ubuntu-16.04:
+#    extends: .build_template
 
-centos81:
-    extends: .build_template
-
-debian103:
-    extends: .build_template
-
-fedora31:
-    extends: .build_template
-
-ubuntu1604:
-    extends: .build_template
-
-ubuntu1804:
+ubuntu-18.04:
     extends: .build_template
 
 upload_templates:

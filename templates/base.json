@@ -63,11 +63,17 @@
             {
                 "type": "checksum",
                 "checksum_types": ["sha256"],
-                "output": "build_{{user `name`}}/{{user `name`}}_{{.ChecksumType}}.checksum"
+                "output": "build_{{user `name`}}/{{user `name`}}.checksum"
             },
             {
                 "type": "manifest",
-                "output": "build_{{user `name`}}/{{user `name`}}_manifest.json"
+                "output": "build_{{user `name`}}/{{user `name`}}.json",
+                "strip_path": true,
+                "custom_data": {
+                    "oscategory": "{{split (user `name`) \"-\" 0}}",
+                    "osversion": "{{split (user `name`) \"-\" 1}}",
+                    "template_slug": "{{user `name`}}"
+                }
             }
         ]
 

@@ -1,0 +1,5 @@
+{
+    "url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/ubuntu-18.04.4-server-amd64.iso",
+    "url_checksum": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/SHA256SUMS",
+    "boot_command": "<esc><wait><esc><wait><enter><wait>/install/vmlinuz initrd=/install/initrd.gz preseed/url=http://93.180.67.15:8000/preseed/ubuntu-18.04.preseed auto debian-installer=en_US locale=en_US kbd-chooser/method=us fb=false debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false hostname=ubuntu1804 -- <enter>"
+}

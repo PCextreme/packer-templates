@@ -1,0 +1,5 @@
+{
+    "url": "https://releases.ubuntu.mirror.pcextreme.nl/16.04/ubuntu-16.04.6-server-amd64.iso",
+    "url_checksum": "https://releases.ubuntu.mirror.pcextreme.nl/16.04/SHA256SUMS",
+    "boot_command": "<esc><wait10><esc><esc><enter><wait>set gfxpayload=1024x768<enter>linux /install/vmlinuz preseed/url=http://185.109.216.113:8000/preseed/ubuntu-16.04.preseed debian-installer=en_US.UTF-8 auto locale=en_US.UTF-8 kbd-chooser/method=us hostname=ubuntu1604 fb=false debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>initrd /install/initrd.gz<enter>boot<enter>"
+}

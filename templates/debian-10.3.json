@@ -1,0 +1,5 @@
+{
+    "url": "https://mirror.leaseweb.net/debian-cd/10.3.0/amd64/iso-cd/debian-10.3.0-amd64-netinst.iso",
+    "url_checksum": "https://mirror.leaseweb.net/debian-cd/10.3.0/amd64/iso-cd/SHA256SUMS",
+    "boot_command": "<esc><wait5>install <wait> preseed/url=http://185.109.216.113:8000/preseed/debian-10.3.preseed debian-installer=en_US auto locale=en_US kbd-chooser/method=us keyboard-configuration/xkb-keymap=us netcfg/get_hostname=debian103 netcfg/get_domain=auroracompute.com fb=false debconf/frontend=noninteractive console-setup/ask_detect=false <wait> console-keymaps-at/keymap=us <wait><enter>"
+}
