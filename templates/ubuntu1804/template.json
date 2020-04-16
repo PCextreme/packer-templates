@@ -9,8 +9,8 @@
     [
         {
             "type": "qemu",
-            "iso_url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/ubuntu-18.04.2-server-amd64.iso",
-            "iso_checksum_url": "https://cdimage.ubuntu.mirror.pcextreme.nl/releases/18.04/release/SHA1SUMS",
+            "iso_url": "https://cloudstack.o.auroraobjects.eu/iso/ubuntu-18.04.4-server-amd64.iso",
+            "iso_checksum": "80f7872cb6bee3b5d7538d0edea8f3ff5ff89776",
             "iso_checksum_type": "sha1",
             "output_directory": "packer_output",
             "ssh_wait_timeout": "30s",
