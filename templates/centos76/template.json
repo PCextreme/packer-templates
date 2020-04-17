@@ -13,7 +13,6 @@
             "iso_checksum": "19d94274ef856c4dfcacb2e7cfe4be73e442a71dd65cc3fb6e46db826040b56e",
             "iso_checksum_type": "sha256",
             "output_directory": "packer_output",
-            "ssh_wait_timeout": "30s",
             "shutdown_command": "systemctl poweroff",
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
