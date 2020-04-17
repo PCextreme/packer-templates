@@ -13,7 +13,6 @@
             "iso_checksum": "80f7872cb6bee3b5d7538d0edea8f3ff5ff89776",
             "iso_checksum_type": "sha1",
             "output_directory": "packer_output",
-            "ssh_wait_timeout": "30s",
             "shutdown_command": "shutdown -P now",
             "disk_size": "{{user `disk_size`}}",
             "format": "qcow2",
