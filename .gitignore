@@ -4,3 +4,5 @@
 *.qcow2
 .DS_Store
 meta.data
+venv
+.vscode

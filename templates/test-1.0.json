@@ -1,0 +1,5 @@
+{
+    "url": "https://boot.netboot.xyz/ipxe/netboot.xyz.iso",
+    "url_checksum": "https://boot.netboot.xyz/ipxe/netboot.xyz-sha256-checksums.txt",
+    "boot_command": "<wait5>"
+}

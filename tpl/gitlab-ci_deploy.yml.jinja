@@ -1,0 +1,10 @@
+{%- for profile in profiles %}
+deploy:{{ name }}:{{ profile.name }}:
+    stage: deploy
+    script:
+        - bin/register.py --name {{ name }} \
+            --profile {{ profile.name }} \
+            --url {{ bucket }}/{{ name }}.qcow2 \
+            --checksum {{ checksum }} \
+            --custom-data {{ manifest }}
+{%- endfor %}

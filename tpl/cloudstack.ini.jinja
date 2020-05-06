@@ -1,0 +1,6 @@
+{% for profile in profiles %}
+[{{ profile.name }}]
+endpoint = {{ profile.endpoint }}
+key = {{ profile.key }}
+secret = {{ profile.secret }}
+{% endfor %}

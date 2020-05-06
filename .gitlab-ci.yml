@@ -1,58 +1,165 @@
 stages:
     - build
     - publish
+    - generate
+    - trigger
     - deploy
+    - verify
 
-.build_template:
-    stage: build
-    script:
-        - ./build.sh $CI_BUILD_NAME
-    artifacts:
-        paths:
-            - build_$CI_JOB_NAME/
+default:
     tags:
         - virt
+
+# This is done because Gitlab CI is stupid and we can't have nice things
+# Since we are unable to generate a job or reuse it's name, all jobs are prefixed with their stage like stage:job.
+# Here we clean the $CI_JOB_NAME by stripping the stage so we can use it's actual name for building stuff.
+#before_script:
+#    - export TEMPLATE_NAME=${CI_JOB_NAME/*:/}
+
+variables:
+    # The absolute URL to the template bucket
+    TEMPLATE_PATH: "${OBJECTS_ENDPOINT}/${OBJECTS_BUCKET}/${CI_COMMIT_REF_NAME}"
+
+# This job template defines the build for a single OS template
+# The rules attached here make sure that templates are only (re)build on changes to their or shared files.
+.build_template:
+    stage: build
+    artifacts:
+        paths:
+            - build_${TEMPLATE_NAME}/
+    script:
+        - make build NAME=${TEMPLATE_NAME}
     rules:
         - changes:
             - .gitlab-ci.yml
-            - build.sh
+            - Makefile
+            - bin/*
+            - files/**/${TEMPLATE_NAME}.*
             - generic/*
-            - files/**/$CI_JOB_NAME.*
+            - templates/${TEMPLATE_NAME}.json
             - templates/base.json
-            - templates/$CI_JOB_NAME.json
+            - tpl/*
 
-#centos-7.7:
-#    extends: .build_template
-#
-#centos-8.1:
-#    extends: .build_template
-#
-#debian-10.3:
-#    extends: .build_template
-#
-#fedora-31:
-#    extends: .build_template
-#
-#ubuntu-16.04:
-#    extends: .build_template
+# Publish a built template by uploading it to an S3 bucket, the objects are prefixed with the name of the branch/tag 
+.upload_template:
+    stage: publish
+    artifacts:
+        paths:
+            - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json
+            - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum
+    script:
+        - mc config host add objects ${OBJECTS_ENDPOINT} ${OBJECTS_ACCESS_KEY} ${OBJECTS_SECRET_KEY}
+        - mc cp -r build_${TEMPLATE_NAME}/ objects/${OBJECTS_BUCKET}/${CI_COMMIT_REF_NAME}/
 
-ubuntu-18.04:
+# Generate scripts
+# 1:
+# Generate profiles for deploying to Cloudstack later on
+# The script assumes a base64 encoded json containing managers as payload.
+# 2:
+# Generate a gitlab-ci.yml containing deploy jobs for every template in every region and trigger child pipelines with it
+# We do this to prevent having to duplicate the deploy code for every template and region.
+# It also makes sure that no (private) region config has to be hardcoded and deployments are parallel (to each region)
+generate:
+    stage: generate
+    artifacts:
+        paths:
+            - .gitlab-ci_deploy_${TEMPLATE_NAME}.yml
+    script:
+        - "bin/generate-cloudstack.py --config ${CLOUDSTACK_PROFILES}"
+        - "bin/generate-ci.py --config ${CLOUDSTACK_PROFILES} --bucket ${TEMPLATE_PATH}"
+
+# Deploy the temapltes to Cloudstack using the API to register them with the artifact from the bucket
+# Deploy a template 
+# For this we use the info generated in the previous stage, it includes a profile for every region and a set of variables for every template.
+.register_template:
+    stage: deploy
+    trigger:
+        strategy: depend
+        include:
+            - artifact: .gitlab-ci_deploy.yml
+              job: generate
+
+# TODO: Since a part of the upload is async we need to check if it actually succeeded
+.verify:
+    stage: verify
+
+# Job matrix
+# Please for the love of god Gitlab
+# https://gitlab.com/gitlab-org/gitlab/-/issues/15356
+
+# Test
+.test-1.0: &common_test-1-0
+    variables:
+        TEMPLATE_NAME: "test-1.0"
+        
+build:test-1.0:
+    <<: *common_test-1-0
     extends: .build_template
 
-upload_templates:
-    stage: publish
-    before_script:
-        - mc config host add objects $OBJECTS_ENDPOINT $OBJECTS_ACCESS_KEY $OBJECTS_SECRET_KEY
-    script:
-        - mc cp -r build_*/ objects/compute-templates
-    rules:
-        - if: "$CI_COMMIT_REF_NAME == 'master'"
+publish:test-1.0:
+    <<: *common_test-1-0
+    extends: .upload_template
 
-register_templates:
-    stage: deploy
-    script:
-        - echo "uploading"
-    needs:
-        - upload_templates
-    rules:
-        - if: "$CI_COMMIT_REF_NAME == 'master'"
+deploy:test-1.0:
+    <<: *common_test-1-0
+    extends: .register_template
+
+# # Centos 7.7
+# build:centos-7.7:
+#     extends: .build_template
+
+# publish:centos-7.7:
+#     extends: .upload_template
+
+# deploy:centos-7.7:
+#     extends: .register_template
+
+# ## Centos 8.1
+# build:centos-8.1:
+#     extends: .build_template
+
+# publish:centos-8.1:
+#     extends: .upload_template
+
+# deploy:centos-8.1:
+#     extends: .register_template
+
+# ## Debian 10.3
+# build:debian-10.3:
+#     extends: .build_template
+
+# publish:debian-10.3:
+#     extends: .upload_template
+
+# deploy:debian-10.3:
+#     extends: .register_template
+
+# ## Fedora 31
+# build:fedora-31:
+#     extends: .build_template
+
+# publish:fedora-31:
+#     extends: .upload_template
+
+# deploy:fedora-31:
+#     extends: .register_template
+
+# ## Ubuntu 16.04
+# build:ubuntu-16.04:
+#     extends: .build_template
+
+# publish:ubuntu-16.04:
+#     extends: .upload_template
+
+# deploy:ubuntu-16.04:
+#     extends: .register_template
+
+# ## Ubuntu 18.04
+# build:ubuntu-18.04:
+#     extends: .build_template
+
+# publish:ubuntu-18.04:
+#     extends: .upload_template
+
+# deploy:ubuntu-18.04:
+#     extends: .register_template
