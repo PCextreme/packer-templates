@@ -7,8 +7,9 @@ stages:
     - verify
 
 default:
+    # Only the build stage actually requires a `virt` tagged runner, the rest can use `docker`
     tags:
-        - virt
+        - docker
 
 # This is done because Gitlab CI is stupid and we can't have nice things
 # Since we are unable to generate a job or reuse it's name, all jobs are prefixed with their stage like stage:job.
@@ -24,6 +25,8 @@ variables:
 # The rules attached here make sure that templates are only (re)build on changes to their or shared files.
 .build_template:
     stage: build
+    tags:
+        - virt
     artifacts:
         paths:
             - build_${TEMPLATE_NAME}/
@@ -43,6 +46,7 @@ variables:
 # Publish a built template by uploading it to an S3 bucket, the objects are prefixed with the name of the branch/tag 
 .upload_template:
     stage: publish
+    image: "minio/mc"
     artifacts:
         paths:
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json
@@ -61,12 +65,15 @@ variables:
 # It also makes sure that no (private) region config has to be hardcoded and deployments are parallel (to each region)
 generate:
     stage: generate
+    image: "python:3.8.2-alpine"
     artifacts:
         paths:
             - .gitlab-ci_deploy_${TEMPLATE_NAME}.yml
+    before_script:
+        - "make setup"
     script:
-        - "bin/generate-cloudstack.py --config ${CLOUDSTACK_PROFILES}"
-        - "bin/generate-ci.py --config ${CLOUDSTACK_PROFILES} --bucket ${TEMPLATE_PATH}"
+        - "poetry run bin/generate-cloudstack.py --config ${CLOUDSTACK_PROFILES}"
+        - "poetry run bin/generate-ci.py --config ${CLOUDSTACK_PROFILES} --bucket ${TEMPLATE_PATH}"
 
 # Deploy the temapltes to Cloudstack using the API to register them with the artifact from the bucket
 # Deploy a template 
