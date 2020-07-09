@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "bin"
+version = "0.1.0"
+description = "Helper scripts for Packer VM template builds"
+authors = ["Remy Adriaanse <remy@pcextreme.nl>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.8.2"
+Jinja2 = "^2.11"
+cs = "^3.0"
+pyyaml = "^5.3"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.5.2"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
