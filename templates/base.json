@@ -32,8 +32,24 @@
             "output_directory": "build_{{user `name`}}"
         }
     ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "files/generic/cloud-init.cfg",
+            "destination": "/etc/cloud/cloud.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
+        }
+    ],
     "post-processors": [
         [
+            {
+                "type": "shell-local",
+                "command": "virt-sysprep -a build_{{user `name`}}/{{user `name`}}"
+            },
             {
                 "type": "shell-local",
                 "command": "mv build_{{user `name`}}/{{user `name`}} build_{{user `name`}}/{{user `name`}}.qcow2"
@@ -46,7 +62,9 @@
             },
             {
                 "type": "checksum",
-                "checksum_types": ["sha256"],
+                "checksum_types": [
+                    "sha256"
+                ],
                 "output": "build_{{user `name`}}/{{user `name`}}.checksum"
             },
             {
@@ -60,6 +78,5 @@
                 }
             }
         ]
-
     ]
 }
