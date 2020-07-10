@@ -1,5 +1,0 @@
-{
-    "url": "https://centos.mirror.pcextreme.nl/7.7.1908/isos/x86_64/CentOS-7-x86_64-NetInstall-1908.iso",
-    "url_checksum": "https://centos.mirror.pcextreme.nl/7.7.1908/isos/x86_64/sha256sum.txt",
-    "boot_command": "<tab> text ks=http://185.109.216.113:8000/kickstart/centos-7.7.ks<enter><wait>"
-}
