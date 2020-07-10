@@ -1,0 +1,5 @@
+{
+    "url": "https://centos.mirror.pcextreme.nl/8.2.2004/isos/x86_64/CentOS-8.2.2004-x86_64-minimal.iso",
+    "url_checksum": "https://centos.mirror.pcextreme.nl/8.2.2004/isos/x86_64/CHECKSUM",
+    "boot_command": "<tab> text ks=http://185.109.216.113:8000/kickstart/centos-8.2.ks<enter><wait>"
+}
