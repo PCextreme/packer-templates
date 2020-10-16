@@ -53,6 +53,7 @@ bind-utils
 binutils
 cloud-init
 cloud-utils
+cloud-utils-growpart
 curl
 deltarpm
 dracut-config-generic
