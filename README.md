@@ -7,7 +7,7 @@ Packer template source for public templates available on the PCextreme cloud.
 ## Requirements
 To build these templates make sure you have the following tools installed:
 
-- packer
+- packer (>= 1.6.0)
 - virt-sysprep (libguestfs-tools)
 - make
 
