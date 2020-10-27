@@ -3,7 +3,7 @@
         "name": "ubuntu-16.04",
         "url": "http://compute.o.auroraobjects.eu/iso/ubuntu-16.04.7-server-amd64.iso",
         "iso_checksum": "sha256:b23488689e16cad7a269eb2d3a3bf725d3457ee6b0868e00c8762d3816e25848",
-        "boot_command": "<esc><wait10><esc><esc><enter><wait>set gfxpayload=1024x768<enter>linux /install/vmlinuz preseed/url=http://93.180.67.15:8000/preseed/ubuntu-16.04.preseed debian-installer=en_US.UTF-8 auto locale=en_US.UTF-8 kbd-chooser/method=us hostname=ubuntu1604 fb=false debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>initrd /install/initrd.gz<enter>boot<enter>"
+        "boot_command": "<esc><wait10><esc><esc><enter><wait>set gfxpayload=1024x768<enter>linux /install/vmlinuz preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/ubuntu-16.04.preseed debian-installer=en_US.UTF-8 auto locale=en_US.UTF-8 kbd-chooser/method=us hostname=ubuntu1604 fb=false debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <enter>initrd /install/initrd.gz<enter>boot<enter>"
     },
     "builders": [
         {

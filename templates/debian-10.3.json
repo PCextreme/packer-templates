@@ -3,7 +3,7 @@
         "name": "debian-10.3",
         "url": "http://compute.o.auroraobjects.eu/iso/debian-10.6.0-amd64-netinst.iso",
         "iso_checksum": "sha256:2af8f43d4a7ab852151a7f630ba596572213e17d3579400b5648eba4cc974ed0",
-        "boot_command": "<esc><wait5>install <wait> preseed/url=http://93.180.67.15:8000/preseed/debian-10.3.preseed debian-installer=en_US auto locale=en_US kbd-chooser/method=us keyboard-configuration/xkb-keymap=us netcfg/get_hostname=debian103 netcfg/get_domain=auroracompute.com fb=false debconf/frontend=noninteractive console-setup/ask_detect=false <wait> console-keymaps-at/keymap=us <wait><enter>"
+        "boot_command": "<esc><wait5>install <wait> preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/debian-10.3.preseed debian-installer=en_US auto locale=en_US kbd-chooser/method=us keyboard-configuration/xkb-keymap=us netcfg/get_hostname=debian103 netcfg/get_domain=auroracompute.com fb=false debconf/frontend=noninteractive console-setup/ask_detect=false <wait> console-keymaps-at/keymap=us <wait><enter>"
     },
     "builders": [
         {

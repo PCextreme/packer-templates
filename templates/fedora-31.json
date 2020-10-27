@@ -3,7 +3,7 @@
         "name": "fedora-31",
         "url": "http://compute.o.auroraobjects.eu/iso/Fedora-Server-netinst-x86_64-31-1.9.iso",
         "iso_checksum": "sha256:5be8debd3e8fb4e86b9fbf67c7eb66ea598d2b7ad0c7ba8d505ce88067b43444",
-        "boot_command": "<tab> text ks=http://93.180.67.15:8000/kickstart/fedora-31.ks<enter><wait>"
+        "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/fedora-31.ks<enter><wait>"
     },
     "builders": [
         {
