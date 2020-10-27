@@ -47,10 +47,6 @@
         [
             {
                 "type": "shell-local",
-                "command": "virt-sysprep -a build_{{user `name`}}/{{user `name`}}"
-            },
-            {
-                "type": "shell-local",
                 "command": "mv build_{{user `name`}}/{{user `name`}} build_{{user `name`}}/{{user `name`}}.qcow2"
             },
             {
