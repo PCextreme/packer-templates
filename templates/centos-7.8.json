@@ -9,7 +9,7 @@
         {
             "type": "qemu",
             "iso_url": "{{user `url`}}",
-            "iso_checksum_": "{{user `iso_checksum`}}",
+            "iso_checksum": "{{user `iso_checksum`}}",
             "vm_name": "{{user `name`}}",
             "format": "qcow2",
             "accelerator": "kvm",
