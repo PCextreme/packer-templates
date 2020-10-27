@@ -4,6 +4,20 @@
 
 Packer template source for public templates available on the PCextreme cloud.
 
+## Requirements
+To build these templates make sure you have the following tools installed:
+
+- packer
+- virt-sysprep (libguestfs-tools)
+- make
+
+## Building
+An example to build the Ubuntu 18.04 template:
+
+```bash
+make build NAME=ubuntu-18.04
+```
+
 ## Cloudstack profiles
 Uploading to Cloudstack is done with the help of an python CLI wrappen around the API, a profile is needed for this to work.
 To keep this (secret) information out of Git while also making it possible to add multiple Cloudstack clusters, this info is fetched from an environment variable: `CLOUDMONKEY_PROFILES`.
