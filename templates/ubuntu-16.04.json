@@ -44,6 +44,14 @@
         },
         {
             "type": "shell",
+            "scripts":
+            [
+                "files/generic/set-dns-resolvers.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
             "inline":
             [
               "fstrim -v /"

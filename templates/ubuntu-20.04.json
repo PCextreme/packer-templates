@@ -46,6 +46,14 @@
             "type": "shell",
             "scripts":
             [
+                "files/generic/set-dns-resolvers.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
                 "files/ubuntu-20.04/upgrade-to-20.04.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
