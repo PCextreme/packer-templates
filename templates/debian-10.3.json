@@ -1,5 +1,81 @@
 {
-    "url": "https://mirror.leaseweb.net/debian-cd/10.3.0/amd64/iso-cd/debian-10.3.0-amd64-netinst.iso",
-    "url_checksum": "https://mirror.leaseweb.net/debian-cd/10.3.0/amd64/iso-cd/SHA256SUMS",
-    "boot_command": "<esc><wait5>install <wait> preseed/url=http://93.180.67.15:8000/preseed/debian-10.3.preseed debian-installer=en_US auto locale=en_US kbd-chooser/method=us keyboard-configuration/xkb-keymap=us netcfg/get_hostname=debian103 netcfg/get_domain=auroracompute.com fb=false debconf/frontend=noninteractive console-setup/ask_detect=false <wait> console-keymaps-at/keymap=us <wait><enter>"
+    "variables": {
+        "name": "debian-10.3",
+        "url": "http://compute.o.auroraobjects.eu/iso/debian-10.6.0-amd64-netinst.iso",
+        "iso_checksum": "sha256:2af8f43d4a7ab852151a7f630ba596572213e17d3579400b5648eba4cc974ed0",
+        "boot_command": "<esc><wait5>install <wait> preseed/url=http://93.180.67.15:8000/preseed/debian-10.3.preseed debian-installer=en_US auto locale=en_US kbd-chooser/method=us keyboard-configuration/xkb-keymap=us netcfg/get_hostname=debian103 netcfg/get_domain=auroracompute.com fb=false debconf/frontend=noninteractive console-setup/ask_detect=false <wait> console-keymaps-at/keymap=us <wait><enter>"
+    },
+    "builders": [
+        {
+            "type": "qemu",
+            "iso_url": "{{user `url`}}",
+            "iso_checksum": "{{user `iso_checksum`}}",
+            "vm_name": "{{user `name`}}",
+            "format": "qcow2",
+            "accelerator": "kvm",
+            "headless": true,
+            "cpus": 2,
+            "memory": 2048,
+            "disk_size": "20G",
+            "disk_interface": "virtio-scsi",
+            "disk_discard": "unmap",
+            "disk_compression": true,
+            "boot_command": "{{user `boot_command`}}",
+            "communicator": "ssh",
+            "ssh_wait_timeout": "60m",
+            "ssh_username": "root",
+            "ssh_password": "installer",
+            "http_directory": "files",
+            "http_port_min": 8000,
+            "http_port_max": 8000,
+            "output_directory": "build_{{user `name`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "files/generic/cloud-init.cfg",
+            "destination": "/etc/cloud/cloud.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
+        }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "shell-local",
+                "command": "virt-sysprep -a build_{{user `name`}}/{{user `name`}}"
+            },
+            {
+                "type": "shell-local",
+                "command": "mv build_{{user `name`}}/{{user `name`}} build_{{user `name`}}/{{user `name`}}.qcow2"
+            },
+            {
+                "type": "artifice",
+                "files": [
+                    "build_{{user `name`}}/{{user `name`}}.qcow2"
+                ]
+            },
+            {
+                "type": "checksum",
+                "checksum_types": [
+                    "sha256"
+                ],
+                "output": "build_{{user `name`}}/{{user `name`}}.checksum"
+            },
+            {
+                "type": "manifest",
+                "output": "build_{{user `name`}}/{{user `name`}}.json",
+                "strip_path": true,
+                "custom_data": {
+                    "oscategory": "{{split (user `name`) \"-\" 0}}",
+                    "osversion": "{{split (user `name`) \"-\" 1}}",
+                    "template_slug": "{{user `name`}}"
+                }
+            }
+        ]
+    ]
 }
