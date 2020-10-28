@@ -181,3 +181,10 @@ build:ubuntu-18.04:
 
 # deploy:ubuntu-18.04:
 #     extends: .register_template
+
+## Ubuntu 20.04
+build:ubuntu-20.04:
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "ubuntu-20.04"
+
