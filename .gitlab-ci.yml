@@ -95,35 +95,35 @@ generate:
 # https://gitlab.com/gitlab-org/gitlab/-/issues/15356
 
 # Test
-.test-1.0: &common_test-1-0
-    variables:
-        TEMPLATE_NAME: "test-1.0"
+#.test-1.0: &common_test-1-0
+#    variables:
+#        TEMPLATE_NAME: "test-1.0"
         
-build:test-1.0:
-    <<: *common_test-1-0
-    extends: .build_template
+#build:test-1.0:
+#    <<: *common_test-1-0
+#    extends: .build_template
 
-publish:test-1.0:
-    <<: *common_test-1-0
-    extends: .upload_template
+#publish:test-1.0:
+#    <<: *common_test-1-0
+#   extends: .upload_template
 
-deploy:test-1.0:
-    <<: *common_test-1-0
-    extends: .register_template
+#deploy:test-1.0:
+#    <<: *common_test-1-0
+#    extends: .register_template
 
-# # Centos 7.7
-# build:centos-7.7:
-#     extends: .build_template
+# Centos 7.8
+build:centos-7.8:
+     extends: .build_template
 
-# publish:centos-7.7:
+#publish:centos-7.7:
 #     extends: .upload_template
 
 # deploy:centos-7.7:
 #     extends: .register_template
 
-# ## Centos 8.1
-# build:centos-8.1:
-#     extends: .build_template
+# Centos 8.2
+build:centos-8.2:
+     extends: .build_template
 
 # publish:centos-8.1:
 #     extends: .upload_template
@@ -131,9 +131,9 @@ deploy:test-1.0:
 # deploy:centos-8.1:
 #     extends: .register_template
 
-# ## Debian 10.3
-# build:debian-10.3:
-#     extends: .build_template
+## Debian 10
+build:debian-10:
+     extends: .build_template
 
 # publish:debian-10.3:
 #     extends: .upload_template
@@ -151,9 +151,9 @@ deploy:test-1.0:
 # deploy:fedora-31:
 #     extends: .register_template
 
-# ## Ubuntu 16.04
-# build:ubuntu-16.04:
-#     extends: .build_template
+## Ubuntu 16.04
+build:ubuntu-16.04:
+    extends: .build_template
 
 # publish:ubuntu-16.04:
 #     extends: .upload_template
@@ -161,9 +161,9 @@ deploy:test-1.0:
 # deploy:ubuntu-16.04:
 #     extends: .register_template
 
-# ## Ubuntu 18.04
-# build:ubuntu-18.04:
-#     extends: .build_template
+## Ubuntu 18.04
+build:ubuntu-18.04:
+     extends: .build_template
 
 # publish:ubuntu-18.04:
 #     extends: .upload_template
