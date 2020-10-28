@@ -113,7 +113,9 @@ generate:
 
 # Centos 7.8
 build:centos-7.8:
-     extends: .build_template
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "centos-7.8"
 
 #publish:centos-7.7:
 #     extends: .upload_template
@@ -123,7 +125,9 @@ build:centos-7.8:
 
 # Centos 8.2
 build:centos-8.2:
-     extends: .build_template
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "centos-8.2"
 
 # publish:centos-8.1:
 #     extends: .upload_template
@@ -133,7 +137,10 @@ build:centos-8.2:
 
 ## Debian 10
 build:debian-10:
-     extends: .build_template
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "debian-10"
+
 
 # publish:debian-10.3:
 #     extends: .upload_template
@@ -154,6 +161,8 @@ build:debian-10:
 ## Ubuntu 16.04
 build:ubuntu-16.04:
     extends: .build_template
+    variables:
+        TEMPLATE_NAME: "ubuntu-16.04"
 
 # publish:ubuntu-16.04:
 #     extends: .upload_template
@@ -163,7 +172,9 @@ build:ubuntu-16.04:
 
 ## Ubuntu 18.04
 build:ubuntu-18.04:
-     extends: .build_template
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "ubuntu-18.04"
 
 # publish:ubuntu-18.04:
 #     extends: .upload_template
