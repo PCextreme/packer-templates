@@ -33,6 +33,16 @@
     ],
     "provisioners": [
         {
+            "type": "shell",
+            "inline":
+            [
+                "sed -i 's|bionic|focal|g' /etc/apt/sources.list",
+                "apt-get update",
+                "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::='--force-confold' dist-upgrade",
+                "apt-get -y autoremove"
+            ]
+        },
+        {
             "type": "file",
             "source": "files/generic/cloud-init.cfg",
             "destination": "/etc/cloud/cloud.cfg"
@@ -41,24 +51,6 @@
             "type": "file",
             "source": "files/generic/watchdog.conf",
             "destination": "/etc/watchdog.conf"
-        },
-        {
-            "type": "shell",
-            "inline":
-            [
-                "sed -i 's|bionic|focal|g' /etc/apt/sources.list",
-                "apt-get update",
-                "apt-get -y dist-upgrade",
-                "apt-get -y autoremove"
-            ]
-        },
-        {
-            "type": "shell",
-            "scripts":
-            [
-                "files/generic/set-dns-resolvers.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
         },
         {
             "type": "shell",
