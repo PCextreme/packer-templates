@@ -44,11 +44,13 @@
         },
         {
             "type": "shell",
-            "scripts":
+            "inline":
             [
-                "files/ubuntu-20.04/upgrade-to-20.04.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
+                "sed -i 's|bionic|focal|g' /etc/apt/sources.list",
+                "apt-get update",
+                "apt-get -y dist-upgrade",
+                "apt-get -y autoremove"
+            ]
         },
         {
             "type": "shell",
