@@ -42,7 +42,7 @@ variables:
             - templates/${TEMPLATE_NAME}.json
             - tpl/*
 
-# Publish a built template by uploading it to an S3 bucket, the objects are prefixed with the name of the branch/tag 
+# Publish a built template by uploading it to an S3 bucket, the objects are prefixed with the name of the branch/tag
 .upload_template:
     stage: publish
     image: "minio/mc"
@@ -50,9 +50,12 @@ variables:
         paths:
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum
+            - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2
     script:
         - mc config host add objects ${OBJECTS_ENDPOINT} ${OBJECTS_ACCESS_KEY} ${OBJECTS_SECRET_KEY}
-        - mc cp -r build_${TEMPLATE_NAME}/ objects/${OBJECTS_BUCKET}/${CI_COMMIT_REF_NAME}/
+        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.json
+        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.checksum
+        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2 objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2
 
 # Generate scripts
 # 1:
@@ -75,7 +78,7 @@ generate:
         - "poetry run bin/generate-ci.py --config ${CLOUDSTACK_PROFILES} --bucket ${TEMPLATE_PATH}"
 
 # Deploy the temapltes to Cloudstack using the API to register them with the artifact from the bucket
-# Deploy a template 
+# Deploy a template
 # For this we use the info generated in the previous stage, it includes a profile for every region and a set of variables for every template.
 .register_template:
     stage: deploy
@@ -97,7 +100,7 @@ generate:
 #.test-1.0: &common_test-1-0
 #    variables:
 #        TEMPLATE_NAME: "test-1.0"
-        
+
 #build:test-1.0:
 #    <<: *common_test-1-0
 #    extends: .build_template
@@ -116,8 +119,10 @@ build:centos-7.8:
     variables:
         TEMPLATE_NAME: "centos-7.8"
 
-#publish:centos-7.7:
-#     extends: .upload_template
+publish:centos-7.8:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "centos-7.8"
 
 # deploy:centos-7.7:
 #     extends: .register_template
@@ -176,4 +181,3 @@ build:ubuntu-20.04:
     extends: .build_template
     variables:
         TEMPLATE_NAME: "ubuntu-20.04"
-
