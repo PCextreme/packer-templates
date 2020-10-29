@@ -147,16 +147,6 @@ build:debian-10:
 # deploy:debian-10.3:
 #     extends: .register_template
 
-# ## Fedora 31
-# build:fedora-31:
-#     extends: .build_template
-
-# publish:fedora-31:
-#     extends: .upload_template
-
-# deploy:fedora-31:
-#     extends: .register_template
-
 ## Ubuntu 16.04
 build:ubuntu-16.04:
     extends: .build_template
