@@ -43,6 +43,11 @@
             "destination": "/etc/watchdog.conf"
         },
         {
+            "type": "file",
+            "source": "99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
             "type": "shell",
             "scripts":
             [
