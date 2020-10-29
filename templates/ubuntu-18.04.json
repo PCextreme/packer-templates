@@ -51,7 +51,7 @@
             "type": "shell",
             "scripts":
             [
-                "files/generic/set-dns-resolvers.sh"
+                "scripts/generic/set-dns-resolvers.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
