@@ -57,6 +57,14 @@
         },
         {
             "type": "shell",
+            "scripts":
+            [
+                "scripts/deb/post.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
             "inline":
             [
               "fstrim -v /"
