@@ -46,5 +46,8 @@ key = abc
 secret = xyz
 ```
 
+## ISO files
+All the ISO files are stored on the Objects platform of PCextreme. This is to ensure URLs are stable and future-proof.
+
 # Licensing
 The PCextreme Aurora Templates are licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
