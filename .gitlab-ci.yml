@@ -40,7 +40,6 @@ variables:
             - files/**/${TEMPLATE_NAME}.*
             - generic/*
             - templates/${TEMPLATE_NAME}.json
-            - templates/base.json
             - tpl/*
 
 # Publish a built template by uploading it to an S3 bucket, the objects are prefixed with the name of the branch/tag 
