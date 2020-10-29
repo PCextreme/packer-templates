@@ -22,12 +22,12 @@
             "disk_compression": true,
             "boot_command": "{{user `boot_command`}}",
             "communicator": "ssh",
-            "ssh_wait_timeout": "60m",
+            "ssh_wait_timeout": "30m",
             "ssh_username": "root",
             "ssh_password": "installer",
             "http_directory": "files",
             "http_port_min": 8000,
-            "http_port_max": 8000,
+            "http_port_max": 8100,
             "output_directory": "build_{{user `name`}}"
         }
     ],
