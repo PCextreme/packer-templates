@@ -53,7 +53,7 @@ variables:
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2
     script:
-        - mc config host add objects ${OBJECTS_ENDPOINT} ${OBJECTS_ACCESS_KEY} ${OBJECTS_SECRET_KEY}
+        - mc alias set objects ${OBJECTS_ENDPOINT} ${OBJECTS_ACCESS_KEY} ${OBJECTS_SECRET_KEY}
         - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.json
         - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.checksum
         - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2 objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2
