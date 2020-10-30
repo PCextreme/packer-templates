@@ -123,10 +123,10 @@ build:centos-7.8:
     variables:
         TEMPLATE_NAME: "centos-7.8"
 
-publish:centos-7.8:
-    extends: .upload_template
-    variables:
-        TEMPLATE_NAME: "centos-7.8"
+#publish:centos-7.8:
+#    extends: .upload_template
+#    variables:
+#        TEMPLATE_NAME: "centos-7.8"
 
 # deploy:centos-7.7:
 #     extends: .register_template
