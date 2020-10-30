@@ -1,21 +1,11 @@
 stages:
     - build
     - publish
-    - generate
-    - trigger
-    - deploy
-    - verify
 
 default:
     # Only the build stage actually requires a `virt` tagged runner, the rest can use `docker`
     tags:
         - docker
-
-# This is done because Gitlab CI is stupid and we can't have nice things
-# Since we are unable to generate a job or reuse it's name, all jobs are prefixed with their stage like stage:job.
-# Here we clean the $CI_JOB_NAME by stripping the stage so we can use it's actual name for building stuff.
-#before_script:
-#    - export TEMPLATE_NAME=${CI_JOB_NAME/*:/}
 
 variables:
     # The absolute URL to the template bucket
@@ -53,69 +43,11 @@ variables:
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2
     script:
-        - mc alias set objects ${OBJECTS_ENDPOINT} ${OBJECTS_ACCESS_KEY} ${OBJECTS_SECRET_KEY}
-        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.json
-        - mc policy set public objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.json
-        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.checksum
-        - mc policy set public objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.checksum
-        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2 objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2
-        - mc policy set public objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2
+        - mc alias set objects "${OBJECTS_ENDPOINT}" "${OBJECTS_ACCESS_KEY}" "${OBJECTS_SECRET_KEY}"
+        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json "objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.json"
+        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum "objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.checksum"
+        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2 "objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2"
 
-# Generate scripts
-# 1:
-# Generate profiles for deploying to Cloudstack later on
-# The script assumes a base64 encoded json containing managers as payload.
-# 2:
-# Generate a gitlab-ci.yml containing deploy jobs for every template in every region and trigger child pipelines with it
-# We do this to prevent having to duplicate the deploy code for every template and region.
-# It also makes sure that no (private) region config has to be hardcoded and deployments are parallel (to each region)
-generate:
-    stage: generate
-    image: "python:3.8.2-alpine"
-    artifacts:
-        paths:
-            - .gitlab-ci_deploy_${TEMPLATE_NAME}.yml
-    before_script:
-        - "make setup"
-    script:
-        - "poetry run bin/generate-cloudstack.py --config ${CLOUDSTACK_PROFILES}"
-        - "poetry run bin/generate-ci.py --config ${CLOUDSTACK_PROFILES} --bucket ${TEMPLATE_PATH}"
-
-# Deploy the temapltes to Cloudstack using the API to register them with the artifact from the bucket
-# Deploy a template
-# For this we use the info generated in the previous stage, it includes a profile for every region and a set of variables for every template.
-.register_template:
-    stage: deploy
-    trigger:
-        strategy: depend
-        include:
-            - artifact: .gitlab-ci_deploy.yml
-              job: generate
-
-# TODO: Since a part of the upload is async we need to check if it actually succeeded
-.verify:
-    stage: verify
-
-# Job matrix
-# Please for the love of god Gitlab
-# https://gitlab.com/gitlab-org/gitlab/-/issues/15356
-
-# Test
-#.test-1.0: &common_test-1-0
-#    variables:
-#        TEMPLATE_NAME: "test-1.0"
-
-#build:test-1.0:
-#    <<: *common_test-1-0
-#    extends: .build_template
-
-#publish:test-1.0:
-#    <<: *common_test-1-0
-#   extends: .upload_template
-
-#deploy:test-1.0:
-#    <<: *common_test-1-0
-#    extends: .register_template
 
 # Centos 7.8
 build:centos-7.8:
@@ -123,13 +55,10 @@ build:centos-7.8:
     variables:
         TEMPLATE_NAME: "centos-7.8"
 
-#publish:centos-7.8:
-#    extends: .upload_template
-#    variables:
-#        TEMPLATE_NAME: "centos-7.8"
-
-# deploy:centos-7.7:
-#     extends: .register_template
+publish:centos-7.8:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "centos-7.8"
 
 # Centos 8.2
 build:centos-8.2:
@@ -137,11 +66,10 @@ build:centos-8.2:
     variables:
         TEMPLATE_NAME: "centos-8.2"
 
-# publish:centos-8.1:
-#     extends: .upload_template
-
-# deploy:centos-8.1:
-#     extends: .register_template
+publish:centos-8.2:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "centos-8.2"
 
 ## Debian 10
 build:debian-10:
@@ -149,12 +77,10 @@ build:debian-10:
     variables:
         TEMPLATE_NAME: "debian-10"
 
-
-# publish:debian-10.3:
-#     extends: .upload_template
-
-# deploy:debian-10.3:
-#     extends: .register_template
+publish:debian-10:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "debian-10"
 
 ## Ubuntu 16.04
 build:ubuntu-16.04:
@@ -162,11 +88,10 @@ build:ubuntu-16.04:
     variables:
         TEMPLATE_NAME: "ubuntu-16.04"
 
-# publish:ubuntu-16.04:
-#     extends: .upload_template
-
-# deploy:ubuntu-16.04:
-#     extends: .register_template
+publish:ubuntu-16.04:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "ubuntu-16.04"
 
 ## Ubuntu 18.04
 build:ubuntu-18.04:
@@ -174,14 +99,18 @@ build:ubuntu-18.04:
     variables:
         TEMPLATE_NAME: "ubuntu-18.04"
 
-# publish:ubuntu-18.04:
-#     extends: .upload_template
-
-# deploy:ubuntu-18.04:
-#     extends: .register_template
+publish:ubuntu-18.04:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "ubuntu-18.04"
 
 ## Ubuntu 20.04
 build:ubuntu-20.04:
     extends: .build_template
+    variables:
+        TEMPLATE_NAME: "ubuntu-20.04"
+
+publish:ubuntu-20.04:
+    extends: .upload_template
     variables:
         TEMPLATE_NAME: "ubuntu-20.04"
