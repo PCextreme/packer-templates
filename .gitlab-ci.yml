@@ -36,18 +36,18 @@ variables:
 # Publish a built template by uploading it to an S3 bucket, the objects are prefixed with the name of the branch/tag
 .upload_template:
     stage: publish
-    image: "minio/mc"
+    image: "ubuntu:20.04"
     artifacts:
         paths:
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2
     script:
-        - mc alias set objects "${OBJECTS_ENDPOINT}" "${OBJECTS_ACCESS_KEY}" "${OBJECTS_SECRET_KEY}"
-        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json "objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.json"
-        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum "objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.checksum"
-        - mc cp build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2 "objects/${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2"
-
+        - apt update
+        - apt -y install s3cmd
+        - s3cmd --access_key="${OBJECTS_ACCESS_KEY}" --secret_key="${OBJECTS_SECRET_KEY}" --host-bucket="%(bucket)s.${OBJECTS_HOST}" --host="${OBJECTS_HOST}" put -P build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.json
+        - s3cmd --access_key="${OBJECTS_ACCESS_KEY}" --secret_key="${OBJECTS_SECRET_KEY}" --host-bucket="%(bucket)s.${OBJECTS_HOST}" --host="${OBJECTS_HOST}" put -P build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.checksum
+        - s3cmd --access_key="${OBJECTS_ACCESS_KEY}" --secret_key="${OBJECTS_SECRET_KEY}" --host-bucket="%(bucket)s.${OBJECTS_HOST}" --host="${OBJECTS_HOST}" put -P build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2 s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2
 
 # Centos 7.8
 build:centos-7.8:
