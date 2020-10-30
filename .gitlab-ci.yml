@@ -27,6 +27,7 @@ variables:
     stage: build
     tags:
         - virt
+        - packer
     artifacts:
         paths:
             - build_${TEMPLATE_NAME}/
