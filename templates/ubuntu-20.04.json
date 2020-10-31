@@ -1,9 +1,9 @@
 {
     "variables": {
-        "name": "centos-7.8",
-        "url": "http://compute.o.auroraobjects.eu/iso/CentOS-7-x86_64-NetInstall-2003.iso",
-        "iso_checksum": "sha256:101bc813d2af9ccf534d112cbe8670e6d900425b297d1a4d2529c5ad5f226372",
-        "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos-7.8.ks<enter><wait>"
+        "name": "ubuntu-20.04",
+        "url": "http://compute.o.auroraobjects.eu/iso/ubuntu-18.04.5-server-amd64.iso",
+        "iso_checksum": "sha256:8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996",
+        "boot_command": "<esc><wait><esc><wait><enter><wait>/install/vmlinuz initrd=/install/initrd.gz preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/ubuntu-18.04.preseed auto debian-installer=en_US locale=en_US kbd-chooser/method=us fb=false debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false hostname=ubuntu1804 -- <enter>"
     },
     "builders": [
         {
@@ -34,6 +34,16 @@
     ],
     "provisioners": [
         {
+            "type": "shell",
+            "inline":
+            [
+                "sed -i 's|bionic|focal|g' /etc/apt/sources.list",
+                "apt-get update",
+                "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::='--force-confold' dist-upgrade",
+                "apt-get -y autoremove"
+            ]
+        },
+        {
             "type": "file",
             "source": "files/generic/cloud-init.cfg",
             "destination": "/etc/cloud/cloud.cfg"
@@ -60,7 +70,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/centos/post.sh"
+                "scripts/deb/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },

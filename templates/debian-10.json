@@ -1,34 +1,34 @@
 {
     "variables": {
-        "name": null,
-        "url": null,
-        "url_checksum": null,
-        "boot_command": null
+        "name": "debian-10",
+        "url": "http://compute.o.auroraobjects.eu/iso/debian-10.6.0-amd64-netinst.iso",
+        "iso_checksum": "sha256:2af8f43d4a7ab852151a7f630ba596572213e17d3579400b5648eba4cc974ed0",
+        "boot_command": "<esc><wait5>install <wait> preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/debian-10.preseed debian-installer=en_US auto locale=en_US kbd-chooser/method=us keyboard-configuration/xkb-keymap=us netcfg/get_hostname=debian10 netcfg/get_domain=auroracompute.com fb=false debconf/frontend=noninteractive console-setup/ask_detect=false <wait> console-keymaps-at/keymap=us <wait><enter>"
     },
     "builders": [
         {
             "type": "qemu",
             "iso_url": "{{user `url`}}",
-            "iso_checksum_url": "{{user `url_checksum`}}",
-            "iso_checksum_type": "file",
+            "iso_checksum": "{{user `iso_checksum`}}",
             "vm_name": "{{user `name`}}",
             "format": "qcow2",
             "accelerator": "kvm",
             "headless": true,
             "cpus": 2,
             "memory": 2048,
-            "disk_size": "20G",
+            "disk_size": "10G",
             "disk_interface": "virtio-scsi",
             "disk_discard": "unmap",
             "disk_compression": true,
             "boot_command": "{{user `boot_command`}}",
             "communicator": "ssh",
-            "ssh_wait_timeout": "60m",
+            "vnc_bind_address": "0.0.0.0",
+            "ssh_wait_timeout": "30m",
             "ssh_username": "root",
             "ssh_password": "installer",
             "http_directory": "files",
             "http_port_min": 8000,
-            "http_port_max": 8000,
+            "http_port_max": 8100,
             "output_directory": "build_{{user `name`}}"
         }
     ],
@@ -42,14 +42,38 @@
             "type": "file",
             "source": "files/generic/watchdog.conf",
             "destination": "/etc/watchdog.conf"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/generic/set-dns-resolvers.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/deb/post.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "inline":
+            [
+              "fstrim -v /"
+            ]
         }
     ],
     "post-processors": [
         [
-            {
-                "type": "shell-local",
-                "command": "virt-sysprep -a build_{{user `name`}}/{{user `name`}}"
-            },
             {
                 "type": "shell-local",
                 "command": "mv build_{{user `name`}}/{{user `name`}} build_{{user `name`}}/{{user `name`}}.qcow2"

@@ -1,5 +1,106 @@
 {
-    "url": "https://centos.mirror.pcextreme.nl/8.2.2004/isos/x86_64/CentOS-8.2.2004-x86_64-minimal.iso",
-    "url_checksum": "https://centos.mirror.pcextreme.nl/8.2.2004/isos/x86_64/CHECKSUM",
-    "boot_command": "<tab> text ks=http://93.180.67.15:8000/kickstart/centos-8.2.ks<enter><wait>"
+    "variables": {
+        "name": "centos-8.2",
+        "url": "http://compute.o.auroraobjects.eu/iso/CentOS-8.2.2004-x86_64-minimal.iso",
+        "iso_checksum": "sha256:47ab14778c823acae2ee6d365d76a9aed3f95bb8d0add23a06536b58bb5293c0",
+        "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos-8.2.ks<enter><wait>"
+    },
+    "builders": [
+        {
+            "type": "qemu",
+            "iso_url": "{{user `url`}}",
+            "iso_checksum": "{{user `iso_checksum`}}",
+            "vm_name": "{{user `name`}}",
+            "format": "qcow2",
+            "accelerator": "kvm",
+            "headless": true,
+            "cpus": 2,
+            "memory": 2048,
+            "disk_size": "10G",
+            "disk_interface": "virtio-scsi",
+            "disk_discard": "unmap",
+            "disk_compression": true,
+            "boot_command": "{{user `boot_command`}}",
+            "communicator": "ssh",
+            "vnc_bind_address": "0.0.0.0",
+            "ssh_wait_timeout": "30m",
+            "ssh_username": "root",
+            "ssh_password": "installer",
+            "http_directory": "files",
+            "http_port_min": 8000,
+            "http_port_max": 8100,
+            "output_directory": "build_{{user `name`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "files/generic/cloud-init.cfg",
+            "destination": "/etc/cloud/cloud.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/generic/set-dns-resolvers.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/centos/post.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "inline":
+            [
+              "fstrim -v /"
+            ]
+        }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "shell-local",
+                "command": "mv build_{{user `name`}}/{{user `name`}} build_{{user `name`}}/{{user `name`}}.qcow2"
+            },
+            {
+                "type": "artifice",
+                "files": [
+                    "build_{{user `name`}}/{{user `name`}}.qcow2"
+                ]
+            },
+            {
+                "type": "checksum",
+                "checksum_types": [
+                    "sha256"
+                ],
+                "output": "build_{{user `name`}}/{{user `name`}}.checksum"
+            },
+            {
+                "type": "manifest",
+                "output": "build_{{user `name`}}/{{user `name`}}.json",
+                "strip_path": true,
+                "custom_data": {
+                    "oscategory": "{{split (user `name`) \"-\" 0}}",
+                    "osversion": "{{split (user `name`) \"-\" 1}}",
+                    "template_slug": "{{user `name`}}"
+                }
+            }
+        ]
+    ]
 }
