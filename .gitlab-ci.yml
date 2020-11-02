@@ -23,9 +23,7 @@ default:
         - changes:
             - .gitlab-ci.yml
             - Makefile
-            - bin/*
-            - files/**/${TEMPLATE_NAME}.*
-            - generic/*
+            - files/*
             - templates/${TEMPLATE_NAME}.json
             - tpl/*
 
