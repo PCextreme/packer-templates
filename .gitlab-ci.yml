@@ -31,6 +31,8 @@ default:
 .upload_template:
     stage: publish
     image: "ubuntu:20.04"
+    only:
+        - master
     script:
         - apt-get update
         - apt-get -y install s3cmd curl
