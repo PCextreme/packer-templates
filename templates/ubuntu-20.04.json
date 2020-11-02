@@ -1,9 +1,8 @@
 {
     "variables": {
         "name": "ubuntu-20.04",
-        "url": "http://compute.o.auroraobjects.eu/iso/ubuntu-18.04.5-server-amd64.iso",
-        "iso_checksum": "sha256:8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996",
-        "boot_command": "<esc><wait><esc><wait><enter><wait>/install/vmlinuz initrd=/install/initrd.gz preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/ubuntu-18.04.preseed auto debian-installer=en_US locale=en_US kbd-chooser/method=us fb=false debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false hostname=ubuntu1804 -- <enter>"
+        "url": "http://compute.o.auroraobjects.eu/iso/ubuntu-20.04.1-live-server-amd64.iso",
+        "iso_checksum": "sha256:443511f6bf12402c12503733059269a2e10dec602916c0a75263e5d990f6bb93"
     },
     "builders": [
         {
@@ -20,13 +19,19 @@
             "disk_interface": "virtio-scsi",
             "disk_discard": "unmap",
             "disk_compression": true,
-            "boot_command": "{{user `boot_command`}}",
+            "boot_wait": "2s",
+            "boot_command": [
+                "<enter><enter><f6><esc><wait> ",
+                "autoinstall ds=nocloud-net;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
+                "<enter><wait>"
+            ],
             "communicator": "ssh",
             "vnc_bind_address": "0.0.0.0",
             "ssh_wait_timeout": "30m",
             "ssh_username": "root",
             "ssh_password": "installer",
-            "http_directory": "files",
+            "ssh_handshake_attempts": "200",
+            "http_directory": "files/ubuntu-20.04",
             "http_port_min": 8000,
             "http_port_max": 8100,
             "output_directory": "build_{{user `name`}}"
@@ -37,15 +42,6 @@
             "type": "file",
             "source": "files/apt/ubuntu-20.04.sources",
             "destination": "/etc/apt/sources.list"
-        },
-        {
-            "type": "shell",
-            "inline":
-            [
-                "apt-get update",
-                "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::='--force-confold' dist-upgrade",
-                "apt-get -y autoremove"
-            ]
         },
         {
             "type": "file",
@@ -59,6 +55,11 @@
         },
         {
             "type": "file",
+            "source": "files/ubuntu-20.04/01-netcfg.yaml",
+            "destination": "/etc/netplan/01-netcfg.yaml"
+        },
+        {
+            "type": "file",
             "source": "files/generic/99-disable-ipv6-tempaddr.conf",
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
         },
@@ -68,7 +69,7 @@
             [
                 "scripts/ubuntu-20.04/post.sh"
             ],
-            "execute_command": "sh '{{.Path}}'"
+            "execute_command": "sudo sh '{{.Path}}'"
         },
         {
             "type": "shell",
