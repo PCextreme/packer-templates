@@ -7,10 +7,6 @@ default:
     tags:
         - docker
 
-variables:
-    # The absolute URL to the template bucket
-    TEMPLATE_PATH: "${OBJECTS_ENDPOINT}/${OBJECTS_BUCKET}/${CI_COMMIT_REF_NAME}"
-
 # This job template defines the build for a single OS template
 # The rules attached here make sure that templates are only (re)build on changes to their or shared files.
 .build_template:
