@@ -62,15 +62,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/generic/set-dns-resolvers.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
-        },
-        {
-            "type": "shell",
-            "scripts":
-            [
-                "scripts/deb/post.sh"
+                "scripts/ubuntu-18.04/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
