@@ -4,9 +4,12 @@ echo "Remove DHCP leases"
 rm -f /var/lib/NetworkManager/*.lease
 
 echo "Remove SSH host keys"
-rm -f /etc/ssh/ssh_host*key*
+find /etc/ssh -type f -name 'ssh_host*key*' -delete
 
-echo "Enable services: cloud-init NetworkManager-wait-online fstrim.timer"
-systemctl enable cloud-init cloud-config fstrim.timer
+echo "Enable systemd services"
+systemctl enable cloud-init cloud-config fstrim.timer qemu-guest-agent
+
+echo "Cleaning up cloud-init"
+cloud-init clean -s -l
 
 unset HISTFILE
