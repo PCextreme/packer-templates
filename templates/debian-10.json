@@ -52,15 +52,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/generic/set-dns-resolvers.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
-        },
-        {
-            "type": "shell",
-            "scripts":
-            [
-                "scripts/deb/post.sh"
+                "scripts/debian-10/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },

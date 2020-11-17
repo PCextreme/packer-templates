@@ -49,18 +49,15 @@
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
         },
         {
-            "type": "shell",
-            "scripts":
-            [
-                "scripts/generic/set-dns-resolvers.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
+            "type": "file",
+            "source": "files/centos/90-dns-none.conf",
+            "destination": "/etc/NetworkManager/conf.d/90-dns-none.conf"
         },
         {
             "type": "shell",
             "scripts":
             [
-                "scripts/centos/post.sh"
+                "scripts/centos-7.8/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
