@@ -22,7 +22,7 @@ lang en_US.UTF-8
 
 # Network
 network  --bootproto=dhcp --device=eth0 --ipv6=auto --activate
-network  --hostname=centos8
+network  --hostname=centos7
 
 # Root password
 rootpw --plaintext installer

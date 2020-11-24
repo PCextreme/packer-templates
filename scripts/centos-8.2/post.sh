@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Remove DHCP leases"
-find /var/lib/NetworkManager -type f -name '*.lease'
+find /var/lib -type f -name '*.lease' -delete
 
 echo "Remove SSH host keys"
 find /etc/ssh -type f -name 'ssh_host*key*' -delete
