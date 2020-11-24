@@ -1,10 +1,24 @@
+#!/usr/bin/env python3
 from cs import CloudStack, read_config
 import argparse
 import json
 import base64
 
 
-def register(profile, name, url, checksum, custom_data):
+#
+# Example usage: register.py --profile zone03_ams02 --name "Ubuntu 20.04" --url "http://compute.o.auroraobjects.eu/templates/ubuntu-20.04_xxx_xxx.qcow2" --custom-data XYZ==
+#
+# 'custom-data' is a base64 encoded string with:
+# {
+#  "osversion": "20.04",
+#  "oscategory": "ubuntu",
+#  "template_slug": "ubuntu-20.04"
+# }
+#
+# The syntax for cloudstack.ini can be found on Github: https://github.com/exoscale/cs
+#
+
+def register(profile, name, url, custom_data):
 
     # The API client
     # While to config file that we are parsing contains multiple regions, we want to use 1 exact match.
@@ -34,14 +48,14 @@ def register(profile, name, url, checksum, custom_data):
         hypervisor="kvm",
         isdynamicallyscalable="true",
         isextractable="true",
+        passwordEnabled="true",
         isfeatured="true",
         ispublic="true",
         zoneids="-1",
         ostypeid=ostype,
         displaytext=name,
         name=name,
-        url=url,
-        checksum=checksum
+        url=url
     )
     template = template['template'][0]['id']
 
@@ -59,8 +73,7 @@ if __name__ == "__main__":
     p.add_argument("--name", help="Name of the template")
     p.add_argument("--profile", help="Profile name")
     p.add_argument("--url", help="Download URL")
-    p.add_argument("--checksum", help="Checksum string")
     p.add_argument("--custom-data", help="Base64 encoded with tags")
 
     args = p.parse_args()
-    register(**args)
+    register(args.profile, args.name, args.url, args.custom_data)
