@@ -1,0 +1,3 @@
+deb http://debian.mirror.pcextreme.nl/ buster main contrib non-free
+deb http://debian.mirror.pcextreme.nl/ buster-security main contrib non-free
+deb http://debian.mirror.pcextreme.nl/ buster-updates main contrib non-free
