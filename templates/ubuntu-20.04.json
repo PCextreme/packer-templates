@@ -34,10 +34,14 @@
     ],
     "provisioners": [
         {
+            "type": "file",
+            "source": "files/apt/ubuntu-20.04.sources",
+            "destination": "/etc/apt/sources.list"
+        },
+        {
             "type": "shell",
             "inline":
             [
-                "sed -i 's|bionic|focal|g' /etc/apt/sources.list",
                 "apt-get update",
                 "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::='--force-confold' dist-upgrade",
                 "apt-get -y autoremove"
@@ -62,7 +66,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/ubuntu-18.04/post.sh"
+                "scripts/ubuntu-20.04/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },

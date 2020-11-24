@@ -57,6 +57,11 @@
     "provisioners": [
         {
             "type": "file",
+            "source": "files/apt/ubuntu-16.04.sources",
+            "destination": "/etc/apt/sources.list"
+        },
+        {
+            "type": "file",
             "source": "files/generic/cloud-init.cfg",
             "destination": "/etc/cloud/cloud.cfg"
         },
