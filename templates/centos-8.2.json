@@ -54,6 +54,11 @@
             "destination": "/etc/NetworkManager/conf.d/90-dns-none.conf"
         },
         {
+            "type": "file",
+            "source": "files/centos/90-dhcp-client.conf",
+            "destination": "/etc/NetworkManager/conf.d/90-dhcp-client.conf"
+        },
+        {
             "type": "shell",
             "scripts":
             [
