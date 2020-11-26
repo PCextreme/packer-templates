@@ -19,7 +19,8 @@ echo "Enable services: cloud-init NetworkManager-wait-online fstrim.timer"
 systemctl enable cloud-init cloud-config fstrim.timer qemu-guest-agent
 
 echo "Cleaning up cloud-init"
-cloud-init clean --logs
+find /var/log -type f -name 'cloud-init*.log' -print -delete
+cloud-init clean -s -l
 
 unset HISTFILE
 
