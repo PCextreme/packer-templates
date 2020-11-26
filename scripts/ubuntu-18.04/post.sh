@@ -3,6 +3,9 @@ echo "Removing uneeded packages"
 apt-get -y autoremove
 apt-get -y clean
 
+echo "Disabling apt timers"
+systemctl disable apt-daily.timer apt-daily-upgrade.timer
+
 echo "cleaning up dhcp leases"
 find /var/lib/dhcp -type f -delete
 
