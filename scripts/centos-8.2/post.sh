@@ -18,6 +18,9 @@ echo "nameserver 2a00:f10:ff04:253::53"|tee -a /etc/resolv.conf
 echo "Enable services: cloud-init NetworkManager-wait-online fstrim.timer"
 systemctl enable cloud-init cloud-config fstrim.timer qemu-guest-agent
 
+echo "Generating GRUB"
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
 echo "Cleaning up cloud-init"
 find /var/log -type f -name 'cloud-init*.log' -print -delete
 cloud-init clean -s -l
