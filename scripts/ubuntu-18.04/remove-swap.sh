@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Removing and disabling swap"
+swapoff -a
+sed -i '/swap/d' /etc/fstab
+find / -maxdepth 1 -type f -name 'swapfile' -print -delete

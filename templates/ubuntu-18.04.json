@@ -57,6 +57,14 @@
             "type": "shell",
             "scripts":
             [
+                "scripts/ubuntu-18.04/remove-swap.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
                 "scripts/ubuntu-18.04/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
