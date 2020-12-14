@@ -1,9 +1,9 @@
 {
     "variables": {
-        "name": "centos-8.2",
-        "url": "http://compute.o.auroraobjects.eu/iso/CentOS-8.2.2004-x86_64-minimal.iso",
-        "iso_checksum": "sha256:47ab14778c823acae2ee6d365d76a9aed3f95bb8d0add23a06536b58bb5293c0",
-        "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos-8.2.ks<enter><wait>"
+        "name": "centos-8.3",
+        "url": "http://compute.o.auroraobjects.eu/iso/CentOS-8.3.2011-x86_64-boot.iso",
+        "iso_checksum": "sha256:2b801bc5801816d0cf27fc74552cf058951c42c7b72b1fe313429b1070c3876c",
+        "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/centos-8.3.ks<enter><wait>"
     },
     "builders": [
         {
@@ -67,7 +67,7 @@
             "type": "shell",
             "scripts":
             [
-                "scripts/centos-8.2/post.sh"
+                "scripts/centos-8.3/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },
