@@ -59,6 +59,11 @@
             "destination": "/etc/NetworkManager/conf.d/90-dhcp-client.conf"
         },
         {
+            "type": "file",
+            "source": "files/centos/grub",
+            "destination": "/etc/default/grub"
+        },
+        {
             "type": "shell",
             "scripts":
             [
