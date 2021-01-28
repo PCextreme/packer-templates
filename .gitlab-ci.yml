@@ -85,17 +85,6 @@ publish:debian-10:
     variables:
         TEMPLATE_NAME: "debian-10"
 
-## Ubuntu 16.04
-build:ubuntu-16.04:
-    extends: .build_template
-    variables:
-        TEMPLATE_NAME: "ubuntu-16.04"
-
-publish:ubuntu-16.04:
-    extends: .upload_template
-    variables:
-        TEMPLATE_NAME: "ubuntu-16.04"
-
 ## Ubuntu 18.04
 build:ubuntu-18.04:
     extends: .build_template
