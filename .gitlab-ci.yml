@@ -52,27 +52,27 @@ default:
         - rm -fr build_${TEMPLATE_NAME}/
 
 
-# Centos 7.8
-build:centos-7.8:
+# Centos 7
+build:centos-7:
     extends: .build_template
     variables:
-        TEMPLATE_NAME: "centos-7.8"
+        TEMPLATE_NAME: "centos-7"
 
-publish:centos-7.8:
+publish:centos-7:
     extends: .upload_template
     variables:
-        TEMPLATE_NAME: "centos-7.8"
+        TEMPLATE_NAME: "centos-7"
 
-# Centos 8.3
-build:centos-8.3:
+# Centos 8
+build:centos-8:
     extends: .build_template
     variables:
-        TEMPLATE_NAME: "centos-8.3"
+        TEMPLATE_NAME: "centos-8"
 
-publish:centos-8.3:
+publish:centos-8:
     extends: .upload_template
     variables:
-        TEMPLATE_NAME: "centos-8.3"
+        TEMPLATE_NAME: "centos-8"
 
 ## Debian 10
 build:debian-10:
