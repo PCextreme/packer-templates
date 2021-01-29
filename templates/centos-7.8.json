@@ -16,7 +16,7 @@
             "headless": true,
             "cpus": 2,
             "memory": 2048,
-            "disk_size": "10G",
+            "disk_size": "8G",
             "disk_interface": "virtio-scsi",
             "disk_discard": "unmap",
             "disk_compression": true,
