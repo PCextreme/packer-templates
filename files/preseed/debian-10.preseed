@@ -43,7 +43,7 @@ d-i partman/confirm boolean true
 
 # Mirror
 d-i mirror/country string manual
-d-i mirror/http/hostname string debian.mirror.pcextreme.nl
+d-i mirror/http/hostname string http://ftp.nl.debian.org/debian/
 d-i mirror/http/directory string /
 d-i mirror/http/proxy string
 
