@@ -63,16 +63,16 @@ publish:centos-7.8:
     variables:
         TEMPLATE_NAME: "centos-7.8"
 
-# Centos 8.2
-build:centos-8.2:
+# Centos 8.3
+build:centos-8.3:
     extends: .build_template
     variables:
-        TEMPLATE_NAME: "centos-8.2"
+        TEMPLATE_NAME: "centos-8.3"
 
-publish:centos-8.2:
+publish:centos-8.3:
     extends: .upload_template
     variables:
-        TEMPLATE_NAME: "centos-8.2"
+        TEMPLATE_NAME: "centos-8.3"
 
 ## Debian 10
 build:debian-10:
