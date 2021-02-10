@@ -6,20 +6,19 @@ text
 install
 eula --agreed
 
+# Network
+network  --bootproto=dhcp --device=ens4 --ipv6=auto --activate
+network  --hostname=centos8
+
 # Repos
-url --url="https://centos.mirror.pcextreme.nl/8/BaseOS/x86_64/os/"
-repo --name="AppStream" --baseurl="https://centos.mirror.pcextreme.nl/8/AppStream/x86_64/os/"
-repo --name="Powertools" --baseurl="https://centos.mirror.pcextreme.nl/8/PowerTools/x86_64/os/"
+repo --name=base --baseurl=http://mirror.centos.org/centos-8/8.3.2011/BaseOS/x86_64/os/
+url --url=http://mirror.centos.org/centos-8/8.3.2011/BaseOS/x86_64/os/
 
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
 
 # System language
 lang en_US.UTF-8
-
-# Network
-network  --bootproto=dhcp --device=ens4 --ipv6=auto --activate
-network  --hostname=centos8
 
 # Root password
 rootpw --plaintext installer

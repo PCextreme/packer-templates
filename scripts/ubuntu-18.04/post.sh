@@ -1,7 +1,15 @@
 #!/bin/bash
+echo "Installing and updating needed packages"
+apt update
+apt -o Dpkg::Options::="--force-confold" -y install \
+    qemu-guest-agent ndisc6 cloud-init at byobu curl fping git htop iftop iotop \
+    ipset jq mc mtr ncdu nmap rsync screen strace tcpdump unzip util-linux whois \
+    uuid wget vim software-properties-common sysstat rdnssd watchdog
+apt -y dist-upgrade
+
 echo "Removing uneeded packages"
-apt-get -y autoremove
-apt-get -y clean
+apt -y autoremove
+apt -y clean
 
 echo "Disabling apt timers"
 systemctl disable apt-daily.timer apt-daily-upgrade.timer
