@@ -1,12 +1,12 @@
 #!/bin/bash
 
 echo "Installing and updating needed packages"
-apt-get update
-apt-get -o Dpkg::Options::="--force-confold" -y install \
+apt update
+apt -o Dpkg::Options::="--force-confold" -y install \
     qemu-guest-agent ndisc6 cloud-init at byobu curl fping git htop iftop iotop \
     ipset jq mc mtr ncdu nmap rsync screen strace tcpdump unzip util-linux whois \
     uuid wget vim software-properties-common sysstat rdnssd watchdog
-apt-get -y dist-upgrade
+apt -y dist-upgrade
 
 echo "Enabling services"
 systemctl enable cloud-init.service fstrim.timer qemu-guest-agent.service watchdog.service
@@ -15,8 +15,8 @@ echo "Disabling apt timers"
 systemctl disable apt-daily.timer apt-daily-upgrade.timer
 
 echo "Removing uneeded packages"
-apt-get -y autoremove
-apt-get -y clean
+apt -y autoremove
+apt -y clean
 
 echo "cleaning up dhcp leases"
 find /var/lib -type f -name '*.lease' -print -delete
