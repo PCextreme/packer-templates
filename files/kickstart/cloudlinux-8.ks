@@ -11,8 +11,8 @@ network  --bootproto=dhcp --device=ens4 --ipv6=auto --activate
 network  --hostname=centos8
 
 # Repos
-repo --name=base --baseurl=http://mirror.centos.org/centos-8/8.3.2011/BaseOS/x86_64/os/
-url --url=http://mirror.centos.org/centos-8/8.3.2011/BaseOS/x86_64/os/
+repo --name=base --baseurl=https://repo.cloudlinux.com/cloudlinux/8/install/x86_64/os/
+url --url=https://repo.cloudlinux.com/cloudlinux/8/install/x86_64/os/
 
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
