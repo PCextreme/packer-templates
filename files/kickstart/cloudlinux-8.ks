@@ -13,6 +13,7 @@ network  --hostname=centos8
 # Repos
 repo --name=base --baseurl=https://repo.cloudlinux.com/cloudlinux/8/install/x86_64/os/
 url --url=https://repo.cloudlinux.com/cloudlinux/8/install/x86_64/os/
+repo --name="AppStream" --baseurl=http://repo.cloudlinux.com/cloudlinux/8/AppStream/x86_64/os
 
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
