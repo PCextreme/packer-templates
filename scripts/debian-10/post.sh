@@ -1,4 +1,10 @@
 #!/bin/bash
+set -x
+
+echo "Installing and updating needed packages"
+apt-get update
+apt-get -o Dpkg::Options::="--force-confold" -y dist-upgrade
+
 echo "Removing uneeded packages"
 apt-get -y autoremove
 apt-get -y clean
