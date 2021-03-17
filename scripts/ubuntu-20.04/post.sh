@@ -6,7 +6,7 @@ apt -o Dpkg::Options::="--force-confold" -y install \
     qemu-guest-agent ndisc6 cloud-init at byobu curl fping git htop iftop iotop \
     ipset jq mc mtr ncdu nmap rsync screen strace tcpdump unzip util-linux whois \
     uuid wget vim software-properties-common sysstat rdnssd watchdog
-apt -y dist-upgrade
+apt -o Dpkg::Options::="--force-confold" -y dist-upgrade
 
 echo "Enabling services"
 systemctl enable cloud-init.service fstrim.timer qemu-guest-agent.service watchdog.service
