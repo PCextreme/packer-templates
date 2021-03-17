@@ -1,12 +1,14 @@
 #!/bin/bash
+set -x
+export DEBIAN_FRONTEND=noninteractive
 
 echo "Installing and updating needed packages"
-apt update
-apt -o Dpkg::Options::="--force-confold" -y install \
+apt-get update
+apt-get -o Dpkg::Options::="--force-confold" -y install \
     qemu-guest-agent ndisc6 cloud-init at byobu curl fping git htop iftop iotop \
     ipset jq mc mtr ncdu nmap rsync screen strace tcpdump unzip util-linux whois \
     uuid wget vim software-properties-common sysstat rdnssd watchdog
-apt -y dist-upgrade
+apt-get -o Dpkg::Options::="--force-confold" --force-yes -y dist-upgrade
 
 echo "Enabling services"
 systemctl enable cloud-init.service fstrim.timer qemu-guest-agent.service watchdog.service
