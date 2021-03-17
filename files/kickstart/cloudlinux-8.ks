@@ -8,11 +8,10 @@ eula --agreed
 
 # Network
 network  --bootproto=dhcp --device=ens4 --ipv6=auto --activate
-network  --hostname=centos8
+network  --hostname=cloudlinux8
 
 # Repos
-repo --name=base --baseurl=https://repo.cloudlinux.com/cloudlinux/8/install/x86_64/os/
-url --url=https://repo.cloudlinux.com/cloudlinux/8/install/x86_64/os/
+url --url=http://repo.cloudlinux.com/cloudlinux/8/BaseOS/x86_64/os
 repo --name="AppStream" --baseurl=http://repo.cloudlinux.com/cloudlinux/8/AppStream/x86_64/os
 
 # Keyboard layouts
@@ -38,7 +37,6 @@ timezone Europe/Amsterdam --isUtc
 
 # Disk partitioning information
 part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
-#autopart --type=lvm
 
 # Enable SELinux
 selinux --enforcing
@@ -52,7 +50,6 @@ at
 bind-utils
 binutils
 cloud-init
-cloud-utils
 cloud-utils-growpart
 curl
 deltarpm
