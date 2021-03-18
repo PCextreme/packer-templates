@@ -4,9 +4,6 @@ set -x
 echo "Remove DHCP leases"
 find /var/lib -type f -name '*.lease' -print -delete
 
-echo "Remove SSH host keys"
-find /etc/ssh -type f -name 'ssh_host*key*' -print -delete
-
 echo "Configurating network interface"
 mv /etc/sysconfig/network-scripts/ifcfg-ens4 /etc/sysconfig/network-scripts/ifcfg-ens3
 sed -i 's|ens[0-9]|ens3|g' /etc/sysconfig/network-scripts/ifcfg-ens3

@@ -12,9 +12,6 @@ apt-get -y clean
 echo "cleaning up dhcp leases"
 find /var/lib/dhcp -type f -delete
 
-echo "Remove SSH host keys"
-find /etc/ssh -type f -name 'ssh_host*key*' -delete
-
 echo "cleaning up udev rules"
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 

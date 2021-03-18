@@ -29,9 +29,6 @@ find /etc/netplan -type f -name '00-installer-config.yaml' -print -delete
 echo "cleaning up udev rules"
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 
-echo "Remove SSH host keys"
-find /etc/ssh -type f -name 'ssh_host*key*' -print -delete
-
 echo "cleaning up log files"
 if [ -f /var/log/audit/audit.log ]; then cat /dev/null > /var/log/audit/audit.log; fi
 cat /dev/null > /var/log/wtmp 2>/dev/null
