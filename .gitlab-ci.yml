@@ -74,6 +74,17 @@ publish:centos-8:
     variables:
         TEMPLATE_NAME: "centos-8"
 
+# CloudLinux 8
+build:cloudlinux-8:
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "cloudlinux-8"
+
+publish:cloudlinux-8:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "cloudlinux-8"
+
 ## Debian 10
 build:debian-10:
     extends: .build_template
