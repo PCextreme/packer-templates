@@ -71,7 +71,6 @@ uuid
 vim-enhanced
 wget
 -alsa-*
--firewalld
 -ivtv*
 -iwl*firmware
 %end

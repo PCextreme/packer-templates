@@ -47,14 +47,12 @@ selinux --enforcing
 @^server-product-environment
 @guest-agents
 acpid
-at
 bind-utils
 binutils
 cloud-init
 cloud-utils
 cloud-utils-growpart
 curl
-deltarpm
 dracut-config-generic
 dstat
 git
@@ -63,8 +61,6 @@ ipset
 iptraf-ng
 kexec-tools
 lsof
-mc
-mtr
 nano
 net-tools
 nmap
@@ -80,6 +76,9 @@ unzip
 uuid
 vim-enhanced
 wget
+-alsa-*
+-ivtv*
+-iwl*firmware
 %end
 
 %anaconda
