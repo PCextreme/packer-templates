@@ -2,6 +2,7 @@
 *output*
 *cache*
 *.qcow2
+build_*
 .DS_Store
 meta.data
 .vscode
