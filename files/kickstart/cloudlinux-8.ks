@@ -43,11 +43,33 @@ selinux --enforcing
 
 # Package installation
 %packages --ignoremissing
-@^minimal-environment
-open-vm-tools
+@^server-product-environment
+@guest-agents
+acpid
+bind-utils
+binutils
 cloud-init
 cloud-utils-growpart
-iptables
+curl
+dracut-config-generic
+dstat
+iotop
+ipset
+kexec-tools
+lsof
+nano
+net-tools
+pciutils
+policycoreutils
+policycoreutils-python
+redhat-lsb-core
+rsync
+screen
+strace
+tcpdump
+uuid
+vim-enhanced
+wget
 -alsa-*
 -firewalld
 -ivtv*
