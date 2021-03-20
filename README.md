@@ -20,6 +20,11 @@ make build NAME=ubuntu-18.04
 ### Gitlab CI
 PCextreme uses Gitlab CI to build these templates. The .gitlab-ci.yml file can be found in this directory.
 
+#### Result / Downloads
+Succesful builds of the master branch are uploaded to the [Objects S3 storage](https://www.pcextreme.com/s3-object-storage) service of PCextreme into a public bucket.
+
+The resulting QCOW2 files can be found here: https://compute.o.auroraobjects.eu/
+
 ## Cloudstack profiles
 Uploading to Cloudstack is done with the help of an python CLI wrappen around the API, a profile is needed for this to work.
 To keep this (secret) information out of Git while also making it possible to add multiple Cloudstack clusters, this info is fetched from an environment variable: `CLOUDMONKEY_PROFILES`.
@@ -56,4 +61,4 @@ They all point to sub-paths of http://compute.o.auroraobjects.eu/iso/ where URL 
 Checksums of ISO files are hardcoded in the JSON files of the templates to make sure that data corruption or MITM during transfer of the ISO is safeguarded.
 
 # Licensing
-The PCextreme Aurora Templates are licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
+The PCextreme Packer Templates are licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
