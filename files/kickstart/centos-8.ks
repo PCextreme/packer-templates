@@ -43,34 +43,24 @@ part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
 selinux --enforcing
 
 # Package installation
-%packages --ignoremissing
+%packages
 @^server-product-environment
-@guest-agents
+qemu-guest-agent
 acpid
 bind-utils
 binutils
 cloud-init
-cloud-utils
 cloud-utils-growpart
 curl
-dracut-config-generic
-dstat
 git
 iotop
 ipset
-iptraf-ng
-kexec-tools
 lsof
 nano
 net-tools
 nmap
 pciutils
-policycoreutils
-policycoreutils-python
-redhat-lsb-core
 rsync
-screen
-strace
 tcpdump
 unzip
 uuid
