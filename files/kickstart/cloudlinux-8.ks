@@ -39,12 +39,12 @@ timezone Europe/Amsterdam --isUtc
 part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
 
 # Enable SELinux
-selinux --enforcing
+selinux --disabled
 
 # Package installation
 %packages --ignoremissing
 @^minimal-environment
-open-vm-tools
+qemu-guest-agent
 cloud-init
 cloud-utils-growpart
 iptables
