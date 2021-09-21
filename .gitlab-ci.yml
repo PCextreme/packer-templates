@@ -51,6 +51,16 @@ default:
         - curl -I http://${OBJECTS_BUCKET}.${OBJECTS_HOST}/templates/${TEMPLATE_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2
         - rm -fr build_${TEMPLATE_NAME}/
 
+# AlmaLinux 8
+build:almalinux-8:
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "almalinux-8"
+
+publish:almalinux-8:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "almalinux-8"
 
 # Centos 7
 build:centos-7:
