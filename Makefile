@@ -11,7 +11,7 @@ default:
 	@echo ' dev 						Setup development environment'
 
 build:
-	packer build ${TEMPLATE_DIR}/${NAME}.json
+	env PACKER_LOG=1 packer build ${TEMPLATE_DIR}/${NAME}.json
 
 pyenv:
 	pyenv install -s
