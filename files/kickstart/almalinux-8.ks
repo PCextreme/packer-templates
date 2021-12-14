@@ -11,8 +11,8 @@ network  --bootproto=dhcp --device=ens4 --ipv6=auto --activate
 network  --hostname=almalinux8
 
 # Repos
-repo --name=base --baseurl=http://repo.almalinux.org/almalinux/8.4/BaseOS/x86_64/os/
-url --url=http://repo.almalinux.org/almalinux/8.4/BaseOS/x86_64/os/
+repo --name=base --baseurl=http://repo.almalinux.org/almalinux/8.5/BaseOS/x86_64/os/
+url --url=http://repo.almalinux.org/almalinux/8.5/BaseOS/x86_64/os/
 
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
