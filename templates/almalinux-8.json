@@ -3,7 +3,7 @@
         "name": "almalinux-8",
         "url": "http://compute.o.auroraobjects.eu/iso/AlmaLinux-8.5-x86_64-boot.iso",
         "iso_checksum": "sha256:65b3b4c17ce322081e2d743ee420b37b7213f4b14d2ec4f3c4f026d57aa148ec",
-        "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/almalinux-8.ks<enter><wait>"
+        "boot_command": "<tab> inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/almalinux-8.ks<enter><wait>"
     },
     "builders": [
         {
