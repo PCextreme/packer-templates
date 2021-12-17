@@ -1,9 +1,9 @@
 {
     "variables": {
-        "name": "ubuntu-18.04",
-        "url": "http://compute.o.auroraobjects.eu/iso/ubuntu-18.04.5-server-amd64.iso",
-        "iso_checksum": "sha256:8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996",
-        "boot_command": "<esc><wait><esc><wait><enter><wait>/install/vmlinuz initrd=/install/initrd.gz preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed/ubuntu-18.04.preseed auto debian-installer=en_US locale=en_US kbd-chooser/method=us fb=false debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false hostname=ubuntu1804 -- <enter>"
+        "name": "almalinux-8",
+        "url": "http://compute.o.auroraobjects.eu/iso/AlmaLinux-8.5-x86_64-boot.iso",
+        "iso_checksum": "sha256:65b3b4c17ce322081e2d743ee420b37b7213f4b14d2ec4f3c4f026d57aa148ec",
+        "boot_command": "<tab> inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/almalinux-8.ks<enter><wait>"
     },
     "builders": [
         {
@@ -35,11 +35,6 @@
     "provisioners": [
         {
             "type": "file",
-            "source": "files/apt/ubuntu-18.04.sources",
-            "destination": "/etc/apt/sources.list"
-        },
-        {
-            "type": "file",
             "source": "files/generic/cloud-init.cfg",
             "destination": "/etc/cloud/cloud.cfg"
         },
@@ -54,18 +49,25 @@
             "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
         },
         {
-            "type": "shell",
-            "scripts":
-            [
-                "scripts/ubuntu-18.04/remove-swap.sh"
-            ],
-            "execute_command": "sh '{{.Path}}'"
+            "type": "file",
+            "source": "files/centos/90-dns-none.conf",
+            "destination": "/etc/NetworkManager/conf.d/90-dns-none.conf"
+        },
+        {
+            "type": "file",
+            "source": "files/centos/90-dhcp-client.conf",
+            "destination": "/etc/NetworkManager/conf.d/90-dhcp-client.conf"
+        },
+        {
+            "type": "file",
+            "source": "files/centos/grub",
+            "destination": "/etc/default/grub"
         },
         {
             "type": "shell",
             "scripts":
             [
-                "scripts/ubuntu-18.04/post.sh"
+                "scripts/almalinux-8/post.sh"
             ],
             "execute_command": "sh '{{.Path}}'"
         },

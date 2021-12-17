@@ -1,18 +1,15 @@
-# Partition clearing information
-clearpart --none --initlabel
+url --url https://repo.almalinux.org/almalinux/8/BaseOS/x86_64/kickstart/
+repo --name=BaseOS --baseurl=https://repo.almalinux.org/almalinux/8/BaseOS/x86_64/os/
+repo --name=AppStream --baseurl=https://repo.almalinux.org/almalinux/8/AppStream/x86_64/os/
 
-# Use text based install
 text
-install
+skipx
 eula --agreed
+firstboot --disabled
 
 # Network
-network  --bootproto=dhcp --device=ens4 --ipv6=auto --activate
-network  --hostname=centos8
-
-# Repos
-repo --name=base --baseurl=http://mirror.centos.org/centos-8/8.5.2111/BaseOS/x86_64/os/
-url --url=http://mirror.centos.org/centos-8/8.5.2111/BaseOS/x86_64/os/
+network --device=ens4 --bootproto=dhcp --ipv6=auto --activate
+network --hostname=almalinux8
 
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
@@ -23,21 +20,16 @@ lang en_US.UTF-8
 # Root password
 rootpw --plaintext installer
 
-# Disable the Setup Agent on first boot
-firstboot --disabled
-
-# Do not configure the X Window System
-skipx
-
 # System services
-services --enabled="chronyd"
+services --disabled="kdump" --enabled="chronyd,rsyslog,sshd"
 
 # System timezone
 timezone Europe/Amsterdam --isUtc
 
 # Disk partitioning information
+zerombr
+clearpart --none --initlabel
 part / --fstype xfs --fsoptions="rw,noatime" --size=1 --grow
-#autopart --type=lvm
 
 # Enable SELinux
 selinux --enforcing
