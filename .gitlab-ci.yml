@@ -41,12 +41,12 @@ default:
     script:
         - apt-get update
         - apt-get -y install s3cmd curl
-        - echo "[default]" > .s3cfg
-        - echo "access_key = ${OBJECTS_ACCESS_KEY}" >> .s3cfg
-        - echo "secret_key = ${OBJECTS_SECRET_KEY}" >> .s3cfg
-        - echo "host_bucket = %(bucket)s.${OBJECTS_HOST}" >> .s3cfg
-        - echo "host_base = ${OBJECTS_HOST}" >> .s3cfg
-        - echo "use_https = False" >> .s3cfg
+        - echo "[default]" > /root/.s3cfg
+        - echo "access_key = ${OBJECTS_ACCESS_KEY}" >> /root/.s3cfg
+        - echo "secret_key = ${OBJECTS_SECRET_KEY}" >> /root/.s3cfg
+        - echo "host_bucket = %(bucket)s.${OBJECTS_HOST}" >> /root/.s3cfg
+        - echo "host_base = ${OBJECTS_HOST}" >> /root/.s3cfg
+        - echo "use_https = False" >> /root/.s3cfg
         - s3cmd --no-ssl --access_key="${OBJECTS_ACCESS_KEY}" --secret_key="${OBJECTS_SECRET_KEY}" --host-bucket="%(bucket)s.${OBJECTS_HOST}" --host="${OBJECTS_HOST}" put -P --no-preserve build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.json
         - s3cmd --no-ssl --access_key="${OBJECTS_ACCESS_KEY}" --secret_key="${OBJECTS_SECRET_KEY}" --host-bucket="%(bucket)s.${OBJECTS_HOST}" --host="${OBJECTS_HOST}" put -P --no-preserve build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.checksum
         - s3cmd --no-ssl --access_key="${OBJECTS_ACCESS_KEY}" --secret_key="${OBJECTS_SECRET_KEY}" --host-bucket="%(bucket)s.${OBJECTS_HOST}" --host="${OBJECTS_HOST}" put -P --no-preserve build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2 s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2
