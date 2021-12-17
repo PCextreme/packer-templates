@@ -1,8 +1,8 @@
-[![github-readme_header](https://cloud.githubusercontent.com/assets/2406615/17754363/6e205280-64d4-11e6-946d-e7e7aedb2e30.png)](https://www.pcextreme.nl)
+[![github-readme_header](https://cldin.eu/img/cldin-logo.png)](https://cldin.eu)
 
 # Compute Templates
 
-Packer template source for public templates available on the PCextreme cloud.
+Packer template source for public templates available on the CLDIN cloud.
 
 ## Requirements
 To build these templates make sure you have the following tools installed:
@@ -18,10 +18,10 @@ make build NAME=ubuntu-18.04
 ```
 
 ### Gitlab CI
-PCextreme uses Gitlab CI to build these templates. The .gitlab-ci.yml file can be found in this directory.
+CLDIN uses Gitlab CI to build these templates. The .gitlab-ci.yml file can be found in this directory.
 
 #### Result / Downloads
-Succesful builds of the master branch are uploaded to the [Objects S3 storage](https://www.pcextreme.com/s3-object-storage) service of PCextreme into a public bucket.
+Succesful builds of the master branch are uploaded to the S3 storage of CLDIN into a public bucket.
 
 The resulting QCOW2 files can be found here: https://compute.o.auroraobjects.eu/
 
@@ -54,11 +54,11 @@ secret = xyz
 ```
 
 ## ISO files and checksums
-All the ISO files are stored on the Objects platform of PCextreme. This is to ensure URLs are stable and future-proof.
+All the ISO files are stored on the S3 platform of CLDIN. This is to ensure URLs are stable and future-proof.
 
 They all point to sub-paths of http://compute.o.auroraobjects.eu/iso/ where URL stability is ensured.
 
 Checksums of ISO files are hardcoded in the JSON files of the templates to make sure that data corruption or MITM during transfer of the ISO is safeguarded.
 
 # Licensing
-The PCextreme Packer Templates are licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
+The CLDIN Packer Templates are licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full license text.
