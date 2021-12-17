@@ -30,6 +30,11 @@ echo "Configuring DNS"
 echo "nameserver 2a00:f10:ff04:153::53"|tee -a /etc/resolvconf/resolv.conf.d/head
 echo "nameserver 2a00:f10:ff04:253::53"|tee -a /etc/resolvconf/resolv.conf.d/head
 
+echo "Enable DNSSEC"
+mkdir /etc/systemd/resolved.conf.d
+echo "[Resolve]"|tee /etc/systemd/resolved.conf.d/10-dnssec.conf
+echo "DNSSEC=true"|tee -a /etc/systemd/resolved.conf.d/10-dnssec.conf
+
 echo "cleaning up log files"
 if [ -f /var/log/audit/audit.log ]; then cat /dev/null > /var/log/audit/audit.log; fi
 cat /dev/null > /var/log/wtmp 2>/dev/null
