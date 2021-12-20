@@ -44,12 +44,12 @@ default:
     script:
         - apt-get update
         - apt-get -y install s3cmd curl
-        - echo "[default]"|tee ${S3CFG}
-        - echo "access_key = ${OBJECTS_ACCESS_KEY}"|tee -a ${S3CFG}
-        - echo "secret_key = ${OBJECTS_SECRET_KEY}"|tee -a ${S3CFG}
-        - echo "host_bucket = %(bucket)s.${OBJECTS_HOST}"|tee -a ${S3CFG}
-        - echo "host_base = ${OBJECTS_HOST}"|tee -a ${S3CFG}
-        - echo "use_https = False"|tee -a ${S3CFG}
+        - echo "[default]"|tee ${S3CFG} > /dev/null
+        - echo "access_key = ${OBJECTS_ACCESS_KEY}"|tee -a ${S3CFG} > /dev/null
+        - echo "secret_key = ${OBJECTS_SECRET_KEY}"|tee -a ${S3CFG} > /dev/null
+        - echo "host_bucket = %(bucket)s.${OBJECTS_HOST}"|tee -a ${S3CFG} > /dev/null
+        - echo "host_base = ${OBJECTS_HOST}"|tee -a ${S3CFG} > /dev/null
+        - echo "use_https = False"|tee -a ${S3CFG} > /dev/null
         - s3cmd -c ${S3CFG} put -P --no-preserve build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.json s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.json
         - s3cmd -c ${S3CFG} put -P --no-preserve build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.checksum
         - s3cmd -c ${S3CFG} put -P --no-preserve build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2 s3://${OBJECTS_BUCKET}/templates/${TEMPLATE_NAME}_${CI_COMMIT_REF_NAME}_${CI_COMMIT_SHORT_SHA}.qcow2
