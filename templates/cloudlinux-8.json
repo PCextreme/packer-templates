@@ -1,9 +1,9 @@
 {
     "variables": {
         "name": "cloudlinux-8",
-        "url": "http://compute.o.auroraobjects.eu/iso/CloudLinux-8.3-x86_64-boot.iso",
-        "iso_checksum": "sha256:c632b841913de9bbb1d0191e6e9ad56fc784c2573abd03e24a58ba5eacc0fea7",
-        "boot_command": "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/cloudlinux-8.ks<enter><wait>"
+        "url": "https://repo.cloudlinux.com/cloudlinux/8.5/iso/x86_64/CloudLinux-8.5-x86_64-boot.iso",
+        "iso_checksum": "sha256:9a28f6d682f875623ce43826f9644ac105ae7f9e7ab37e27115a22a4e5541b73",
+        "boot_command": "<tab> inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstart/cloudlinux-8.ks<enter><wait>"
     },
     "builders": [
         {
@@ -62,6 +62,18 @@
             "type": "file",
             "source": "files/centos/grub",
             "destination": "/etc/default/grub"
+        },
+        {
+            "type": "file",
+            "source": "files/cloudlinux-8/cloud-set-guest-password",
+            "destination": "/etc/init.d/cloud-set-guest-password"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "chmod +x /etc/init.d/cloud-set-guest-password",
+                "chkconfig --add cloud-set-guest-password"
+            ]
         },
         {
             "type": "shell",
