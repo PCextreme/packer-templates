@@ -3,7 +3,6 @@ clearpart --none --initlabel
 
 # Use text based install
 text
-install
 eula --agreed
 
 # Network
@@ -48,6 +47,7 @@ qemu-guest-agent
 cloud-init
 cloud-utils-growpart
 curl
+wget
 -alsa-*
 -ivtv*
 -iwl*firmware
@@ -61,6 +61,7 @@ pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
 
 # Post scripts
 %post
+dnf remove -y linux-firmware
 dnf update -y
 dnf clean all
 sed -i '/^disable_root/s/1/0/ ; /^disable_root/s/true/false/ ; /^ssh_pwauth/s/0/1/ ; /^ssh_pwauth/s/false/true/' /etc/cloud/cloud.cfg
