@@ -42,6 +42,7 @@ default:
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.checksum
             - build_${TEMPLATE_NAME}/${TEMPLATE_NAME}.qcow2
     script:
+        - find . -type f
         - apt-get update
         - apt-get -y install s3cmd curl
         - echo "[default]"|tee ${S3CFG} > /dev/null
