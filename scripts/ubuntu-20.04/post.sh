@@ -49,6 +49,10 @@ find /var/log/ -type f -name 'cloud-init*.log' -print -delete
 echo "Removing default user ubuntu"
 deluser ubuntu
 
+echo "Delete root password and lock account"
+passwd --lock --delete root
+sed -i 's|PermitRootLogin .*|PermitRootLogin prohibit-password|g' /etc/ssh/sshd_config
+
 unset HISTFILE
 
 sync

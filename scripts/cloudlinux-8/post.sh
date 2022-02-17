@@ -23,6 +23,10 @@ echo "Cleaning up cloud-init"
 find /var/log -type f -name 'cloud-init*.log' -print -delete
 cloud-init clean -s -l
 
+echo "Delete root password and lock account"
+passwd --lock --delete root
+sed -i 's|PermitRootLogin .*|PermitRootLogin prohibit-password|g' /etc/ssh/sshd_config
+
 unset HISTFILE
 
 sync
