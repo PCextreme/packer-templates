@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -xe
 
 echo "Remove DHCP leases"
 find /var/lib -type f -name '*.lease' -print -delete

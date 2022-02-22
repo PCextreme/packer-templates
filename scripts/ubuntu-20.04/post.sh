@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -xe
 export DEBIAN_FRONTEND=noninteractive
 
 echo "Installing and updating needed packages"

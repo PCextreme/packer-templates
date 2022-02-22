@@ -1,4 +1,5 @@
 #!/bin/bash
+set -xe
 
 echo "Removing and disabling swap"
 swapoff -a

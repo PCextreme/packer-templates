@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -xe
 
 echo "Installing and updating needed packages"
 apt-get update
