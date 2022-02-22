@@ -24,11 +24,9 @@ echo "nameserver 2a00:f10:ff04:153::53"|tee -a /etc/resolvconf/resolv.conf.d/hea
 echo "nameserver 2a00:f10:ff04:253::53"|tee -a /etc/resolvconf/resolv.conf.d/head
 
 echo "cleaning up log files"
-if [ -f /var/log/audit/audit.log ]; then cat /dev/null > /var/log/audit/audit.log; fi
-cat /dev/null > /var/log/wtmp 2>/dev/null
-logrotate -f /etc/logrotate.conf 2>/dev/null
-rm -f /var/log/*-* /var/log/*.gz 2>/dev/null
-rm -f /var/log/upstart/*.log /var/log/upstart/*.log.*.gz
+logrotate -f /etc/logrotate.conf
+find /var/log -type f -name '*.log' -delete
+find /var/log -type f -name '*.gz' -delete
 
 echo "Enabling services"
 systemctl enable fstrim.timer
