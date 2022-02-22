@@ -1,0 +1,83 @@
+# Language
+d-i debian-installer/language string en
+d-i debian-installer/country string US
+d-i debian-installer/locale string en_US.UTF-8
+
+d-i auto-install/enable boolean true
+d-i debian-installer/framebuffer boolean false
+
+# Keyboard
+d-i keyboard-configuration/xkb-keymap select us
+
+# Network
+d-i netcfg/get_hostname string debian11
+d-i netcfg/get_domain string this-host
+
+# Timezone
+d-i time/zone string UTC
+d-i clock-setup/utc-auto boolean true
+d-i clock-setup/utc boolean true
+
+# Software
+d-i debconf debconf/frontend select noninteractive
+tasksel tasksel/first multiselect standard, ssh-server
+
+popularity-contest popularity-contest/participate boolean false
+
+apt-cdrom-setup	apt-setup/cdrom/set-first boolean false
+
+# Storage
+d-i partman-auto/method string regular
+d-i partman-auto/disk string /dev/sda
+d-i partman-basicfilesystems/no_swap boolean false
+d-i partman-auto/expert_recipe string myroot :: 1000 50 -1 ext4 \
+     $primary{ } $bootable{ } method{ format } \
+     format{ } use_filesystem{ } filesystem{ ext4 } \
+     mountpoint{ / } \
+    .
+d-i partman-auto/choose_recipe select myroot
+d-i partman/confirm_write_new_label boolean true
+d-i partman/confirm_nooverwrite boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+
+# Mirror
+d-i mirror/country string manual
+d-i mirror/http/hostname string http://ftp.nl.debian.org/
+d-i mirror/http/directory string /debian
+d-i mirror/http/proxy string
+
+# Users
+d-i passwd/root-login boolean true
+d-i passwd/make-user boolean false
+d-i user-setup/allow-password-weak boolean true
+d-i passwd/root-password password Debian11setup
+d-i passwd/root-password-again password Debian11setup
+
+# No language support packages.
+d-i pkgsel/install-language-support boolean false
+
+# Additional packages
+d-i pkgsel/include string cloud-init qemu-guest-agent watchdog resolvconf
+
+# Security updates
+d-i pkgsel/update-policy select unattended-upgrades
+
+# Upgrade
+d-i pkgsel/upgrade select full-upgrade
+
+# Customizations
+d-i preseed/late_command string \
+in-target sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+in-target sed -i 's|errors=remount-ro|errors=remount-ro,noatime|g' /etc/fstab ; \
+in-target sed -i 's|ntp.ubuntu.com|ntp.pcextreme.nl|g' /etc/ntp.conf ; \
+in-target sed -i '2i 000.*' /etc/resolvconf/interface-order ; \
+in-target echo i6300esb >> /etc/modules
+
+# Bootloader
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+d-i grub-installer/bootdev string /dev/sda
+
+#finish
+d-i finish-install/reboot_in_progress note

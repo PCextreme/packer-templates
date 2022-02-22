@@ -115,6 +115,17 @@ publish:debian-10:
     variables:
         TEMPLATE_NAME: "debian-10"
 
+## Debian 11
+build:debian-11:
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "debian-11"
+
+publish:debian-11:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "debian-11"
+
 ## Ubuntu 18.04
 build:ubuntu-18.04:
     extends: .build_template
