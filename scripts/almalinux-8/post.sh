@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -xe
 
 echo "Remove DHCP leases"
 find /var/lib -type f -name '*.lease' -print -delete
@@ -24,7 +24,8 @@ find /var/log -type f -name 'cloud-init*.log' -print -delete
 cloud-init clean -s -l
 
 echo "Delete root password and lock account"
-passwd --lock --delete root
+passwd --delete root
+passwd --lock root
 sed -i 's|PermitRootLogin .*|PermitRootLogin prohibit-password|g' /etc/ssh/sshd_config
 
 unset HISTFILE
