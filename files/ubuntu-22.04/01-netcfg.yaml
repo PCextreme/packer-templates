@@ -1,0 +1,15 @@
+# This file describes the network interfaces available on your system
+# For more information, see netplan(5).
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens3:
+      dhcp4: yes
+      accept-ra: yes
+      ipv6-privacy: false
+      ipv6-address-generation: eui64
+      nameservers:
+        addresses:
+        - 2a00:f10:ff04:153::53
+        - 2a00:f10:ff04:253::53
