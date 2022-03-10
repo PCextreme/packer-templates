@@ -1,3 +1,3 @@
-deb http://ubuntu.mirror.pcextreme.nl/archive bionic main restricted universe multiverse
-deb http://ubuntu.mirror.pcextreme.nl/archive bionic-security main restricted universe multiverse
-deb http://ubuntu.mirror.pcextreme.nl/archive bionic-updates main restricted universe multiverse
+deb http://nl3.archive.ubuntu.com/ bionic main restricted universe multiverse
+deb http://nl3.archive.ubuntu.com/ bionic-security main restricted universe multiverse
+deb http://nl3.archive.ubuntu.com/ bionic-updates main restricted universe multiverse

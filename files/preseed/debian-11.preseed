@@ -70,7 +70,6 @@ d-i pkgsel/upgrade select full-upgrade
 d-i preseed/late_command string \
 in-target sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 in-target sed -i 's|errors=remount-ro|errors=remount-ro,noatime|g' /etc/fstab ; \
-in-target sed -i 's|ntp.ubuntu.com|ntp.pcextreme.nl|g' /etc/ntp.conf ; \
 in-target sed -i '2i 000.*' /etc/resolvconf/interface-order ; \
 in-target echo i6300esb >> /etc/modules
 

@@ -9,10 +9,10 @@ install
 eula --agreed
 
 # Repos
-repo --name=os --baseurl=https://centos.mirror.pcextreme.nl/7/os/x86_64/
-repo --name=updates --baseurl=https://centos.mirror.pcextreme.nl/7/updates/x86_64/
-repo --name=extras --baseurl=https://centos.mirror.pcextreme.nl/7/extras/x86_64/
-url --url=https://centos.mirror.pcextreme.nl/7/os/x86_64/
+repo --name=os --baseurl=http://mirror.centos.org/centos-7/7/os/x86_64/
+repo --name=updates --baseurl=http://mirror.centos.org/centos-7/7/updates/x86_64/
+repo --name=extras --baseurl=http://mirror.centos.org/centos-7/7/extras/x86_64/
+url --url=http://mirror.centos.org/centos-7/7/os/x86_64/
 
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
