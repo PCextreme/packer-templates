@@ -36,7 +36,8 @@ cloud-init clean --logs
 
 echo "Delete root password and lock account"
 passwd --lock --delete root
-sed -i 's|PermitRootLogin .*|PermitRootLogin prohibit-password|g' /etc/ssh/sshd_config
+sed -i 's|^ *PermitRootLogin .*|PermitRootLogin yes|g' /etc/ssh/sshd_config
+sed -i 's|^ *PasswordAuthentication .*|PasswordAuthentication no|g' /etc/ssh/sshd_config
 
 unset HISTFILE
 
