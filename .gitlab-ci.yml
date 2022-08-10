@@ -148,3 +148,14 @@ publish:ubuntu-20.04:
     extends: .upload_template
     variables:
         TEMPLATE_NAME: "ubuntu-20.04"
+
+## Ubuntu 22.04
+build:ubuntu-22.04:
+    extends: .build_template
+    variables:
+        TEMPLATE_NAME: "ubuntu-22.04"
+
+publish:ubuntu-22.04:
+    extends: .upload_template
+    variables:
+        TEMPLATE_NAME: "ubuntu-22.04"

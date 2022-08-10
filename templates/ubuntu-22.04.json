@@ -1,0 +1,137 @@
+{
+    "variables": {
+        "name": "ubuntu-22.04",
+        "url": "http://compute.o.auroraobjects.eu/iso/ubuntu-22.04-live-server-amd64.iso",
+        "iso_checksum": "sha256:84aeaf7823c8c61baa0ae862d0a06b03409394800000b3235854a6b38eb4856f"
+    },
+    "builders": [
+        {
+            "type": "qemu",
+            "iso_url": "{{user `url`}}",
+            "iso_checksum": "{{user `iso_checksum`}}",
+            "vm_name": "{{user `name`}}",
+            "format": "qcow2",
+            "accelerator": "kvm",
+            "headless": true,
+            "cpus": 2,
+            "memory": 2048,
+            "disk_size": "8G",
+            "disk_interface": "virtio-scsi",
+            "disk_discard": "unmap",
+            "disk_compression": true,
+            "boot_wait": "2s",
+            "boot_command": [
+                "<esc><esc><esc><esc>e<wait>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del>",
+                "<del><del><del><del><del><del><del><del><del>",
+                "linux /casper/vmlinuz --- autoinstall ds=\"nocloud-net;seedfrom=http://{{.HTTPIP}}:{{.HTTPPort}}/\"<enter><wait>",
+                "initrd /casper/initrd<enter><wait>",
+                "boot<enter>",
+                "<enter><f10><wait>"
+            ],
+            "communicator": "ssh",
+            "vnc_bind_address": "[::]",
+            "ssh_wait_timeout": "30m",
+            "ssh_username": "root",
+            "ssh_password": "installer",
+            "ssh_handshake_attempts": "200",
+            "http_directory": "files/ubuntu-22.04",
+            "http_port_min": 8000,
+            "http_port_max": 8100,
+            "output_directory": "build_{{user `name`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "files/apt/ubuntu-22.04.sources",
+            "destination": "/etc/apt/sources.list"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/cloud-init.cfg",
+            "destination": "/etc/cloud/cloud.cfg"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/watchdog.conf",
+            "destination": "/etc/watchdog.conf"
+        },
+        {
+            "type": "file",
+            "source": "files/ubuntu-22.04/01-netcfg.yaml",
+            "destination": "/etc/netplan/01-netcfg.yaml"
+        },
+        {
+            "type": "file",
+            "source": "files/generic/99-disable-ipv6-tempaddr.conf",
+            "destination": "/etc/sysctl.d/99-disable-ipv6-tempaddr.conf"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/ubuntu-22.04/remove-swap.sh"
+            ],
+            "execute_command": "sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "scripts":
+            [
+                "scripts/ubuntu-22.04/post.sh"
+            ],
+            "execute_command": "sudo sh '{{.Path}}'"
+        },
+        {
+            "type": "shell",
+            "inline":
+            [
+              "fstrim -v /"
+            ]
+        }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "shell-local",
+                "command": "mv build_{{user `name`}}/{{user `name`}} build_{{user `name`}}/{{user `name`}}.qcow2"
+            },
+            {
+                "type": "artifice",
+                "files": [
+                    "build_{{user `name`}}/{{user `name`}}.qcow2"
+                ]
+            },
+            {
+                "type": "checksum",
+                "checksum_types": [
+                    "sha256"
+                ],
+                "output": "build_{{user `name`}}/{{user `name`}}.checksum"
+            },
+            {
+                "type": "manifest",
+                "output": "build_{{user `name`}}/{{user `name`}}.json",
+                "strip_path": true,
+                "custom_data": {
+                    "oscategory": "{{split (user `name`) \"-\" 0}}",
+                    "osversion": "{{split (user `name`) \"-\" 1}}",
+                    "template_slug": "{{user `name`}}"
+                }
+            }
+        ]
+    ]
+}
