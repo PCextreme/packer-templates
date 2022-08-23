@@ -25,7 +25,7 @@
             "vnc_bind_address": "[::]",
             "ssh_wait_timeout": "30m",
             "ssh_username": "root",
-            "ssh_password": "Debian11setup",
+            "ssh_password": "4pDfYXPDfTrmPy9U",
             "http_directory": "files",
             "http_port_min": 8000,
             "http_port_max": 8100,

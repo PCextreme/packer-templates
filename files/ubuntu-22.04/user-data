@@ -16,14 +16,14 @@ autoinstall:
   identity:
     hostname: ubuntu2204
     username: ubuntu
-    password: $6$rounds=4096$awFnJIh6Wl4Vga$gQQgDi9OQy6xgDLmkULbBtJMZDh4isqWJMu0g5Qf87IV6i3WvchV5ZkD2FC5t5mJaZAnPTGINptzGelkd3M.31
+    password: "$6$pLPVIGqqsVc4NZJ3$AcOuajvnSgIuM9D4JXkUjCyiFpBPgXDrg94NMuklppjl9u9dtPRbedqpS8zdH0.iK7iEL33yBb9kiBt2MPY9u/"
   ssh:
     allow-pw: true
     install-server: true
   user-data:
     disable_root: false
     runcmd:
-        - 'echo "root:installer"|chpasswd'
+        - 'echo "root:58p5wMfpyTQhqa4Q"|chpasswd'
   late-commands:
     - 'echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /target/etc/sudoers.d/ubuntu'
     - 'sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /target/etc/ssh/sshd_config'

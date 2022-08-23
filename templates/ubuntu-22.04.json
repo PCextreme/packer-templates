@@ -45,7 +45,7 @@
             "vnc_bind_address": "[::]",
             "ssh_wait_timeout": "30m",
             "ssh_username": "root",
-            "ssh_password": "installer",
+            "ssh_password": "58p5wMfpyTQhqa4Q",
             "ssh_handshake_attempts": "200",
             "http_directory": "files/ubuntu-22.04",
             "http_port_min": 8000,

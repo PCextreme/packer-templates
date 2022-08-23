@@ -18,7 +18,7 @@ keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 
 # Root password
-rootpw --plaintext installer
+rootpw --plaintext RvHtrfTwCjTnhHrD
 
 # System services
 services --disabled="kdump" --enabled="chronyd,rsyslog,sshd"
