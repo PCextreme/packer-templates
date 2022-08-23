@@ -33,8 +33,8 @@ d-i debian-installer/locale string en_US
 # Create vagrant user account.
 d-i passwd/root-login boolean true
 d-i passwd/make-user boolean false
-d-i passwd/root-password password installer
-d-i passwd/root-password-again password installer
+d-i passwd/root-password password zCgwHD5hvtnWRaJX
+d-i passwd/root-password-again password zCgwHD5hvtnWRaJX
 d-i user-setup/encrypt-home boolean false
 d-i user-setup/allow-password-weak boolean true
 

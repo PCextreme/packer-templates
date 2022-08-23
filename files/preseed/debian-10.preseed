@@ -50,8 +50,8 @@ d-i mirror/http/proxy string
 # Users
 d-i passwd/root-login boolean true
 d-i passwd/make-user boolean false
-d-i passwd/root-password password installer
-d-i passwd/root-password-again password installer
+d-i passwd/root-password password PVT6HXW4t7PDy7Pb
+d-i passwd/root-password-again password PVT6HXW4t7PDy7Pb
 
 # No language support packages.
 d-i pkgsel/install-language-support boolean false

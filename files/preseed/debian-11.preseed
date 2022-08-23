@@ -51,8 +51,8 @@ d-i mirror/http/proxy string
 d-i passwd/root-login boolean true
 d-i passwd/make-user boolean false
 d-i user-setup/allow-password-weak boolean true
-d-i passwd/root-password password Debian11setup
-d-i passwd/root-password-again password Debian11setup
+d-i passwd/root-password password 4pDfYXPDfTrmPy9U
+d-i passwd/root-password-again password 4pDfYXPDfTrmPy9U
 
 # No language support packages.
 d-i pkgsel/install-language-support boolean false

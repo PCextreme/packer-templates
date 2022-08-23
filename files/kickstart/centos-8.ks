@@ -21,7 +21,7 @@ keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 
 # Root password
-rootpw --plaintext installer
+rootpw --plaintext DrQYKBzyU5t47sxg
 
 # Disable the Setup Agent on first boot
 firstboot --disabled

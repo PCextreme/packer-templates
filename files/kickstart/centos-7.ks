@@ -25,7 +25,7 @@ network  --bootproto=dhcp --device=eth0 --ipv6=auto --activate
 network  --hostname=centos7
 
 # Root password
-rootpw --plaintext installer
+rootpw --plaintext UnZkE8EcCpPzYbvN
 
 # Disable the Setup Agent on first boot
 firstboot --disabled

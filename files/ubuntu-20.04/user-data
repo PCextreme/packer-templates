@@ -16,14 +16,14 @@ autoinstall:
   identity:
     hostname: ubuntu2004
     username: ubuntu
-    password: $6$rounds=4096$awFnJIh6Wl4Vga$gQQgDi9OQy6xgDLmkULbBtJMZDh4isqWJMu0g5Qf87IV6i3WvchV5ZkD2FC5t5mJaZAnPTGINptzGelkd3M.31
+    password: "$6$zHhPMZlZa77Y$DOfR9502BrND4w.X0obj79Mo/lal4Ytfpvsed0x.mQWhjfp6pXnWqdwBeDTbMMq1ox7aZOV.Xg88g2cjEcDuF."
   ssh:
     allow-pw: true
     install-server: true
   user-data:
     disable_root: false
     runcmd:
-        - 'echo "root:installer"|chpasswd'
+        - 'echo "root:mL9QHd95JrCdhc5V"|chpasswd'
   late-commands:
     - 'echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /target/etc/sudoers.d/ubuntu'
     - 'sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /target/etc/ssh/sshd_config'
