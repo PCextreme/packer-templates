@@ -1,3 +1,3 @@
-deb http://ubuntu.mirror.pcextreme.nl/archive focal main restricted universe multiverse
-deb http://ubuntu.mirror.pcextreme.nl/archive focal-security main restricted universe multiverse
-deb http://ubuntu.mirror.pcextreme.nl/archive focal-updates main restricted universe multiverse
+deb http://nl3.archive.ubuntu.com/ focal main restricted universe multiverse
+deb http://nl3.archive.ubuntu.com/ focal-security main restricted universe multiverse
+deb http://nl3.archive.ubuntu.com/ focal-updates main restricted universe multiverse

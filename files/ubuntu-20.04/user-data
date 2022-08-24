@@ -9,7 +9,7 @@ autoinstall:
     preserve_sources_list: false
     primary:
     - arches: [amd64, i386]
-      uri: http://ubuntu.mirror.pcextreme.nl/ubuntu
+      uri: http://nl3.archive.ubuntu.com/
   storage:
     layout:
       name: direct
